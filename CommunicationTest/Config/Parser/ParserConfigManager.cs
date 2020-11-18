@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CommunicationTest.Config.Parser
+{
+    class ParserConfigManager : IParserConfig
+    {
+        public async Task<(ParserType, Dictionary<string, string>)> GetAsync()
+        {
+            var parserConfig = await ParserConfig.GetValueAsync();
+            return (parserConfig.parserType, parserConfig.Parsers);
+        }
+
+        public async Task SetAsync(ParserType parserType, Dictionary<string, string> dict)
+        {
+            var parserConfig = await ParserConfig.GetValueAsync();
+            parserConfig.parserType = parserType;
+            parserConfig.Parsers = dict;
+            await ParserConfig.TrySaveChangeAsync(parserConfig);
+        }
+    }
+}
