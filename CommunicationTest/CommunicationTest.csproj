@@ -7,12 +7,13 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <Optimize>true</Optimize>
+	  <Optimize>false</Optimize>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CSoft.DataPairs" Version="1.0.2" />
 		<PackageReference Include="CSoft.TopPortLib" Version="5.0.2" />
+		<PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
