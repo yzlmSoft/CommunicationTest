@@ -63,5 +63,10 @@ namespace CommunicationTest
                 keyStr = dataGridView1.Rows[dataGridView1.SelectedRows[0].Index].Cells["key"].Value?.ToString();
             }
         }
+
+        private void AutoReply_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Validate();
+        }
     }
 }

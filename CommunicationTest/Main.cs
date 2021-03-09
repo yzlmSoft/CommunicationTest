@@ -535,5 +535,10 @@ namespace CommunicationTest
                 _selectIndex = dataGridView1.SelectedRows[0].Index;
             }
         }
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Validate();
+        }
     }
 }

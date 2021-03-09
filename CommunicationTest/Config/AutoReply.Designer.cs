@@ -43,6 +43,7 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.key,
             this.value});
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridView1.Location = new System.Drawing.Point(12, 12);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
@@ -66,7 +67,6 @@
             // 
             // AutoReply
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(384, 541);
             this.Controls.Add(this.dataGridView1);
@@ -74,6 +74,7 @@
             this.Name = "AutoReply";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AutoReply";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AutoReply_FormClosing);
             this.Load += new System.EventHandler(this.AutoReply_LoadAsync);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
