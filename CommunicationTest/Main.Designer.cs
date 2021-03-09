@@ -56,6 +56,8 @@
             this.通讯配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.分包规则ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.自动回复ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.导出配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.导入配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.关闭ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -287,7 +289,9 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.通讯配置ToolStripMenuItem,
             this.分包规则ToolStripMenuItem,
-            this.自动回复ToolStripMenuItem});
+            this.自动回复ToolStripMenuItem,
+            this.导出配置ToolStripMenuItem,
+            this.导入配置ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(784, 25);
@@ -314,6 +318,20 @@
             this.自动回复ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
             this.自动回复ToolStripMenuItem.Text = "自动回复";
             this.自动回复ToolStripMenuItem.Click += new System.EventHandler(this.自动回复ToolStripMenuItem_Click);
+            // 
+            // 导出配置ToolStripMenuItem
+            // 
+            this.导出配置ToolStripMenuItem.Name = "导出配置ToolStripMenuItem";
+            this.导出配置ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.导出配置ToolStripMenuItem.Text = "导出配置";
+            this.导出配置ToolStripMenuItem.Click += new System.EventHandler(this.导出配置ToolStripMenuItem_Click);
+            // 
+            // 导入配置ToolStripMenuItem
+            // 
+            this.导入配置ToolStripMenuItem.Name = "导入配置ToolStripMenuItem";
+            this.导入配置ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.导入配置ToolStripMenuItem.Text = "导入配置";
+            this.导入配置ToolStripMenuItem.Click += new System.EventHandler(this.导入配置ToolStripMenuItem_Click);
             // 
             // contextMenuStrip1
             // 
@@ -386,6 +404,8 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn r;
         private System.Windows.Forms.DataGridViewCheckBoxColumn n;
         private System.Windows.Forms.DataGridViewButtonColumn Operation;
+        private System.Windows.Forms.ToolStripMenuItem 导出配置ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 导入配置ToolStripMenuItem;
     }
 }
 

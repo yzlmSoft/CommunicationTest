@@ -10,17 +10,23 @@ namespace CommunicationTest.Config.SendList
 {
     class SendListConfig
     {
-        private static readonly IDataPair<SendListConfig> pair = new DataPair<SendListConfig>("SendListConfig");
+        private static IDataPair<SendListConfig> pair = new DataPair<SendListConfig>("SendListConfig");
 
         public Dictionary<int, SendCmd> SendList { get; set; } = new Dictionary<int, SendCmd>();
 
-        public static async Task<SendListConfig> GetValueAsync()
+        internal static async Task InitDBAsync()
+        {
+            pair = new DataPair<SendListConfig>("SendListConfig", Global.DBPath);
+            await GetValueAsync();
+        }
+
+        internal static async Task<SendListConfig> GetValueAsync()
         {
             var sendListConfig = await pair.TryGetValueAsync();
             return sendListConfig;
         }
 
-        public static async Task TrySaveChangeAsync(SendListConfig sendListConfig)
+        internal static async Task TrySaveChangeAsync(SendListConfig sendListConfig)
         {
             await pair.TryInitOrUpdateAsync(sendListConfig);
         }

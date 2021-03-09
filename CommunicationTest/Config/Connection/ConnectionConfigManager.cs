@@ -9,6 +9,11 @@ namespace CommunicationTest.Config.Connection
 {
     class ConnectionConfigManager : IConnectionConfig
     {
+        public ConnectionConfigManager()
+        {
+            ConnectionConfig.InitDBAsync().Wait();
+        }
+
         public async Task<bool> AutoConnectAsync()
         {
             var connectionConfig = await ConnectionConfig.GetValueAsync();

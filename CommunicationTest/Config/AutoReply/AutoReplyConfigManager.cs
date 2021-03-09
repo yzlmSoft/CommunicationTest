@@ -9,6 +9,11 @@ namespace CommunicationTest.Config.AutoReply
 {
     class AutoReplyConfigManager : IAutoReplyConfig
     {
+        public AutoReplyConfigManager()
+        {
+            AutoReplyConfig.InitDBAsync().Wait();
+        }
+
         public async Task AddOrUpdateAsync(KeyValuePair<byte[], byte[]> keyValuePair)
         {
             var autoReplyConfig = await AutoReplyConfig.GetValueAsync();

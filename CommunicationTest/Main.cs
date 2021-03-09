@@ -50,6 +50,12 @@ namespace CommunicationTest
             cbAutoConnect.Checked = await Global.ConnectionConfig.AutoConnectAsync();
             cbAutoReply.Checked = await Global.AutoReplyConfig.AutoReplyAsync();
             await RefreshStatus();
+            await RefreshDataGridView();
+        }
+
+        private async Task RefreshDataGridView()
+        {
+            dataGridView1.Rows.Clear();
             foreach (var item in await Global.SendListConfig.GetAsync())
             {
                 DataGridViewRow row = new DataGridViewRow();
@@ -122,6 +128,8 @@ namespace CommunicationTest
             }
             通讯配置ToolStripMenuItem.Enabled = !isConnect;
             分包规则ToolStripMenuItem.Enabled = !isConnect;
+            导入配置ToolStripMenuItem.Enabled = !isConnect;
+            导出配置ToolStripMenuItem.Enabled = !isConnect;
         }
 
         private async void btnConnect_ClickAsync(object sender, EventArgs e)
@@ -419,6 +427,40 @@ namespace CommunicationTest
         {
             AutoReply autoReply = new AutoReply();
             autoReply.ShowDialog();
+        }
+
+        private void 导出配置ToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            SaveFileDialog file = new SaveFileDialog();
+            file.Filter = "配置文件(*.csconfig)|*.csconfig";
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                File.Copy(Global.DBPath, file.FileName, true);
+            }
+        }
+
+        private async void 导入配置ToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Title = "请选配置文件";
+            dialog.Filter = "配置文件(*.csconfig)|*.csconfig";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (MessageBox.Show("是否导入为默认配置？\n若不是默认，下次打开将还原", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    Global.DBPath = "PairsDB.dll";
+                    File.Copy(dialog.FileName, Global.DBPath, true);
+                }
+                else
+                {
+                    Global.DBPath = dialog.FileName;
+                }
+                Global.AutoReplyConfig = new AutoReplyConfigManager();
+                Global.ConnectionConfig = new ConnectionConfigManager();
+                Global.ParserConfig = new ParserConfigManager();
+                Global.SendListConfig = new SendListConfigManager();
+                await RefreshDataGridView();
+            }
         }
 
         private async void cbAutoReply_CheckedChangedAsync(object sender, EventArgs e)

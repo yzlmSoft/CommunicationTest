@@ -8,6 +8,11 @@ namespace CommunicationTest.Config.Parser
 {
     class ParserConfigManager : IParserConfig
     {
+        public ParserConfigManager()
+        {
+            ParserConfig.InitDBAsync().Wait();
+        }
+
         public async Task<(ParserType, Dictionary<string, string>)> GetAsync()
         {
             var parserConfig = await ParserConfig.GetValueAsync();

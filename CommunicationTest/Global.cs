@@ -31,5 +31,7 @@ namespace CommunicationTest
         public static IParser Parser { get; set; }
 
         public static ConcurrentDictionary<int, IParser> Parsers { get; set; } = new ConcurrentDictionary<int, IParser>();
+
+        public static string DBPath { get; set; } = "PairsDB.dll";
     }
 }

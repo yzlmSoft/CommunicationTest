@@ -8,6 +8,11 @@ namespace CommunicationTest.Config.SendList
 {
     class SendListConfigManager : ISendListConfig
     {
+        public SendListConfigManager()
+        {
+            SendListConfig.InitDBAsync().Wait();
+        }
+
         public async Task AddOrUpdateAsync(SendCmd sendCmd)
         {
             var sendListConfig = await SendListConfig.GetValueAsync();

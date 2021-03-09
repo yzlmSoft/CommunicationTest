@@ -27,13 +27,9 @@ namespace CommunicationTest
             _ = Task.Run(async () =>
             {
                 Global.AutoReplyConfig = new AutoReplyConfigManager();
-                await Global.AutoReplyConfig.GetAsync();
                 Global.ConnectionConfig = new ConnectionConfigManager();
-                await Global.ConnectionConfig.GetAsync();
                 Global.ParserConfig = new ParserConfigManager();
-                await Global.ParserConfig.GetAsync();
                 Global.SendListConfig = new SendListConfigManager();
-                await Global.SendListConfig.GetAsync();
                 await this.InvokeAsync(() =>
                 {
                     Close();

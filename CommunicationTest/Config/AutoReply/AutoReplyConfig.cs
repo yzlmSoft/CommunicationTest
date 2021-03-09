@@ -10,19 +10,25 @@ namespace CommunicationTest.Config.AutoReply
 {
     class AutoReplyConfig
     {
-        private static readonly IDataPair<AutoReplyConfig> pair = new DataPair<AutoReplyConfig>("AutoReplyConfig");
+        private static IDataPair<AutoReplyConfig> pair;
 
         public Dictionary<string, byte[]> AutoReplys { get; set; } = new Dictionary<string, byte[]>();
 
         public bool AutoReply { get; set; }
 
-        public static async Task<AutoReplyConfig> GetValueAsync()
+        internal static async Task InitDBAsync()
+        {
+            pair = new DataPair<AutoReplyConfig>("AutoReplyConfig", Global.DBPath);
+            await GetValueAsync();
+        }
+
+        internal static async Task<AutoReplyConfig> GetValueAsync()
         {
             var autoReplyConfig = await pair.TryGetValueAsync();
             return autoReplyConfig;
         }
 
-        public static async Task TrySaveChangeAsync(AutoReplyConfig autoReplyConfig)
+        internal static async Task TrySaveChangeAsync(AutoReplyConfig autoReplyConfig)
         {
             await pair.TryInitOrUpdateAsync(autoReplyConfig);
         }
