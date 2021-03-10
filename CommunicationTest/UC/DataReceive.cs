@@ -54,10 +54,10 @@ namespace CommunicationTest
                     await AddContentAsync(Encoding.GetEncoding("GB2312").GetString(data));
                     break;
             }
-            await this.InvokeAsync(() =>
+            await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
             {
                 lblCount.Text = (int.Parse(lblCount.Text) + data.Length).ToString();
-            });
+            })), EndInvoke);
         }
         #endregion
 
@@ -68,7 +68,7 @@ namespace CommunicationTest
         /// <param name="content"></param>
         private async Task AddContentAsync(string content)
         {
-            await this.InvokeAsync(() =>
+            await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
             {
                 string str = "";
                 if (cbxAutoLine.Checked && txtData.Text.Length > 0)
@@ -89,7 +89,7 @@ namespace CommunicationTest
                         fs.Flush();
                     }
                 }
-            });
+            })), EndInvoke);
         }
 
         private void lblCount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

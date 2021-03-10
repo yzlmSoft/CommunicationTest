@@ -30,10 +30,10 @@ namespace CommunicationTest
                 Global.ConnectionConfig = new ConnectionConfigManager();
                 Global.ParserConfig = new ParserConfigManager();
                 Global.SendListConfig = new SendListConfigManager();
-                await this.InvokeAsync(() =>
+                await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
                 {
                     Close();
-                });
+                })), EndInvoke);
             });
         }
     }

@@ -309,16 +309,16 @@ namespace CommunicationTest
         private async Task TcpServer_OnClientDisconnect(int clientId)
         {
             Global.Parsers.TryRemove(clientId, out var Parser);
-            await this.InvokeAsync(() =>
+            await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
             {
                 tabControl1.TabPages[clientId.ToString()].Text += " 本次测试结束";
                 CloseTabPage();
-            });
+            })), EndInvoke);
         }
 
         private async Task TcpServer_OnClientConnect(string hostName, int port, int clientId)
         {
-            await this.InvokeAsync(async () =>
+            await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
             {
                 var dr = new DataReceive();
                 var parser = await NewParser();
@@ -331,7 +331,7 @@ namespace CommunicationTest
                 tabPage.Tag = clientId;
                 tabControl1.TabPages.Add(tabPage);
                 tabControl1.SelectedTab = tabPage;
-            });
+            })), EndInvoke);
         }
 
         private async Task Parser_OnReceiveParsedData(byte[] data, int clientId, DataReceive dataReceive)
@@ -560,6 +560,10 @@ namespace CommunicationTest
             if (dataGridView1[e.ColumnIndex, e.RowIndex] is DataGridViewButtonCell && dataGridView1.Rows[e.RowIndex].Tag != null)
             {
                 await SendCmd((SendCmd)dataGridView1.Rows[e.RowIndex].Tag);
+            }
+            else if (dataGridView1[e.ColumnIndex, e.RowIndex] is DataGridViewCheckBoxCell)
+            {
+                this.Validate();
             }
         }
 
