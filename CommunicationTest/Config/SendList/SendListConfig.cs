@@ -10,7 +10,7 @@ namespace CommunicationTest.Config.SendList
 {
     class SendListConfig
     {
-        private static IDataPair<SendListConfig> pair = new DataPair<SendListConfig>("SendListConfig");
+        private static IDataPair<SendListConfig> pair;
 
         public Dictionary<int, SendCmd> SendList { get; set; } = new Dictionary<int, SendCmd>();
 

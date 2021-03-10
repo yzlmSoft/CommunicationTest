@@ -32,7 +32,11 @@ namespace CommunicationTest
 
         bool isConnect = false;
         TabPage tabPage;
-        int _selectIndex = -1;
+        /// <summary>
+        /// 所选行ID
+        /// </summary>
+        int? _selectID;
+        int _maxID = -1;
 
         public Main()
         {
@@ -56,7 +60,13 @@ namespace CommunicationTest
         private async Task RefreshDataGridView()
         {
             dataGridView1.Rows.Clear();
-            foreach (var item in await Global.SendListConfig.GetAsync())
+            var sendList = await Global.SendListConfig.GetAsync();
+            if (sendList.Count > 0)
+            {
+                sendList.Sort((x, y) => x.ID.CompareTo(y.ID));
+                _maxID = sendList[^1].ID;
+            }
+            foreach (var item in sendList)
             {
                 DataGridViewRow row = new DataGridViewRow();
                 row.Tag = item;
@@ -431,6 +441,7 @@ namespace CommunicationTest
 
         private void 导出配置ToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
+            this.Validate();
             SaveFileDialog file = new SaveFileDialog();
             file.Filter = "配置文件(*.csconfig)|*.csconfig";
             if (file.ShowDialog() == DialogResult.OK)
@@ -441,6 +452,7 @@ namespace CommunicationTest
 
         private async void 导入配置ToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
+            this.Validate();
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Title = "请选配置文件";
             dialog.Filter = "配置文件(*.csconfig)|*.csconfig";
@@ -448,7 +460,7 @@ namespace CommunicationTest
             {
                 if (MessageBox.Show("是否导入为默认配置？\n若不是默认，下次打开将还原", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    Global.DBPath = "PairsDB.dll";
+                    Global.DBPath = Global.DPath;
                     File.Copy(dialog.FileName, Global.DBPath, true);
                 }
                 else
@@ -459,7 +471,9 @@ namespace CommunicationTest
                 Global.ConnectionConfig = new ConnectionConfigManager();
                 Global.ParserConfig = new ParserConfigManager();
                 Global.SendListConfig = new SendListConfigManager();
+                dataGridView1.RowsRemoved -= dataGridView1_RowsRemoved;
                 await RefreshDataGridView();
+                dataGridView1.RowsRemoved += dataGridView1_RowsRemoved;
             }
         }
 
@@ -505,7 +519,7 @@ namespace CommunicationTest
 
                     var sendCmd = new SendCmd()
                     {
-                        Index = e.RowIndex,
+                        ID = (((SendCmd)dataGridView1.Rows[e.RowIndex].Tag)?.ID) ?? ++_maxID,
                         Used = (bool)dataGridView1.Rows[e.RowIndex].Cells["Used"].EditedFormattedValue,
                         CName = dataGridView1.Rows[e.RowIndex].Cells["CName"].Value?.ToString() ?? "",
                         SendType = sendType,
@@ -567,14 +581,15 @@ namespace CommunicationTest
 
         private async void dataGridView1_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            await Global.SendListConfig.RemoveAsync(_selectIndex);
+            if (_selectID.HasValue)
+                await Global.SendListConfig.RemoveAsync((int)_selectID);
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                _selectIndex = dataGridView1.SelectedRows[0].Index;
+                _selectID = ((SendCmd)dataGridView1.SelectedRows[0].Tag)?.ID;
             }
         }
 

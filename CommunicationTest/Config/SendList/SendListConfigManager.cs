@@ -17,13 +17,13 @@ namespace CommunicationTest.Config.SendList
         {
             var sendListConfig = await SendListConfig.GetValueAsync();
 
-            if (sendListConfig.SendList.ContainsKey(sendCmd.Index))
+            if (sendListConfig.SendList.ContainsKey(sendCmd.ID))
             {
-                sendListConfig.SendList[sendCmd.Index] = sendCmd;
+                sendListConfig.SendList[sendCmd.ID] = sendCmd;
             }
             else
             {
-                sendListConfig.SendList.Add(sendCmd.Index, sendCmd);
+                sendListConfig.SendList.Add(sendCmd.ID, sendCmd);
             }
             await SendListConfig.TrySaveChangeAsync(sendListConfig);
         }

@@ -2,7 +2,7 @@
 {
     public class SendCmd
     {
-        public int Index { get; set; }
+        public int ID { get; set; }
         public bool Used { get; set; }
         public string CName { get; set; }
         public SendType SendType { get; set; }

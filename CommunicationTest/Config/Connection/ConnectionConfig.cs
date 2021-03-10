@@ -10,7 +10,7 @@ namespace CommunicationTest.Config.Connection
 {
     class ConnectionConfig
     {
-        private static IDataPair<ConnectionConfig> pair = new DataPair<ConnectionConfig>("ConnectionConfig");
+        private static IDataPair<ConnectionConfig> pair;
 
         public Dictionary<string, string> Connection { get; set; } = new Dictionary<string, string>()
         {

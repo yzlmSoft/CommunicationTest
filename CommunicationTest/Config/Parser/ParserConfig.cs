@@ -10,7 +10,7 @@ namespace CommunicationTest.Config.Parser
 {
     class ParserConfig
     {
-        private static IDataPair<ParserConfig> pair = new DataPair<ParserConfig>("ParserConfig");
+        private static IDataPair<ParserConfig> pair;
 
         public Dictionary<string, string> Parsers { get; set; } = new Dictionary<string, string>()
         {

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TopPortLib;
+using System.IO;
 
 namespace CommunicationTest
 {
@@ -32,6 +33,7 @@ namespace CommunicationTest
 
         public static ConcurrentDictionary<int, IParser> Parsers { get; set; } = new ConcurrentDictionary<int, IParser>();
 
-        public static string DBPath { get; set; } = "PairsDB.dll";
+        public static readonly string DPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PairsDB.dll");
+        public static string DBPath { get; set; } = DPath;
     }
 }
