@@ -68,5 +68,19 @@ namespace CommunicationTest
         {
             this.Validate();
         }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == -1)
+            {
+                dataGridView1.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2;
+                dataGridView1.EndEdit();
+            }
+            else if (dataGridView1.EditMode != DataGridViewEditMode.EditOnEnter)
+            {
+                dataGridView1.EditMode = DataGridViewEditMode.EditOnEnter;
+                dataGridView1.BeginEdit(false);
+            }
+        }
     }
 }
