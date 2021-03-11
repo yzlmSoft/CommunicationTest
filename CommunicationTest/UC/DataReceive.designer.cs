@@ -46,6 +46,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cbTime = new System.Windows.Forms.CheckBox();
             this.cbAutoSave = new System.Windows.Forms.CheckBox();
+            this.cbSend = new System.Windows.Forms.CheckBox();
             this.CMS_Main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,7 +62,7 @@
             this.txtData.Name = "txtData";
             this.txtData.ReadOnly = true;
             this.txtData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtData.Size = new System.Drawing.Size(523, 174);
+            this.txtData.Size = new System.Drawing.Size(575, 174);
             this.txtData.TabIndex = 1;
             // 
             // CMS_Main
@@ -195,7 +196,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(388, 193);
+            this.label2.Location = new System.Drawing.Point(440, 193);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(138, 17);
             this.label2.TabIndex = 9;
@@ -214,12 +215,22 @@
             // cbAutoSave
             // 
             this.cbAutoSave.AutoSize = true;
-            this.cbAutoSave.Location = new System.Drawing.Point(410, 4);
+            this.cbAutoSave.Location = new System.Drawing.Point(491, 4);
             this.cbAutoSave.Name = "cbAutoSave";
             this.cbAutoSave.Size = new System.Drawing.Size(75, 21);
             this.cbAutoSave.TabIndex = 2;
             this.cbAutoSave.Text = "自动存储";
             this.cbAutoSave.UseVisualStyleBackColor = true;
+            // 
+            // cbSend
+            // 
+            this.cbSend.AutoSize = true;
+            this.cbSend.Location = new System.Drawing.Point(410, 4);
+            this.cbSend.Name = "cbSend";
+            this.cbSend.Size = new System.Drawing.Size(75, 21);
+            this.cbSend.TabIndex = 2;
+            this.cbSend.Text = "显示发送";
+            this.cbSend.UseVisualStyleBackColor = true;
             // 
             // DataReceive
             // 
@@ -233,10 +244,11 @@
             this.Controls.Add(this.rbtnASCII);
             this.Controls.Add(this.rbtnHex);
             this.Controls.Add(this.cbAutoSave);
+            this.Controls.Add(this.cbSend);
             this.Controls.Add(this.cbTime);
             this.Controls.Add(this.cbxAutoLine);
             this.Name = "DataReceive";
-            this.Size = new System.Drawing.Size(523, 210);
+            this.Size = new System.Drawing.Size(575, 210);
             this.CMS_Main.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -262,5 +274,6 @@
         private System.Windows.Forms.CheckBox cbTime;
         private System.Windows.Forms.ToolStripMenuItem 保存接收数据ToolStripMenuItem;
         private System.Windows.Forms.CheckBox cbAutoSave;
+        private System.Windows.Forms.CheckBox cbSend;
     }
 }

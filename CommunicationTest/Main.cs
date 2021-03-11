@@ -343,6 +343,7 @@ namespace CommunicationTest
                 if (!(send is null))
                 {
                     await Global.TcpServer.SendDataAsync(clientId, send);
+                    await dataReceive.AddDataAsync(send, true);
                 }
             }
         }
@@ -364,6 +365,7 @@ namespace CommunicationTest
                 if (!(send is null))
                 {
                     await Global.TopPort.SendAsync(send);
+                    await dataReceive.AddDataAsync(send, true);
                 }
             }
         }
@@ -378,14 +380,23 @@ namespace CommunicationTest
             switch (connectionConfig.Item1)
             {
                 case ConnectionType.SerialPort:
-                    await Global.TopPort.SendAsync(cmd);
+                    {
+                        await Global.TopPort.SendAsync(cmd);
+                        await (tabControl1.SelectedTab.Controls[0] as DataReceive).AddDataAsync(cmd, true);
+                    }
                     break;
                 case ConnectionType.TCPServer:
                     if (tabControl1.SelectedTab != null)
+                    {
                         await Global.TcpServer.SendDataAsync((int)tabControl1.SelectedTab.Tag, cmd);
+                        await (tabControl1.SelectedTab.Controls[0] as DataReceive).AddDataAsync(cmd, true);
+                    }
                     break;
                 case ConnectionType.TCPClient:
-                    await Global.TopPort.SendAsync(cmd);
+                    {
+                        await Global.TopPort.SendAsync(cmd);
+                        await (tabControl1.SelectedTab.Controls[0] as DataReceive).AddDataAsync(cmd, true);
+                    }
                     break;
                 default:
                     break;
@@ -475,6 +486,12 @@ namespace CommunicationTest
                 await RefreshDataGridView();
                 dataGridView1.RowsRemoved += dataGridView1_RowsRemoved;
             }
+        }
+
+        private void 显隐toolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            splitContainer1.Panel2Collapsed = !splitContainer1.Panel2Collapsed;
+            ((ToolStripMenuItem)sender).Text = splitContainer1.Panel2Collapsed ? "显示" : "隐藏";
         }
 
         private async void cbAutoReply_CheckedChangedAsync(object sender, EventArgs e)

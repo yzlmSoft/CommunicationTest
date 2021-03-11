@@ -28,7 +28,7 @@ namespace CommunicationTest
         /// 添加数据
         /// </summary>
         /// <param name="data">字节数组</param>
-        public async Task AddDataAsync(byte[] data)
+        public async Task AddDataAsync(byte[] data, bool isSend = false)
         {
             switch (EncodeType)
             {
@@ -39,19 +39,19 @@ namespace CommunicationTest
                     {
                         sb.AppendFormat("{0:x2}" + " ", data[i]);
                     }
-                    await AddContentAsync(sb.ToString().ToUpper());
+                    await AddContentAsync(sb.ToString().ToUpper(), isSend);
                     break;
                 case DataEncode.ASCII:
                     //ASCII码显示
-                    await AddContentAsync(new ASCIIEncoding().GetString(data));
+                    await AddContentAsync(Encoding.ASCII.GetString(data), isSend);
                     break;
                 case DataEncode.UTF8:
                     //UTF8显示
-                    await AddContentAsync(new UTF8Encoding().GetString(data));
+                    await AddContentAsync(Encoding.UTF8.GetString(data), isSend);
                     break;
                 case DataEncode.GB2312:
                     //GB2312显示
-                    await AddContentAsync(Encoding.GetEncoding("GB2312").GetString(data));
+                    await AddContentAsync(Encoding.GetEncoding("GB2312").GetString(data), isSend);
                     break;
             }
             await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
@@ -66,7 +66,7 @@ namespace CommunicationTest
         /// 添加文本内容
         /// </summary>
         /// <param name="content"></param>
-        private async Task AddContentAsync(string content)
+        private async Task AddContentAsync(string content, bool isSend)
         {
             await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
             {
@@ -76,14 +76,15 @@ namespace CommunicationTest
                     str += "\r\n";
                 }
                 if (cbTime.Checked) str += DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + ": ";
+                if (cbSend.Checked) str += isSend ? "发送->" : "接收<-";
                 str += content;
                 txtData.AppendText(str);
                 if (cbAutoSave.Checked)
                 {
-                    string path = AppDomain.CurrentDomain.BaseDirectory + "/History/";
+                    string path = Path.Combine(Environment.CurrentDirectory, "History");
                     if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-                    byte[] rs = Encoding.ASCII.GetBytes(str);
-                    using (FileStream fs = new FileStream(path + DateTime.Now.ToString("yyyyMMdd") + ".txt", FileMode.Append, FileAccess.Write, FileShare.None, rs.Length, FileOptions.WriteThrough))
+                    byte[] rs = Encoding.GetEncoding("GB2312").GetBytes(str);
+                    using (FileStream fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}.txt"), FileMode.Append, FileAccess.Write, FileShare.None, rs.Length, FileOptions.WriteThrough))
                     {
                         fs.Write(rs, 0, rs.Length);
                         fs.Flush();
@@ -101,18 +102,17 @@ namespace CommunicationTest
         {
             //var thread = new Thread(() =>
             //{
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Filter = "文本文件|*.txt";
-                saveFileDialog.FilterIndex = 2;
-                saveFileDialog.RestoreDirectory = true;
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "文本文件|*.txt";
+            saveFileDialog.FilterIndex = 2;
+            saveFileDialog.RestoreDirectory = true;
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(saveFileDialog.FileName, false, Encoding.Default))
                 {
-                    string fName = saveFileDialog.FileName;
-                    using (StreamWriter sw = new StreamWriter(fName, false, Encoding.Default))
-                    {
-                        sw.Write(txtData.Text);
-                    }
+                    sw.Write(txtData.Text);
                 }
+            }
             //});
             //thread.SetApartmentState(ApartmentState.STA);
             //thread.Start();

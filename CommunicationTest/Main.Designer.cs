@@ -58,6 +58,7 @@
             this.自动回复ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导出配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导入配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.显隐toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.关闭ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -76,7 +77,6 @@
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer1.Location = new System.Drawing.Point(0, 25);
             this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer1.Panel1
             // 
@@ -92,8 +92,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.tbTime);
             this.splitContainer1.Panel2.Controls.Add(this.btnSendList);
-            this.splitContainer1.Size = new System.Drawing.Size(784, 494);
-            this.splitContainer1.SplitterDistance = 321;
+            this.splitContainer1.Size = new System.Drawing.Size(1184, 494);
+            this.splitContainer1.SplitterDistance = 700;
             this.splitContainer1.TabIndex = 0;
             // 
             // tabControl1
@@ -102,7 +102,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(784, 321);
+            this.tabControl1.Size = new System.Drawing.Size(700, 494);
             this.tabControl1.TabIndex = 3;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -130,13 +130,12 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridView1.Location = new System.Drawing.Point(175, 2);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 2);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(606, 164);
+            this.dataGridView1.Size = new System.Drawing.Size(474, 427);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
@@ -200,8 +199,9 @@
             // 
             // cbAutoConnect
             // 
+            this.cbAutoConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbAutoConnect.AutoSize = true;
-            this.cbAutoConnect.Location = new System.Drawing.Point(10, 14);
+            this.cbAutoConnect.Location = new System.Drawing.Point(3, 441);
             this.cbAutoConnect.Name = "cbAutoConnect";
             this.cbAutoConnect.Size = new System.Drawing.Size(75, 21);
             this.cbAutoConnect.TabIndex = 15;
@@ -211,7 +211,8 @@
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(88, 14);
+            this.btnConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnConnect.Location = new System.Drawing.Point(81, 441);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(81, 38);
             this.btnConnect.TabIndex = 14;
@@ -220,8 +221,9 @@
             // 
             // cbAutoReply
             // 
+            this.cbAutoReply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbAutoReply.AutoSize = true;
-            this.cbAutoReply.Location = new System.Drawing.Point(10, 36);
+            this.cbAutoReply.Location = new System.Drawing.Point(3, 463);
             this.cbAutoReply.Name = "cbAutoReply";
             this.cbAutoReply.Size = new System.Drawing.Size(75, 21);
             this.cbAutoReply.TabIndex = 12;
@@ -231,9 +233,9 @@
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(134, 108);
+            this.label4.Location = new System.Drawing.Point(442, 441);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(25, 17);
             this.label4.TabIndex = 8;
@@ -241,9 +243,9 @@
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 108);
+            this.label3.Location = new System.Drawing.Point(327, 441);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 17);
             this.label3.TabIndex = 7;
@@ -251,8 +253,8 @@
             // 
             // tbTime
             // 
-            this.tbTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.tbTime.Location = new System.Drawing.Point(60, 105);
+            this.tbTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbTime.Location = new System.Drawing.Point(368, 438);
             this.tbTime.Name = "tbTime";
             this.tbTime.Size = new System.Drawing.Size(68, 23);
             this.tbTime.TabIndex = 6;
@@ -260,8 +262,8 @@
             // 
             // btnSendList
             // 
-            this.btnSendList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSendList.Location = new System.Drawing.Point(22, 132);
+            this.btnSendList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSendList.Location = new System.Drawing.Point(330, 465);
             this.btnSendList.Name = "btnSendList";
             this.btnSendList.Size = new System.Drawing.Size(130, 23);
             this.btnSendList.TabIndex = 5;
@@ -275,7 +277,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 519);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(784, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1184, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -291,10 +293,11 @@
             this.分包规则ToolStripMenuItem,
             this.自动回复ToolStripMenuItem,
             this.导出配置ToolStripMenuItem,
-            this.导入配置ToolStripMenuItem});
+            this.导入配置ToolStripMenuItem,
+            this.显隐toolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(784, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1184, 25);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -333,6 +336,14 @@
             this.导入配置ToolStripMenuItem.Text = "导入配置";
             this.导入配置ToolStripMenuItem.Click += new System.EventHandler(this.导入配置ToolStripMenuItem_Click);
             // 
+            // 显隐toolStripMenuItem
+            // 
+            this.显隐toolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.显隐toolStripMenuItem.Name = "显隐toolStripMenuItem";
+            this.显隐toolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.显隐toolStripMenuItem.Text = "隐藏";
+            this.显隐toolStripMenuItem.Click += new System.EventHandler(this.显隐toolStripMenuItem_Click);
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -350,7 +361,7 @@
             // Main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(784, 541);
+            this.ClientSize = new System.Drawing.Size(1184, 541);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -406,6 +417,7 @@
         private System.Windows.Forms.DataGridViewButtonColumn Operation;
         private System.Windows.Forms.ToolStripMenuItem 导出配置ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 导入配置ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 显隐toolStripMenuItem;
     }
 }
 

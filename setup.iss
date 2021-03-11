@@ -5,9 +5,9 @@
 AppName=CommunicationTest
 AppVerName=CommunicationTest 1.0
 AppPublisher=CSoft
-DefaultDirName={pf}\CSoft
+DefaultDirName={pf}\CSoft\CommunicationTest
 DefaultGroupName=CSoft
-AllowNoIcons=yes
+DisableProgramGroupPage=yes
 Compression=lzma
 SolidCompression=yes
 
@@ -107,7 +107,7 @@ Source: D:\GitHub\CommunicationTest\CommunicationTest\bin\Release\net5.0-windows
 Source: D:\GitHub\CommunicationTest\CommunicationTest\bin\Release\net5.0-windows\publish\Microsoft.Win32.Registry.dll; DestDir: {app}; Flags: ignoreversion
 Source: D:\GitHub\CommunicationTest\CommunicationTest\bin\Release\net5.0-windows\publish\Microsoft.Win32.SystemEvents.dll; DestDir: {app}; Flags: ignoreversion
 Source: D:\GitHub\CommunicationTest\CommunicationTest\bin\Release\net5.0-windows\publish\mscordaccore.dll; DestDir: {app}; Flags: ignoreversion
-Source: D:\GitHub\CommunicationTest\CommunicationTest\bin\Release\net5.0-windows\publish\mscordaccore_x86_x86_5.0.321.7212.dll; DestDir: {app}; Flags: ignoreversion
+Source: D:\GitHub\CommunicationTest\CommunicationTest\bin\Release\net5.0-windows\publish\mscordaccore_x86_x86_5.0.421.11614.dll; DestDir: {app}; Flags: ignoreversion
 Source: D:\GitHub\CommunicationTest\CommunicationTest\bin\Release\net5.0-windows\publish\mscordbi.dll; DestDir: {app}; Flags: ignoreversion
 Source: D:\GitHub\CommunicationTest\CommunicationTest\bin\Release\net5.0-windows\publish\mscorrc.dll; DestDir: {app}; Flags: ignoreversion
 Source: D:\GitHub\CommunicationTest\CommunicationTest\bin\Release\net5.0-windows\publish\Newtonsoft.Json.dll; DestDir: {app}; Flags: ignoreversion
