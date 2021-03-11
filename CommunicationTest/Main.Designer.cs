@@ -58,6 +58,8 @@
             this.自动回复ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导出配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导入配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.工具toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.HexCalcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.显隐toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.关闭ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -294,6 +296,7 @@
             this.自动回复ToolStripMenuItem,
             this.导出配置ToolStripMenuItem,
             this.导入配置ToolStripMenuItem,
+            this.工具toolStripMenuItem,
             this.显隐toolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -335,6 +338,21 @@
             this.导入配置ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
             this.导入配置ToolStripMenuItem.Text = "导入配置";
             this.导入配置ToolStripMenuItem.Click += new System.EventHandler(this.导入配置ToolStripMenuItem_Click);
+            // 
+            // 工具toolStripMenuItem
+            // 
+            this.工具toolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.HexCalcToolStripMenuItem});
+            this.工具toolStripMenuItem.Name = "工具toolStripMenuItem";
+            this.工具toolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.工具toolStripMenuItem.Text = "工具";
+            // 
+            // HexCalcToolStripMenuItem
+            // 
+            this.HexCalcToolStripMenuItem.Name = "HexCalcToolStripMenuItem";
+            this.HexCalcToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.HexCalcToolStripMenuItem.Text = "HexCalc";
+            this.HexCalcToolStripMenuItem.Click += new System.EventHandler(this.HexCalcToolStripMenuItem_Click);
             // 
             // 显隐toolStripMenuItem
             // 
@@ -418,6 +436,8 @@
         private System.Windows.Forms.ToolStripMenuItem 导出配置ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 导入配置ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 显隐toolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 工具toolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem HexCalcToolStripMenuItem;
     }
 }
 

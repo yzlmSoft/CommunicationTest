@@ -488,6 +488,12 @@ namespace CommunicationTest
             }
         }
 
+        private void HexCalcToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            HexCalc hexCalc = new HexCalc();
+            hexCalc.Show();
+        }
+
         private void 显隐toolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             splitContainer1.Panel2Collapsed = !splitContainer1.Panel2Collapsed;
@@ -574,11 +580,12 @@ namespace CommunicationTest
 
         private async void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex == -1) return;
             if (dataGridView1[e.ColumnIndex, e.RowIndex] is DataGridViewButtonCell && dataGridView1.Rows[e.RowIndex].Tag != null)
             {
                 await SendCmd((SendCmd)dataGridView1.Rows[e.RowIndex].Tag);
             }
-            else if (dataGridView1[e.ColumnIndex, e.RowIndex] is DataGridViewCheckBoxCell)
+            else if (dataGridView1[e.ColumnIndex, e.RowIndex] is DataGridViewCheckBoxCell || dataGridView1[e.ColumnIndex, e.RowIndex] is DataGridViewComboBoxCell)
             {
                 this.Validate();
             }
