@@ -22,6 +22,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TopPortLib;
 using Utils;
+using Microsoft.Win32;
+using System.Runtime.InteropServices;
 
 namespace CommunicationTest
 {
@@ -110,6 +112,14 @@ namespace CommunicationTest
                 DataGridViewCheckBoxCell n = new DataGridViewCheckBoxCell();
                 n.Value = item.HaveN;
                 row.Cells.Add(n);
+                DataGridViewComboBoxCell CrcType = new DataGridViewComboBoxCell();
+                var cdt = new DataTable();
+                cdt.Columns.Add(new DataColumn("CrcType"));
+                Enum.GetNames(typeof(CrcType)).ToList().ForEach(x => cdt.Rows.Add(x));
+                CrcType.DataSource = cdt;
+                CrcType.DisplayMember = "CrcType";
+                CrcType.Value = item.CrcType.ToString();
+                row.Cells.Add(CrcType);
                 dataGridView1.Rows.Add(row);
             }
         }
@@ -374,33 +384,77 @@ namespace CommunicationTest
         {
             if (!isConnect) return;
             var cmd = sendCmd.Cmd;
-            if (sendCmd.HaveR) cmd = StringByteUtils.ComibeByteArray(cmd, new byte[] { 0x0d });
-            if (sendCmd.HaveN) cmd = StringByteUtils.ComibeByteArray(cmd, new byte[] { 0x0a });
-            var connectionConfig = await Global.ConnectionConfig.GetAsync();
-            switch (connectionConfig.Item1)
+            switch (sendCmd.CrcType)
             {
-                case ConnectionType.SerialPort:
+                case Config.SendList.CrcType.None:
+                    break;
+                case Config.SendList.CrcType.Modbus:
+                    cmd = StringByteUtils.ComibeByteArray(cmd, CRC.Crc16(cmd, cmd.Length));
+                    break;
+                case Config.SendList.CrcType.Crc16_C:
+                    cmd = StringByteUtils.ComibeByteArray(cmd, CRC.CRC16_C(cmd));
+                    break;
+                case Config.SendList.CrcType.UpdateCRC:
+                    cmd = StringByteUtils.ComibeByteArray(cmd, StringByteUtils.GetBytes(CRC.UpdateCRC(cmd, cmd.Length), true));
+                    break;
+                case Config.SendList.CrcType.GBcrc16:
+                    cmd = StringByteUtils.ComibeByteArray(cmd, CRC.GBcrc16(cmd, cmd.Length));
+                    break;
+                case Config.SendList.CrcType.HBcrc16:
+                    cmd = StringByteUtils.ComibeByteArray(cmd, CRC.HBcrc16(cmd, cmd.Length));
+                    break;
+                case Config.SendList.CrcType.GBcrc16_string:
+                    cmd = StringByteUtils.ComibeByteArray(cmd, Encoding.GetEncoding("gb2312").GetBytes(StringByteUtils.BytesToString(CRC.GBcrc16(cmd, cmd.Length)).Replace(" ", "")));
+                    break;
+                case Config.SendList.CrcType.HBcrc16_string:
+                    cmd = StringByteUtils.ComibeByteArray(cmd, Encoding.GetEncoding("gb2312").GetBytes(StringByteUtils.BytesToString(CRC.HBcrc16(cmd, cmd.Length)).Replace(" ", "")));
+                    break;
+                case Config.SendList.CrcType.H_GBcrc16_string:
                     {
-                        await Global.TopPort.SendAsync(cmd);
-                        await (tabControl1.SelectedTab.Controls[0] as DataReceive).AddDataAsync(cmd, true);
+                        var strCmd = Encoding.GetEncoding("gb2312").GetString(cmd);
+                        cmd = Encoding.GetEncoding("gb2312").GetBytes($"##{strCmd.Length.ToString().PadLeft(4, '0')}{strCmd}{StringByteUtils.BytesToString(CRC.GBcrc16(cmd, cmd.Length)).Replace(" ", "")}");
                     }
                     break;
-                case ConnectionType.TCPServer:
-                    if (tabControl1.SelectedTab != null)
+                case Config.SendList.CrcType.H_HBcrc16_string:
                     {
-                        await Global.TcpServer.SendDataAsync((int)tabControl1.SelectedTab.Tag, cmd);
-                        await (tabControl1.SelectedTab.Controls[0] as DataReceive).AddDataAsync(cmd, true);
-                    }
-                    break;
-                case ConnectionType.TCPClient:
-                    {
-                        await Global.TopPort.SendAsync(cmd);
-                        await (tabControl1.SelectedTab.Controls[0] as DataReceive).AddDataAsync(cmd, true);
+                        var strCmd = Encoding.GetEncoding("gb2312").GetString(cmd);
+                        cmd = Encoding.GetEncoding("gb2312").GetBytes($"##{strCmd.Length.ToString().PadLeft(4, '0')}{strCmd}{StringByteUtils.BytesToString(CRC.HBcrc16(cmd, cmd.Length)).Replace(" ", "")}");
                     }
                     break;
                 default:
                     break;
             }
+            if (sendCmd.HaveR) cmd = StringByteUtils.ComibeByteArray(cmd, new byte[] { 0x0d });
+            if (sendCmd.HaveN) cmd = StringByteUtils.ComibeByteArray(cmd, new byte[] { 0x0a });
+            var connectionConfig = await Global.ConnectionConfig.GetAsync();
+            await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
+            {
+                var dr = tabControl1.SelectedTab.Controls[0] as DataReceive;
+                switch (connectionConfig.Item1)
+                {
+                    case ConnectionType.SerialPort:
+                        {
+                            await Global.TopPort.SendAsync(cmd);
+                            await dr.AddDataAsync(cmd, true);
+                        }
+                        break;
+                    case ConnectionType.TCPServer:
+                        if (tabControl1.SelectedTab != null)
+                        {
+                            await Global.TcpServer.SendDataAsync((int)tabControl1.SelectedTab.Tag, cmd);
+                            await dr.AddDataAsync(cmd, true);
+                        }
+                        break;
+                    case ConnectionType.TCPClient:
+                        {
+                            await Global.TopPort.SendAsync(cmd);
+                            await dr.AddDataAsync(cmd, true);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            })), EndInvoke);
         }
 
         private async void btnSendList_Click(object sender, EventArgs e)
@@ -488,10 +542,54 @@ namespace CommunicationTest
             }
         }
 
+        [DllImport("shell32.dll")]
+        public static extern void SHChangeNotify(uint wEventId, uint uFlags, IntPtr dwItem1, IntPtr dwItem2);
+        private void 系统关联toolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            try
+            {
+                string keyName = "csconfig";
+                string keyValue = "通讯测试工具配置文件";
+                RegistryKey key, keyico;
+                key = Registry.ClassesRoot.CreateSubKey(keyName);
+                key.SetValue("Create", Application.ExecutablePath.ToString());
+
+                keyico = key.CreateSubKey("DefaultIcon");
+                keyico.SetValue("", Application.ExecutablePath + ",0");
+
+                key.SetValue("", keyValue);
+                key = key.CreateSubKey("Shell");
+                key = key.CreateSubKey("Open");
+                key = key.CreateSubKey("Command");
+
+                // 关联的位置 
+                key.SetValue("", "\"" + Application.ExecutablePath.ToString() + "\" \"%1\"");
+
+                // 关联的文件扩展名
+                keyName = ".csconfig";
+                keyValue = "csconfig";
+                key = Registry.ClassesRoot.CreateSubKey(keyName);
+                key.SetValue("", keyValue);
+                key.Close();
+                SHChangeNotify(0x8000000, 0, IntPtr.Zero, IntPtr.Zero);
+                MessageBox.Show("设置文件关联操作成功！", "信息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "信息提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
         private void HexCalcToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
             HexCalc hexCalc = new HexCalc();
             hexCalc.Show();
+        }
+
+        private void CrcCalcToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            CrcCalc crcCalc = new CrcCalc();
+            crcCalc.Show();
         }
 
         private void 显隐toolStripMenuItem_Click(object sender, System.EventArgs e)
@@ -548,6 +646,7 @@ namespace CommunicationTest
                         SendType = sendType,
                         HaveR = (bool)dataGridView1.Rows[e.RowIndex].Cells["r"].EditedFormattedValue,
                         HaveN = (bool)dataGridView1.Rows[e.RowIndex].Cells["n"].EditedFormattedValue,
+                        CrcType = (CrcType)Enum.Parse(typeof(CrcType), dataGridView1.Rows[e.RowIndex].Cells["CrcType"].EditedFormattedValue.ToString())
                     };
                     string cmd = dataGridView1.Rows[e.RowIndex].Cells["Cmd"].Value?.ToString();
                     switch (sendType)
@@ -569,7 +668,6 @@ namespace CommunicationTest
                     }
                     await Global.SendListConfig.AddOrUpdateAsync(sendCmd);
                     dataGridView1.Rows[e.RowIndex].Tag = sendCmd;
-                    var a = await Global.SendListConfig.GetAsync();
                 }
                 catch (Exception)
                 {
@@ -578,6 +676,7 @@ namespace CommunicationTest
             }
         }
 
+        //CellEnter-->CellBeginEdit-->CellLeave-->CellValidating-->CellValueChanged-->CellValidated-->CellEndEdit
         private async void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1) return;
@@ -585,7 +684,7 @@ namespace CommunicationTest
             {
                 await SendCmd((SendCmd)dataGridView1.Rows[e.RowIndex].Tag);
             }
-            else if (dataGridView1[e.ColumnIndex, e.RowIndex] is DataGridViewCheckBoxCell || dataGridView1[e.ColumnIndex, e.RowIndex] is DataGridViewComboBoxCell)
+            else if (dataGridView1[e.ColumnIndex, e.RowIndex] is DataGridViewCheckBoxCell)
             {
                 this.Validate();
             }
@@ -624,6 +723,40 @@ namespace CommunicationTest
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Validate();
+        }
+
+        private void ComboBox_DropDownClosed(object sender, EventArgs e)
+        {
+            this.Validate();
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == -1)
+            {
+                dataGridView1.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2;
+                dataGridView1.EndEdit();
+            }
+            else if (dataGridView1.EditMode != DataGridViewEditMode.EditOnEnter)
+            {
+                dataGridView1.EditMode = DataGridViewEditMode.EditOnEnter;
+                dataGridView1.BeginEdit(true);
+                if (dataGridView1.EditingControl != null && dataGridView1.EditingControl is DataGridViewComboBoxEditingControl)
+                {
+                    var comboBox = dataGridView1.EditingControl as DataGridViewComboBoxEditingControl;
+                    comboBox.SelectionChangeCommitted += ComboBox_DropDownClosed;
+                }
+            }
+            else
+            {
+                dataGridView1.BeginEdit(true);
+                if (dataGridView1.EditingControl != null && dataGridView1.EditingControl is DataGridViewComboBoxEditingControl)
+                {
+                    var comboBox = dataGridView1.EditingControl as DataGridViewComboBoxEditingControl;
+                    comboBox.DropDownClosed -= ComboBox_DropDownClosed;
+                    comboBox.DropDownClosed += ComboBox_DropDownClosed;
+                }
+            }
         }
     }
 }

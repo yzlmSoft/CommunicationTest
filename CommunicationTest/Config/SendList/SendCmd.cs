@@ -9,5 +9,6 @@
         public byte[] Cmd { get; set; }
         public bool HaveR { get; set; }
         public bool HaveN { get; set; }
+        public CrcType CrcType { get; set; }
     }
 }

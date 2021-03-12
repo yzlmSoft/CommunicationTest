@@ -47,6 +47,8 @@
             this.cbTime = new System.Windows.Forms.CheckBox();
             this.cbAutoSave = new System.Windows.Forms.CheckBox();
             this.cbSend = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lbSCount = new System.Windows.Forms.LinkLabel();
             this.CMS_Main.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -116,6 +118,8 @@
             // cbxAutoLine
             // 
             this.cbxAutoLine.AutoSize = true;
+            this.cbxAutoLine.Checked = true;
+            this.cbxAutoLine.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbxAutoLine.Location = new System.Drawing.Point(0, 3);
             this.cbxAutoLine.Name = "cbxAutoLine";
             this.cbxAutoLine.Size = new System.Drawing.Size(75, 21);
@@ -167,7 +171,7 @@
             this.lblCount.TabIndex = 6;
             this.lblCount.TabStop = true;
             this.lblCount.Text = "0";
-            this.lblCount.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblCount_LinkClicked);
+            this.lblCount.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbCount_LinkClicked);
             // 
             // rbtnUTF8
             // 
@@ -205,6 +209,8 @@
             // cbTime
             // 
             this.cbTime.AutoSize = true;
+            this.cbTime.Checked = true;
+            this.cbTime.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbTime.Location = new System.Drawing.Point(305, 4);
             this.cbTime.Name = "cbTime";
             this.cbTime.Size = new System.Drawing.Size(99, 21);
@@ -225,12 +231,36 @@
             // cbSend
             // 
             this.cbSend.AutoSize = true;
+            this.cbSend.Checked = true;
+            this.cbSend.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbSend.Location = new System.Drawing.Point(410, 4);
             this.cbSend.Name = "cbSend";
             this.cbSend.Size = new System.Drawing.Size(75, 21);
             this.cbSend.TabIndex = 2;
             this.cbSend.Text = "显示发送";
             this.cbSend.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(206, 194);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(80, 17);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "发送字节数：";
+            // 
+            // lbSCount
+            // 
+            this.lbSCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbSCount.AutoSize = true;
+            this.lbSCount.Location = new System.Drawing.Point(279, 194);
+            this.lbSCount.Name = "lbSCount";
+            this.lbSCount.Size = new System.Drawing.Size(15, 17);
+            this.lbSCount.TabIndex = 6;
+            this.lbSCount.TabStop = true;
+            this.lbSCount.Text = "0";
+            this.lbSCount.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbCount_LinkClicked);
             // 
             // DataReceive
             // 
@@ -239,7 +269,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.rbtnGB2312);
             this.Controls.Add(this.rbtnUTF8);
+            this.Controls.Add(this.lbSCount);
             this.Controls.Add(this.lblCount);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.rbtnASCII);
             this.Controls.Add(this.rbtnHex);
@@ -275,5 +307,7 @@
         private System.Windows.Forms.ToolStripMenuItem 保存接收数据ToolStripMenuItem;
         private System.Windows.Forms.CheckBox cbAutoSave;
         private System.Windows.Forms.CheckBox cbSend;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel lbSCount;
     }
 }

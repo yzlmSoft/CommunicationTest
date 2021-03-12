@@ -56,7 +56,14 @@ namespace CommunicationTest
             }
             await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
             {
-                lblCount.Text = (int.Parse(lblCount.Text) + data.Length).ToString();
+                if (isSend)
+                {
+                    lbSCount.Text = (int.Parse(lbSCount.Text) + data.Length).ToString();
+                }
+                else
+                {
+                    lblCount.Text = (int.Parse(lblCount.Text) + data.Length).ToString();
+                }
             })), EndInvoke);
         }
         #endregion
@@ -76,7 +83,7 @@ namespace CommunicationTest
                     str += "\r\n";
                 }
                 if (cbTime.Checked) str += DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + ": ";
-                if (cbSend.Checked) str += isSend ? "发送->" : "接收<-";
+                if (cbSend.Checked) str += isSend ? "发送->" : "接收<-"; else if (isSend) return;
                 str += content;
                 txtData.AppendText(str);
                 if (cbAutoSave.Checked)
@@ -93,9 +100,9 @@ namespace CommunicationTest
             })), EndInvoke);
         }
 
-        private void lblCount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void lbCount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            lblCount.Text = "0";
+            ((LinkLabel)sender).Text = "0";
         }
 
         private void 保存接收数据ToolStripMenuItem_Click(object sender, EventArgs e)
