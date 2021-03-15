@@ -36,6 +36,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.btnConnect = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Used = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.CName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,7 +47,6 @@
             this.CrcType = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Operation = new System.Windows.Forms.DataGridViewButtonColumn();
             this.cbAutoConnect = new System.Windows.Forms.CheckBox();
-            this.btnConnect = new System.Windows.Forms.Button();
             this.cbAutoReply = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -81,7 +81,7 @@
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 25);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 28);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -90,15 +90,15 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.btnConnect);
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
             this.splitContainer1.Panel2.Controls.Add(this.cbAutoConnect);
-            this.splitContainer1.Panel2.Controls.Add(this.btnConnect);
             this.splitContainer1.Panel2.Controls.Add(this.cbAutoReply);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.tbTime);
             this.splitContainer1.Panel2.Controls.Add(this.btnSendList);
-            this.splitContainer1.Size = new System.Drawing.Size(1284, 494);
+            this.splitContainer1.Size = new System.Drawing.Size(1284, 491);
             this.splitContainer1.SplitterDistance = 650;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -108,9 +108,19 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(650, 494);
+            this.tabControl1.Size = new System.Drawing.Size(650, 491);
             this.tabControl1.TabIndex = 3;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            // 
+            // btnConnect
+            // 
+            this.btnConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnConnect.Location = new System.Drawing.Point(81, 438);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(81, 38);
+            this.btnConnect.TabIndex = 14;
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_ClickAsync);
             // 
             // dataGridView1
             // 
@@ -140,9 +150,10 @@
             this.dataGridView1.Location = new System.Drawing.Point(3, 2);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(624, 427);
+            this.dataGridView1.Size = new System.Drawing.Size(624, 424);
             this.dataGridView1.TabIndex = 16;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
@@ -162,6 +173,7 @@
             // 
             this.CName.FillWeight = 30F;
             this.CName.HeaderText = "名称";
+            this.CName.MinimumWidth = 6;
             this.CName.Name = "CName";
             // 
             // SendType
@@ -175,24 +187,28 @@
             "ASCII",
             "UTF8",
             "GB2312"});
+            this.SendType.MinimumWidth = 6;
             this.SendType.Name = "SendType";
             // 
             // Cmd
             // 
             this.Cmd.FillWeight = 40F;
             this.Cmd.HeaderText = "发送命令";
+            this.Cmd.MinimumWidth = 6;
             this.Cmd.Name = "Cmd";
             // 
             // r
             // 
             this.r.FillWeight = 5F;
             this.r.HeaderText = "回车";
+            this.r.MinimumWidth = 6;
             this.r.Name = "r";
             // 
             // n
             // 
             this.n.FillWeight = 5F;
             this.n.HeaderText = "换行";
+            this.n.MinimumWidth = 6;
             this.n.Name = "n";
             // 
             // CrcType
@@ -212,6 +228,7 @@
             "HBcrc16_string",
             "H_GBcrc16_string",
             "H_HBcrc16_string"});
+            this.CrcType.MinimumWidth = 6;
             this.CrcType.Name = "CrcType";
             this.CrcType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.CrcType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
@@ -223,6 +240,7 @@
             this.Operation.DefaultCellStyle = dataGridViewCellStyle3;
             this.Operation.FillWeight = 10F;
             this.Operation.HeaderText = "操作";
+            this.Operation.MinimumWidth = 6;
             this.Operation.Name = "Operation";
             this.Operation.Text = "";
             // 
@@ -230,31 +248,21 @@
             // 
             this.cbAutoConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbAutoConnect.AutoSize = true;
-            this.cbAutoConnect.Location = new System.Drawing.Point(3, 441);
+            this.cbAutoConnect.Location = new System.Drawing.Point(3, 435);
             this.cbAutoConnect.Name = "cbAutoConnect";
-            this.cbAutoConnect.Size = new System.Drawing.Size(75, 21);
+            this.cbAutoConnect.Size = new System.Drawing.Size(91, 24);
             this.cbAutoConnect.TabIndex = 15;
             this.cbAutoConnect.Text = "自动连接";
             this.cbAutoConnect.UseVisualStyleBackColor = true;
             this.cbAutoConnect.CheckedChanged += new System.EventHandler(this.cbAutoConnect_CheckedChanged);
             // 
-            // btnConnect
-            // 
-            this.btnConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnConnect.Location = new System.Drawing.Point(81, 441);
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(81, 38);
-            this.btnConnect.TabIndex = 14;
-            this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_ClickAsync);
-            // 
             // cbAutoReply
             // 
             this.cbAutoReply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbAutoReply.AutoSize = true;
-            this.cbAutoReply.Location = new System.Drawing.Point(3, 463);
+            this.cbAutoReply.Location = new System.Drawing.Point(3, 457);
             this.cbAutoReply.Name = "cbAutoReply";
-            this.cbAutoReply.Size = new System.Drawing.Size(75, 21);
+            this.cbAutoReply.Size = new System.Drawing.Size(91, 24);
             this.cbAutoReply.TabIndex = 12;
             this.cbAutoReply.Text = "自动回复";
             this.cbAutoReply.UseVisualStyleBackColor = true;
@@ -264,9 +272,9 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(592, 441);
+            this.label4.Location = new System.Drawing.Point(592, 438);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(25, 17);
+            this.label4.Size = new System.Drawing.Size(30, 20);
             this.label4.TabIndex = 8;
             this.label4.Text = "ms";
             // 
@@ -274,25 +282,25 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(477, 441);
+            this.label3.Location = new System.Drawing.Point(477, 438);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 17);
+            this.label3.Size = new System.Drawing.Size(43, 20);
             this.label3.TabIndex = 7;
             this.label3.Text = "间隔:";
             // 
             // tbTime
             // 
             this.tbTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbTime.Location = new System.Drawing.Point(518, 438);
+            this.tbTime.Location = new System.Drawing.Point(518, 435);
             this.tbTime.Name = "tbTime";
-            this.tbTime.Size = new System.Drawing.Size(68, 23);
+            this.tbTime.Size = new System.Drawing.Size(68, 27);
             this.tbTime.TabIndex = 6;
             this.tbTime.Text = "1000";
             // 
             // btnSendList
             // 
             this.btnSendList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSendList.Location = new System.Drawing.Point(480, 465);
+            this.btnSendList.Location = new System.Drawing.Point(480, 462);
             this.btnSendList.Name = "btnSendList";
             this.btnSendList.Size = new System.Drawing.Size(130, 23);
             this.btnSendList.TabIndex = 5;
@@ -302,6 +310,7 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 519);
@@ -313,10 +322,11 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 16);
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.通讯配置ToolStripMenuItem,
             this.分包规则ToolStripMenuItem,
@@ -328,42 +338,42 @@
             this.系统关联toolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1284, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(1284, 28);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // 通讯配置ToolStripMenuItem
             // 
             this.通讯配置ToolStripMenuItem.Name = "通讯配置ToolStripMenuItem";
-            this.通讯配置ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.通讯配置ToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.通讯配置ToolStripMenuItem.Text = "通讯配置";
             this.通讯配置ToolStripMenuItem.Click += new System.EventHandler(this.通讯配置ToolStripMenuItem_Click);
             // 
             // 分包规则ToolStripMenuItem
             // 
             this.分包规则ToolStripMenuItem.Name = "分包规则ToolStripMenuItem";
-            this.分包规则ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.分包规则ToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.分包规则ToolStripMenuItem.Text = "分包规则";
             this.分包规则ToolStripMenuItem.Click += new System.EventHandler(this.分包规则ToolStripMenuItem_Click);
             // 
             // 自动回复ToolStripMenuItem
             // 
             this.自动回复ToolStripMenuItem.Name = "自动回复ToolStripMenuItem";
-            this.自动回复ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.自动回复ToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.自动回复ToolStripMenuItem.Text = "自动回复";
             this.自动回复ToolStripMenuItem.Click += new System.EventHandler(this.自动回复ToolStripMenuItem_Click);
             // 
             // 导出配置ToolStripMenuItem
             // 
             this.导出配置ToolStripMenuItem.Name = "导出配置ToolStripMenuItem";
-            this.导出配置ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.导出配置ToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.导出配置ToolStripMenuItem.Text = "导出配置";
             this.导出配置ToolStripMenuItem.Click += new System.EventHandler(this.导出配置ToolStripMenuItem_Click);
             // 
             // 导入配置ToolStripMenuItem
             // 
             this.导入配置ToolStripMenuItem.Name = "导入配置ToolStripMenuItem";
-            this.导入配置ToolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.导入配置ToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.导入配置ToolStripMenuItem.Text = "导入配置";
             this.导入配置ToolStripMenuItem.Click += new System.EventHandler(this.导入配置ToolStripMenuItem_Click);
             // 
@@ -373,20 +383,20 @@
             this.HexCalcToolStripMenuItem,
             this.CrcCalcToolStripMenuItem});
             this.工具toolStripMenuItem.Name = "工具toolStripMenuItem";
-            this.工具toolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.工具toolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.工具toolStripMenuItem.Text = "工具";
             // 
             // HexCalcToolStripMenuItem
             // 
             this.HexCalcToolStripMenuItem.Name = "HexCalcToolStripMenuItem";
-            this.HexCalcToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.HexCalcToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
             this.HexCalcToolStripMenuItem.Text = "HexCalc";
             this.HexCalcToolStripMenuItem.Click += new System.EventHandler(this.HexCalcToolStripMenuItem_Click);
             // 
             // CrcCalcToolStripMenuItem
             // 
             this.CrcCalcToolStripMenuItem.Name = "CrcCalcToolStripMenuItem";
-            this.CrcCalcToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.CrcCalcToolStripMenuItem.Size = new System.Drawing.Size(151, 26);
             this.CrcCalcToolStripMenuItem.Text = "CrcCalc";
             this.CrcCalcToolStripMenuItem.Click += new System.EventHandler(this.CrcCalcToolStripMenuItem_Click);
             // 
@@ -394,28 +404,29 @@
             // 
             this.显隐toolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.显隐toolStripMenuItem.Name = "显隐toolStripMenuItem";
-            this.显隐toolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.显隐toolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.显隐toolStripMenuItem.Text = "隐藏";
             this.显隐toolStripMenuItem.Click += new System.EventHandler(this.显隐toolStripMenuItem_Click);
             // 
             // 系统关联toolStripMenuItem
             // 
             this.系统关联toolStripMenuItem.Name = "系统关联toolStripMenuItem";
-            this.系统关联toolStripMenuItem.Size = new System.Drawing.Size(68, 21);
+            this.系统关联toolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.系统关联toolStripMenuItem.Text = "系统关联";
             this.系统关联toolStripMenuItem.Click += new System.EventHandler(this.系统关联toolStripMenuItem_Click);
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.关闭ToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(101, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(109, 28);
             // 
             // 关闭ToolStripMenuItem
             // 
             this.关闭ToolStripMenuItem.Name = "关闭ToolStripMenuItem";
-            this.关闭ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.关闭ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
             this.关闭ToolStripMenuItem.Text = "关闭";
             this.关闭ToolStripMenuItem.Click += new System.EventHandler(this.关闭ToolStripMenuItem_Click);
             // 

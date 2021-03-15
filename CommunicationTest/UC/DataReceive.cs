@@ -166,6 +166,7 @@ namespace CommunicationTest
         private void MS_Clear_Click(object sender, EventArgs e)
         {
             txtData.Clear();
+            lblCount.Text = lbSCount.Text = "0";
         }
 
         private void CMS_Main_VisibleChanged(object sender, EventArgs e)

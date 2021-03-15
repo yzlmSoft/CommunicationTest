@@ -128,20 +128,21 @@ namespace CommunicationTest
         {
             var connectionConfig = await Global.ConnectionConfig.GetAsync();
             var parserConfig = await Global.ParserConfig.GetAsync();
+            Dictionary<string, string> cconfig = connectionConfig.Item2;
 
             switch (connectionConfig.Item1)
             {
                 case ConnectionType.SerialPort:
                     btnConnect.Text = isConnect ? "关闭串口" : "打开串口";
-                    toolStripStatusLabel1.Text = $"当前 [连接方式:{connectionConfig.Item1}] [分包方式:{parserConfig.Item1}] [连接状态:{isConnect}]";
+                    toolStripStatusLabel1.Text = $"当前 [连接方式:{connectionConfig.Item1}] [分包方式:{parserConfig.Item1}] [连接状态:{isConnect}][串口名:{cconfig["PortName"]}][波特率:{cconfig["BaudRate"]}][数据位:{cconfig["DataBits"]}][停止位:{cconfig["StopBits"]}][校验位:{cconfig["Parity"]}]";
                     break;
                 case ConnectionType.TCPServer:
                     btnConnect.Text = isConnect ? "停止监听" : "监听";
-                    toolStripStatusLabel1.Text = $"当前 [连接方式:{connectionConfig.Item1}] [分包方式:{parserConfig.Item1}] [监听状态:{isConnect}]";
+                    toolStripStatusLabel1.Text = $"当前 [连接方式:{connectionConfig.Item1}] [分包方式:{parserConfig.Item1}] [监听状态:{isConnect}][监听本地:{cconfig["TCPServerIP"]}:{cconfig["TCPServerPort"]}]";
                     break;
                 case ConnectionType.TCPClient:
                     btnConnect.Text = isConnect ? "断开连接" : "连接";
-                    toolStripStatusLabel1.Text = $"当前 [连接方式:{connectionConfig.Item1}] [分包方式:{parserConfig.Item1}] [连接状态:{isConnect}]";
+                    toolStripStatusLabel1.Text = $"当前 [连接方式:{connectionConfig.Item1}] [分包方式:{parserConfig.Item1}] [连接状态:{isConnect}][连接远端:{cconfig["TCPClientIP"]}:{cconfig["TCPClientPort"]}]";
                     break;
                 default:
                     break;
