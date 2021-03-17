@@ -324,6 +324,12 @@ namespace CommunicationTest
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(601, 261);
+            this.Controls.Add(this.tbHBcrc16);
+            this.Controls.Add(this.tbGBcrc16);
+            this.Controls.Add(this.tbUpdateCRC);
+            this.Controls.Add(this.tbCrcc);
+            this.Controls.Add(this.tbCrc16);
+            this.Controls.Add(this.tbIn);
             this.Controls.Add(this.linkLabel10);
             this.Controls.Add(this.linkLabel9);
             this.Controls.Add(this.linkLabel8);
@@ -340,13 +346,7 @@ namespace CommunicationTest
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnCrc);
-            this.Controls.Add(this.tbHBcrc16);
-            this.Controls.Add(this.tbGBcrc16);
-            this.Controls.Add(this.tbUpdateCRC);
-            this.Controls.Add(this.tbCrcc);
-            this.Controls.Add(this.tbCrc16);
             this.Controls.Add(this.cbIsAscii);
-            this.Controls.Add(this.tbIn);
             this.Controls.Add(this.label1);
             this.Name = "CrcCalc";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
