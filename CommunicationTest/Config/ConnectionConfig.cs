@@ -1,16 +1,7 @@
-﻿using FastDeepCloner;
-using CommunicationTest.Config.Connection;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using CommunicationTest.Config.Connection;
+using FastDeepCloner;
 using System.IO.Ports;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace CommunicationTest
 {

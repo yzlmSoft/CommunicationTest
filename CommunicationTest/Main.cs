@@ -1,29 +1,20 @@
 ﻿using Communication.Bus;
 using Communication.Bus.PhysicalPort;
-using Parser;
-using Parser.Interfaces;
-using Parser.Parsers;
 using CommunicationTest.Config.AutoReply;
 using CommunicationTest.Config.Connection;
 using CommunicationTest.Config.Parser;
 using CommunicationTest.Config.SendList;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using Microsoft.Win32;
+using Parser;
+using Parser.Interfaces;
+using Parser.Parsers;
 using System.Data;
-using System.Drawing;
-using System.IO;
 using System.IO.Ports;
-using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using TopPortLib;
 using Utils;
-using Microsoft.Win32;
-using System.Runtime.InteropServices;
 
 namespace CommunicationTest
 {
@@ -758,6 +749,24 @@ namespace CommunicationTest
                     comboBox.DropDownClosed += ComboBox_DropDownClosed;
                 }
             }
+        }
+
+        private void dataGridView1_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            bool validClick = (e.RowIndex != -1 && e.ColumnIndex != -1); //Make sure the clicked row/column is valid.
+            var datagridview = sender as DataGridView;
+
+            // Check to make sure the cell clicked is the cell containing the combobox 
+            if (datagridview.Columns[e.ColumnIndex] is DataGridViewComboBoxColumn && validClick)
+            {
+                datagridview.BeginEdit(true);
+                ((ComboBox)datagridview.EditingControl).DroppedDown = true;
+            }
+        }
+
+        private void dataGridView1_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
     }
 }

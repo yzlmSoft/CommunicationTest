@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CommunicationTest.Config.Connection
+﻿namespace CommunicationTest.Config.Connection
 {
     class ConnectionConfigManager : IConnectionConfig
     {

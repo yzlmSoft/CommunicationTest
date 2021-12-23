@@ -1,17 +1,11 @@
 ﻿using Communication.Bus;
-using Parser.Interfaces;
 using CommunicationTest.Config.AutoReply;
 using CommunicationTest.Config.Connection;
 using CommunicationTest.Config.Parser;
 using CommunicationTest.Config.SendList;
-using System;
+using Parser.Interfaces;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TopPortLib;
-using System.IO;
 
 namespace CommunicationTest
 {
