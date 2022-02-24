@@ -8,6 +8,8 @@
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+
+		<ApplicationHighDpiMode>DpiUnawareGdiScaled</ApplicationHighDpiMode>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -15,7 +17,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CSoft.DataPairs.Ceras" Version="6.0.0" />
+		<PackageReference Include="CSoft.DataPairs.Ceras" Version="6.0.2" />
 		<PackageReference Include="CSoft.TopPortLib" Version="6.0.1" />
 		<PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
 	</ItemGroup>

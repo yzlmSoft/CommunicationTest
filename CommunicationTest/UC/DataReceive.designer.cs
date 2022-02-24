@@ -227,6 +227,7 @@
             this.cbAutoSave.TabIndex = 2;
             this.cbAutoSave.Text = "自动存储";
             this.cbAutoSave.UseVisualStyleBackColor = true;
+            this.cbAutoSave.CheckedChanged += new System.EventHandler(this.cbAutoSave_CheckedChanged);
             // 
             // cbSend
             // 

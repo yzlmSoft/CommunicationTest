@@ -9,6 +9,7 @@ namespace CommunicationTest
     /// </summary>
     public partial class DataReceive : UserControl
     {
+        string _path;
         public DataReceive()
         {
             InitializeComponent();
@@ -76,13 +77,27 @@ namespace CommunicationTest
                 if (cbTime.Checked) str += DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + ": ";
                 if (cbSend.Checked) str += isSend ? "发送->" : "接收<-"; else if (isSend) return;
                 str += content;
+                txtData.SuspendLayout();
                 txtData.AppendText(str);
+
+                if (txtData.Lines.Length > 2000)
+                {
+                    var temp = string.Join("\r\n", txtData.Lines.Skip(100));
+                    txtData.Clear();
+                    txtData.AppendText(temp);
+                }
+                txtData.ResumeLayout();
+
                 if (cbAutoSave.Checked)
                 {
                     string path = Path.Combine(Environment.CurrentDirectory, "History");
+                    if (_path != null)
+                    {
+                        path = Path.Combine(path, _path);
+                    }
                     if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                     byte[] rs = Encoding.GetEncoding("GB2312").GetBytes(str);
-                    using (FileStream fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}.txt"), FileMode.Append, FileAccess.Write, FileShare.None, rs.Length, FileOptions.WriteThrough))
+                    using (FileStream fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}.txt"), FileMode.Append, FileAccess.Write, FileShare.Read, rs.Length, FileOptions.WriteThrough))
                     {
                         fs.Write(rs, 0, rs.Length);
                         fs.Flush();
@@ -109,6 +124,7 @@ namespace CommunicationTest
                 using (StreamWriter sw = new StreamWriter(saveFileDialog.FileName, false, Encoding.Default))
                 {
                     sw.Write(txtData.Text);
+                    sw.Flush();
                 }
             }
             //});
@@ -252,5 +268,21 @@ namespace CommunicationTest
             MessageBox.Show(BitConverter.ToDouble(IntByte, 0).ToString(), "双精度浮点数值");
         }
         #endregion
+
+        private void cbAutoSave_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbAutoSave.Checked)
+            {
+                if (InputPath.Show(out var path) == DialogResult.OK)
+                {
+                    _path = path;
+                    this.Parent.Text += $"-{_path}";
+                }
+                else
+                {
+                    cbAutoSave.Checked = false;
+                }
+            }
+        }
     }
 }

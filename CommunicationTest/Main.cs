@@ -4,6 +4,7 @@ using CommunicationTest.Config.AutoReply;
 using CommunicationTest.Config.Connection;
 using CommunicationTest.Config.Parser;
 using CommunicationTest.Config.SendList;
+using Microsoft.Data.Sqlite;
 using Microsoft.Win32;
 using Parser;
 using Parser.Interfaces;
@@ -503,7 +504,11 @@ namespace CommunicationTest
             file.Filter = "配置文件(*.csconfig)|*.csconfig";
             if (file.ShowDialog() == DialogResult.OK)
             {
-                File.Copy(Global.DBPath, file.FileName, true);
+                using var source = new SqliteConnection(string.Format("Data Source = {0}", Global.DBPath));
+                using var destination = new SqliteConnection(string.Format("Data Source = {0}", file.FileName));
+                source.Open();
+                destination.Open();
+                source.BackupDatabase(destination);
             }
         }
 
@@ -698,7 +703,7 @@ namespace CommunicationTest
             }
         }
 
-        private async void dataGridView1_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        private async void dataGridView1_RowsRemoved(object? sender, DataGridViewRowsRemovedEventArgs e)
         {
             if (_selectID.HasValue)
                 await Global.SendListConfig.RemoveAsync((int)_selectID);
@@ -717,7 +722,7 @@ namespace CommunicationTest
             this.Validate();
         }
 
-        private void ComboBox_DropDownClosed(object sender, EventArgs e)
+        private void ComboBox_DropDownClosed(object? sender, EventArgs e)
         {
             this.Validate();
         }

@@ -23,9 +23,7 @@ namespace CommunicationTest
                 }
             }
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            Application.SetHighDpiMode(HighDpiMode.DpiUnawareGdiScaled);
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            ApplicationConfiguration.Initialize();
             Application.Run(new Main());
         }
     }
