@@ -2,13 +2,13 @@
 {
     interface IAutoReplyConfig
     {
-        Task AddOrUpdateAsync(KeyValuePair<byte[], byte[]> keyValuePair);
+        Task AddOrUpdateAsync(byte[] key, byte[] value, int delayTime = 0);
 
         Task RemoveAsync(string key);
 
-        Task<byte[]> GetAsync(byte[] key);
+        Task<(byte[] value, int delayTime)> GetAsync(byte[] key);
 
-        Task<Dictionary<string, byte[]>> GetAsync();
+        Task<Dictionary<string, (byte[] value, int delayTime)>> GetAsync();
 
         Task<bool> AutoReplyAsync();
 

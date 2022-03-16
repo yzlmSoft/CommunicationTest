@@ -17,8 +17,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CSoft.DataPairs.Ceras" Version="6.0.2" />
-		<PackageReference Include="CSoft.TopPortLib" Version="6.0.1" />
+		<PackageReference Include="CSoft.DataPairs.Ceras" Version="6.0.3" />
+		<PackageReference Include="CSoft.TopPortLib" Version="6.0.3" />
 		<PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
 	</ItemGroup>
 

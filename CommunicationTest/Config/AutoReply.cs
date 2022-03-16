@@ -19,8 +19,11 @@ namespace CommunicationTest
                 key.Value = item.Key;
                 row.Cells.Add(key);
                 DataGridViewTextBoxCell value = new DataGridViewTextBoxCell();
-                value.Value = StringByteUtils.BytesToString(item.Value);
+                value.Value = StringByteUtils.BytesToString(item.Value.value);
                 row.Cells.Add(value);
+                DataGridViewTextBoxCell delay = new DataGridViewTextBoxCell();
+                delay.Value = item.Value.delayTime;
+                row.Cells.Add(delay);
                 dataGridView1.Rows.Add(row);
             }
         }
@@ -33,7 +36,14 @@ namespace CommunicationTest
                 {
                     var key = StringByteUtils.StringToBytes(dataGridView1.Rows[e.RowIndex].Cells["key"].Value.ToString());
                     var value = StringByteUtils.StringToBytes(dataGridView1.Rows[e.RowIndex].Cells["value"].Value?.ToString() ?? "");
-                    await Global.AutoReplyConfig.AddOrUpdateAsync(new KeyValuePair<byte[], byte[]>(key, value));
+                    if (int.TryParse(dataGridView1.Rows[e.RowIndex].Cells["value"].Value?.ToString() ?? "0", out var delay))
+                    {
+                        await Global.AutoReplyConfig.AddOrUpdateAsync(key, value, delay);
+                    }
+                    else
+                    {
+                        await Global.AutoReplyConfig.AddOrUpdateAsync(key, value);
+                    }
                 }
                 catch (Exception)
                 {

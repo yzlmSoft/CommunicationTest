@@ -9,17 +9,17 @@ namespace CommunicationTest.Config.AutoReply
             AutoReplyConfig.InitDBAsync().Wait();
         }
 
-        public async Task AddOrUpdateAsync(KeyValuePair<byte[], byte[]> keyValuePair)
+        public async Task AddOrUpdateAsync(byte[] key, byte[] value, int delayTime = 0)
         {
             var autoReplyConfig = await AutoReplyConfig.GetValueAsync();
-            var key = StringByteUtils.BytesToString(keyValuePair.Key);
-            if (autoReplyConfig.AutoReplys.ContainsKey(key))
+            var skey = StringByteUtils.BytesToString(key);
+            if (autoReplyConfig.AutoReplys.ContainsKey(skey))
             {
-                autoReplyConfig.AutoReplys[key] = keyValuePair.Value;
+                autoReplyConfig.AutoReplys[skey] = (value, delayTime);
             }
             else
             {
-                autoReplyConfig.AutoReplys.Add(key, keyValuePair.Value);
+                autoReplyConfig.AutoReplys.Add(skey, (value, delayTime));
             }
             await AutoReplyConfig.TrySaveChangeAsync(autoReplyConfig);
         }
@@ -30,7 +30,7 @@ namespace CommunicationTest.Config.AutoReply
             return autoReplyConfig.AutoReply;
         }
 
-        public async Task<byte[]> GetAsync(byte[] key)
+        public async Task<(byte[] value, int delayTime)> GetAsync(byte[] key)
         {
             var skey = StringByteUtils.BytesToString(key);
             var autoReplyConfig = await AutoReplyConfig.GetValueAsync();
@@ -44,7 +44,7 @@ namespace CommunicationTest.Config.AutoReply
             }
         }
 
-        public async Task<Dictionary<string, byte[]>> GetAsync()
+        public async Task<Dictionary<string, (byte[] value, int delayTime)>> GetAsync()
         {
             var autoReplyConfig = await AutoReplyConfig.GetValueAsync();
             return autoReplyConfig.AutoReplys;

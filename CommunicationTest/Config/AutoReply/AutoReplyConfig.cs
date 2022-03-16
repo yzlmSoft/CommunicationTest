@@ -7,7 +7,7 @@ namespace CommunicationTest.Config.AutoReply
     {
         private static IDataPair<AutoReplyConfig> pair;
 
-        public Dictionary<string, byte[]> AutoReplys { get; set; } = new Dictionary<string, byte[]>();
+        public Dictionary<string, (byte[] value, int delay)> AutoReplys { get; set; } = new();
 
         public bool AutoReply { get; set; }
 

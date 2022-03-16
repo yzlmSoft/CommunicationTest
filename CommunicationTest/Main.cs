@@ -343,10 +343,11 @@ namespace CommunicationTest
             if (await Global.AutoReplyConfig.AutoReplyAsync())
             {
                 var send = await Global.AutoReplyConfig.GetAsync(data);
-                if (!(send is null))
+                if (!(send.value is null))
                 {
-                    await Global.TcpServer.SendDataAsync(clientId, send);
-                    await dataReceive.AddDataAsync(send, true);
+                    await Task.Delay(send.delayTime);
+                    await Global.TcpServer.SendDataAsync(clientId, send.value);
+                    await dataReceive.AddDataAsync(send.value, true);
                 }
             }
         }
@@ -365,10 +366,11 @@ namespace CommunicationTest
             if (await Global.AutoReplyConfig.AutoReplyAsync())
             {
                 var send = await Global.AutoReplyConfig.GetAsync(data);
-                if (!(send is null))
+                if (!(send.value is null))
                 {
-                    await Global.TopPort.SendAsync(send);
-                    await dataReceive.AddDataAsync(send, true);
+                    await Task.Delay(send.delayTime);
+                    await Global.TopPort.SendAsync(send.value);
+                    await dataReceive.AddDataAsync(send.value, true);
                 }
             }
         }
