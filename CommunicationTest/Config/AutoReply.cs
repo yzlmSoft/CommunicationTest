@@ -36,7 +36,7 @@ namespace CommunicationTest
                 {
                     var key = StringByteUtils.StringToBytes(dataGridView1.Rows[e.RowIndex].Cells["key"].Value.ToString());
                     var value = StringByteUtils.StringToBytes(dataGridView1.Rows[e.RowIndex].Cells["value"].Value?.ToString() ?? "");
-                    if (int.TryParse(dataGridView1.Rows[e.RowIndex].Cells["value"].Value?.ToString() ?? "0", out var delay))
+                    if (int.TryParse(dataGridView1.Rows[e.RowIndex].Cells["delay"].Value?.ToString() ?? "0", out var delay))
                     {
                         await Global.AutoReplyConfig.AddOrUpdateAsync(key, value, delay);
                     }
