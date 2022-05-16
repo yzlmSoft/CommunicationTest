@@ -126,7 +126,7 @@
             this.btnClearInput.TabIndex = 2;
             this.btnClearInput.Text = "清空输入框";
             this.btnClearInput.UseVisualStyleBackColor = true;
-            this.btnClearInput.Click += new System.EventHandler(this.btnClearInput_Click);
+            this.btnClearInput.Click += new System.EventHandler(this.BtnClearInput_Click);
             // 
             // label1
             // 
@@ -176,7 +176,7 @@
             this.btnMD5.TabIndex = 13;
             this.btnMD5.Text = "MD5";
             this.btnMD5.UseVisualStyleBackColor = true;
-            this.btnMD5.Click += new System.EventHandler(this.btnMD5_Click);
+            this.btnMD5.Click += new System.EventHandler(this.BtnMD5_Click);
             // 
             // btnCount
             // 
@@ -186,7 +186,7 @@
             this.btnCount.TabIndex = 12;
             this.btnCount.Text = "字符个数";
             this.btnCount.UseVisualStyleBackColor = true;
-            this.btnCount.Click += new System.EventHandler(this.btnCount_Click);
+            this.btnCount.Click += new System.EventHandler(this.BtnCount_Click);
             // 
             // btnReverse
             // 
@@ -196,7 +196,7 @@
             this.btnReverse.TabIndex = 11;
             this.btnReverse.Text = "字符反转";
             this.btnReverse.UseVisualStyleBackColor = true;
-            this.btnReverse.Click += new System.EventHandler(this.btnReverse_Click);
+            this.btnReverse.Click += new System.EventHandler(this.BtnReverse_Click);
             // 
             // btnLower
             // 
@@ -206,7 +206,7 @@
             this.btnLower.TabIndex = 10;
             this.btnLower.Text = "转为小写";
             this.btnLower.UseVisualStyleBackColor = true;
-            this.btnLower.Click += new System.EventHandler(this.btnLower_Click);
+            this.btnLower.Click += new System.EventHandler(this.BtnLower_Click);
             // 
             // btnUpper
             // 
@@ -216,7 +216,7 @@
             this.btnUpper.TabIndex = 9;
             this.btnUpper.Text = "转为大写";
             this.btnUpper.UseVisualStyleBackColor = true;
-            this.btnUpper.Click += new System.EventHandler(this.btnUpper_Click);
+            this.btnUpper.Click += new System.EventHandler(this.BtnUpper_Click);
             // 
             // btnAsciiToHex
             // 
@@ -226,7 +226,7 @@
             this.btnAsciiToHex.TabIndex = 8;
             this.btnAsciiToHex.Text = "Ascii->Hex";
             this.btnAsciiToHex.UseVisualStyleBackColor = true;
-            this.btnAsciiToHex.Click += new System.EventHandler(this.btnAsciiToHex_Click);
+            this.btnAsciiToHex.Click += new System.EventHandler(this.BtnAsciiToHex_Click);
             // 
             // btnHexToAscii
             // 
@@ -236,7 +236,7 @@
             this.btnHexToAscii.TabIndex = 8;
             this.btnHexToAscii.Text = "Hex->Ascii";
             this.btnHexToAscii.UseVisualStyleBackColor = true;
-            this.btnHexToAscii.Click += new System.EventHandler(this.btnHexToAscii_Click);
+            this.btnHexToAscii.Click += new System.EventHandler(this.BtnHexToAscii_Click);
             // 
             // btnFloatToHex
             // 
@@ -246,7 +246,7 @@
             this.btnFloatToHex.TabIndex = 7;
             this.btnFloatToHex.Text = "Float->Hex";
             this.btnFloatToHex.UseVisualStyleBackColor = true;
-            this.btnFloatToHex.Click += new System.EventHandler(this.btnFloatToHex_Click);
+            this.btnFloatToHex.Click += new System.EventHandler(this.BtnFloatToHex_Click);
             // 
             // btnExit
             // 
@@ -256,7 +256,7 @@
             this.btnExit.TabIndex = 6;
             this.btnExit.Text = "退出";
             this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // groupBox1
             // 
@@ -319,7 +319,7 @@
             this.cbTopMost.TabIndex = 2;
             this.cbTopMost.Text = "钉住窗口";
             this.cbTopMost.UseVisualStyleBackColor = true;
-            this.cbTopMost.CheckedChanged += new System.EventHandler(this.cbTopMost_CheckedChanged);
+            this.cbTopMost.CheckedChanged += new System.EventHandler(this.CbTopMost_CheckedChanged);
             // 
             // btnHexToFloat
             // 
@@ -329,7 +329,7 @@
             this.btnHexToFloat.TabIndex = 1;
             this.btnHexToFloat.Text = "Hex->Float";
             this.btnHexToFloat.UseVisualStyleBackColor = true;
-            this.btnHexToFloat.Click += new System.EventHandler(this.btnHexToFloat_Click);
+            this.btnHexToFloat.Click += new System.EventHandler(this.BtnHexToFloat_Click);
             // 
             // cbHB
             // 

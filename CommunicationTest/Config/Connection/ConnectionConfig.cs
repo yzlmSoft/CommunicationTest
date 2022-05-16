@@ -5,7 +5,7 @@ namespace CommunicationTest.Config.Connection
 {
     class ConnectionConfig
     {
-        private static IDataPair<ConnectionConfig> pair;
+        private readonly IDataPair<ConnectionConfig> pair = new DataPair<ConnectionConfig>("ConnectionConfig", Global.DBPath);
 
         public Dictionary<string, string> Connection { get; set; } = new Dictionary<string, string>()
         {
@@ -26,19 +26,13 @@ namespace CommunicationTest.Config.Connection
 
         public bool AutoConnect { get; set; }
 
-        internal static async Task InitDBAsync()
-        {
-            pair = new DataPair<ConnectionConfig>("ConnectionConfig", Global.DBPath);
-            await GetValueAsync();
-        }
-
-        internal static async Task<ConnectionConfig> GetValueAsync()
+        internal async Task<ConnectionConfig> GetValueAsync()
         {
             var connectionConfig = await pair.TryGetValueAsync();
             return connectionConfig;
         }
 
-        internal static async Task TrySaveChangeAsync(ConnectionConfig connectionConfig)
+        internal async Task TrySaveChangeAsync(ConnectionConfig connectionConfig)
         {
             await pair.TryInitOrUpdateAsync(connectionConfig);
         }

@@ -16,7 +16,7 @@ namespace CommunicationTest
             {
                 cmbHLType.Items.Add(item);
             }
-            var config = await Global.ParserConfig.GetAsync();
+            var config = await Global.ParserConfig!.GetAsync();
             foreach (var item in config.Item2)
             {
                 if (item.Key == "HLType")
@@ -31,7 +31,7 @@ namespace CommunicationTest
             comboBox1.SelectedIndex = (int)config.Item1;
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.SelectedIndex != -1)
             {
@@ -76,7 +76,7 @@ namespace CommunicationTest
                 default:
                     break;
             }
-            var config = await Global.ParserConfig.GetAsync();
+            var config = await Global.ParserConfig!.GetAsync();
             foreach (var item in config.Item2.Clone())
             {
                 if (item.Key == "HLType")
@@ -91,7 +91,7 @@ namespace CommunicationTest
             await Global.ParserConfig.SetAsync((ParserType)comboBox1.SelectedIndex, config.Item2);
         }
 
-        private void cmbHLType_SelectedIndexChanged(object sender, EventArgs e)
+        private void CmbHLType_SelectedIndexChanged(object sender, EventArgs e)
         {
             lbHLLength.Visible = tbHLLength.Visible = cmbHLType.SelectedIndex == (int)HLType.输入固定长度;
         }

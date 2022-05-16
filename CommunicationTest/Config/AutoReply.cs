@@ -4,7 +4,7 @@ namespace CommunicationTest
 {
     public partial class AutoReply : Form
     {
-        string keyStr;
+        string? keyStr;
         public AutoReply()
         {
             InitializeComponent();
@@ -12,7 +12,7 @@ namespace CommunicationTest
 
         private async void AutoReply_LoadAsync(object sender, EventArgs e)
         {
-            foreach (var item in await Global.AutoReplyConfig.GetAsync())
+            foreach (var item in await Global.AutoReplyConfig!.GetAsync())
             {
                 DataGridViewRow row = new DataGridViewRow();
                 DataGridViewTextBoxCell key = new DataGridViewTextBoxCell();
@@ -34,15 +34,15 @@ namespace CommunicationTest
             {
                 try
                 {
-                    var key = StringByteUtils.StringToBytes(dataGridView1.Rows[e.RowIndex].Cells["key"].Value.ToString());
+                    var key = StringByteUtils.StringToBytes(dataGridView1.Rows[e.RowIndex].Cells["key"].Value.ToString()!);
                     var value = StringByteUtils.StringToBytes(dataGridView1.Rows[e.RowIndex].Cells["value"].Value?.ToString() ?? "");
                     if (int.TryParse(dataGridView1.Rows[e.RowIndex].Cells["delay"].Value?.ToString() ?? "0", out var delay))
                     {
-                        await Global.AutoReplyConfig.AddOrUpdateAsync(key, value, delay);
+                        await Global.AutoReplyConfig!.AddOrUpdateAsync(key, value, delay);
                     }
                     else
                     {
-                        await Global.AutoReplyConfig.AddOrUpdateAsync(key, value);
+                        await Global.AutoReplyConfig!.AddOrUpdateAsync(key, value);
                     }
                 }
                 catch (Exception)
@@ -54,7 +54,10 @@ namespace CommunicationTest
 
         private async void dataGridView1_RowsRemovedAsync(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            await Global.AutoReplyConfig.RemoveAsync(keyStr);
+            if (!string.IsNullOrEmpty(keyStr))
+            {
+                await Global.AutoReplyConfig!.RemoveAsync(keyStr);
+            }
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)

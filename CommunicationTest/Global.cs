@@ -11,19 +11,19 @@ namespace CommunicationTest
 {
     static class Global
     {
-        public static IAutoReplyConfig AutoReplyConfig { get; set; }
+        public static IAutoReplyConfig? AutoReplyConfig { get; set; }
 
-        public static IConnectionConfig ConnectionConfig { get; set; }
+        public static IConnectionConfig? ConnectionConfig { get; set; }
 
-        public static IParserConfig ParserConfig { get; set; }
+        public static IParserConfig? ParserConfig { get; set; }
 
-        public static ISendListConfig SendListConfig { get; set; }
+        public static ISendListConfig? SendListConfig { get; set; }
 
-        public static TopPort TopPort { get; set; }
+        public static TopPort? TopPort { get; set; }
 
-        public static TcpServer TcpServer { get; set; }
+        public static TcpServer? TcpServer { get; set; }
 
-        public static IParser Parser { get; set; }
+        public static IParser? Parser { get; set; }
 
         public static ConcurrentDictionary<int, IParser> Parsers { get; set; } = new ConcurrentDictionary<int, IParser>();
 

@@ -72,7 +72,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 20);
             this.comboBox1.TabIndex = 11;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
             // 
             // panel1
             // 
@@ -219,7 +219,7 @@
             this.cmbHLType.Name = "cmbHLType";
             this.cmbHLType.Size = new System.Drawing.Size(125, 20);
             this.cmbHLType.TabIndex = 2;
-            this.cmbHLType.SelectedIndexChanged += new System.EventHandler(this.cmbHLType_SelectedIndexChanged);
+            this.cmbHLType.SelectedIndexChanged += new System.EventHandler(this.CmbHLType_SelectedIndexChanged);
             // 
             // label3
             // 

@@ -2,23 +2,20 @@
 {
     class ParserConfigManager : IParserConfig
     {
-        public ParserConfigManager()
-        {
-            ParserConfig.InitDBAsync().Wait();
-        }
+        readonly ParserConfig _parserConfig = new();
 
         public async Task<(ParserType, Dictionary<string, string>)> GetAsync()
         {
-            var parserConfig = await ParserConfig.GetValueAsync();
+            var parserConfig = await _parserConfig.GetValueAsync();
             return (parserConfig.parserType, parserConfig.Parsers);
         }
 
         public async Task SetAsync(ParserType parserType, Dictionary<string, string> dict)
         {
-            var parserConfig = await ParserConfig.GetValueAsync();
+            var parserConfig = await _parserConfig.GetValueAsync();
             parserConfig.parserType = parserType;
             parserConfig.Parsers = dict;
-            await ParserConfig.TrySaveChangeAsync(parserConfig);
+            await _parserConfig.TrySaveChangeAsync(parserConfig);
         }
     }
 }

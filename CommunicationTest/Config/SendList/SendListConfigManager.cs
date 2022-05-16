@@ -2,14 +2,11 @@
 {
     class SendListConfigManager : ISendListConfig
     {
-        public SendListConfigManager()
-        {
-            SendListConfig.InitDBAsync().Wait();
-        }
+        readonly SendListConfig _sendListConfig = new();
 
         public async Task AddOrUpdateAsync(SendCmd sendCmd)
         {
-            var sendListConfig = await SendListConfig.GetValueAsync();
+            var sendListConfig = await _sendListConfig.GetValueAsync();
 
             if (sendListConfig.SendList.ContainsKey(sendCmd.ID))
             {
@@ -19,29 +16,29 @@
             {
                 sendListConfig.SendList.Add(sendCmd.ID, sendCmd);
             }
-            await SendListConfig.TrySaveChangeAsync(sendListConfig);
+            await _sendListConfig.TrySaveChangeAsync(sendListConfig);
         }
 
         public async Task<List<SendCmd>> GetAsync()
         {
-            var sendListConfig = await SendListConfig.GetValueAsync();
+            var sendListConfig = await _sendListConfig.GetValueAsync();
             return sendListConfig.SendList.Values.ToList();
         }
 
         public async Task<List<SendCmd>> GetUsedAsync()
         {
-            var sendListConfig = await SendListConfig.GetValueAsync();
+            var sendListConfig = await _sendListConfig.GetValueAsync();
             return sendListConfig.SendList.Values.ToList().FindAll(x => x.Used);
         }
 
         public async Task RemoveAsync(int index)
         {
-            var sendListConfig = await SendListConfig.GetValueAsync();
+            var sendListConfig = await _sendListConfig.GetValueAsync();
             if (sendListConfig.SendList.ContainsKey(index))
             {
                 sendListConfig.SendList.Remove(index);
             }
-            await SendListConfig.TrySaveChangeAsync(sendListConfig);
+            await _sendListConfig.TrySaveChangeAsync(sendListConfig);
         }
     }
 }

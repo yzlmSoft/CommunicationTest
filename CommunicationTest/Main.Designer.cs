@@ -112,7 +112,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(650, 494);
             this.tabControl1.TabIndex = 3;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.TabControl1_SelectedIndexChanged);
             // 
             // btnConnect
             // 
@@ -122,7 +122,7 @@
             this.btnConnect.Size = new System.Drawing.Size(81, 38);
             this.btnConnect.TabIndex = 14;
             this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_ClickAsync);
+            this.btnConnect.Click += new System.EventHandler(this.BtnConnect_ClickAsync);
             // 
             // dataGridView1
             // 
@@ -157,14 +157,14 @@
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(624, 427);
             this.dataGridView1.TabIndex = 16;
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
-            this.dataGridView1.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEnter);
-            this.dataGridView1.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridView1_CurrentCellDirtyStateChanged);
-            this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
-            this.dataGridView1.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dataGridView1_RowsRemoved);
-            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellClick);
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellContentClick);
+            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellEndEdit);
+            this.dataGridView1.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellEnter);
+            this.dataGridView1.CurrentCellDirtyStateChanged += new System.EventHandler(this.DataGridView1_CurrentCellDirtyStateChanged);
+            this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.DataGridView1_DataError);
+            this.dataGridView1.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.DataGridView1_RowsRemoved);
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.DataGridView1_SelectionChanged);
             // 
             // Used
             // 
@@ -258,7 +258,7 @@
             this.cbAutoConnect.TabIndex = 15;
             this.cbAutoConnect.Text = "自动连接";
             this.cbAutoConnect.UseVisualStyleBackColor = true;
-            this.cbAutoConnect.CheckedChanged += new System.EventHandler(this.cbAutoConnect_CheckedChanged);
+            this.cbAutoConnect.CheckedChanged += new System.EventHandler(this.CbAutoConnect_CheckedChanged);
             // 
             // cbAutoReply
             // 
@@ -270,7 +270,7 @@
             this.cbAutoReply.TabIndex = 12;
             this.cbAutoReply.Text = "自动回复";
             this.cbAutoReply.UseVisualStyleBackColor = true;
-            this.cbAutoReply.CheckedChanged += new System.EventHandler(this.cbAutoReply_CheckedChangedAsync);
+            this.cbAutoReply.CheckedChanged += new System.EventHandler(this.CbAutoReply_CheckedChangedAsync);
             // 
             // label4
             // 
@@ -310,7 +310,7 @@
             this.btnSendList.TabIndex = 5;
             this.btnSendList.Text = "循环发送列表勾选";
             this.btnSendList.UseVisualStyleBackColor = true;
-            this.btnSendList.Click += new System.EventHandler(this.btnSendList_Click);
+            this.btnSendList.Click += new System.EventHandler(this.BtnSendList_Click);
             // 
             // statusStrip1
             // 

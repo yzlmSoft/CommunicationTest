@@ -9,7 +9,12 @@ namespace CommunicationTest
     /// </summary>
     public partial class DataReceive : UserControl
     {
-        string _path;
+        string? _path;
+        int? _startIndex;
+        int? _count;
+        DataType? _dataType;
+        bool? _isLow;
+        bool _drawChart;
         public DataReceive()
         {
             InitializeComponent();
@@ -26,12 +31,41 @@ namespace CommunicationTest
             {
                 case DataEncode.Hex:
                     //16进制显示
-                    StringBuilder sb = new StringBuilder();
+                    var sb = new StringBuilder();
                     for (int i = 0; i < data.Length; i++)
                     {
                         sb.AppendFormat("{0:x2}" + " ", data[i]);
                     }
                     await AddContentAsync(sb.ToString().ToUpper(), isSend);
+                    if (_drawChart)
+                    {
+                        dynamic rs;
+                        switch (_dataType)
+                        {
+                            case DataType.Float:
+                                rs = StringByteUtils.ToSingle(data, (int)_startIndex!, (bool)!_isLow!);
+                                break;
+                            case DataType.int16:
+                                rs = StringByteUtils.ToInt16(data, (int)_startIndex!, (bool)!_isLow!);
+                                break;
+                            case DataType.int32:
+                                rs = StringByteUtils.ToInt32(data, (int)_startIndex!, (bool)!_isLow!);
+                                break;
+                            case DataType.int64:
+                                rs = StringByteUtils.ToInt64(data, (int)_startIndex!, (bool)!_isLow!);
+                                break;
+                            default: return;
+                        }
+                        _ = await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
+                        {
+                            if (realtimeChart1.Series[0].Count > _count)
+                            {
+                                realtimeChart1.Series[0].Delete(0);
+                            }
+                            var time = DateTime.Now;
+                            realtimeChart1.Series[0].Add(time.ToOADate(), rs);
+                        })), EndInvoke);
+                    }
                     break;
                 case DataEncode.ASCII:
                     //ASCII码显示
@@ -91,80 +125,83 @@ namespace CommunicationTest
                 if (cbAutoSave.Checked)
                 {
                     string path = Path.Combine(Environment.CurrentDirectory, "History");
-                    if (_path != null)
+                    if (!string.IsNullOrEmpty(_path))
                     {
                         path = Path.Combine(path, _path);
                     }
                     if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                     byte[] rs = Encoding.GetEncoding("GB2312").GetBytes(str);
-                    using (FileStream fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}.txt"), FileMode.Append, FileAccess.Write, FileShare.Read, rs.Length, FileOptions.WriteThrough))
-                    {
-                        fs.Write(rs, 0, rs.Length);
-                        fs.Flush();
-                    }
+                    using var fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}.txt"), FileMode.Append, FileAccess.Write, FileShare.Read, rs.Length, FileOptions.WriteThrough);
+                    fs.Write(rs, 0, rs.Length);
+                    fs.Flush();
                 }
             })), EndInvoke);
         }
 
-        private void lbCount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LbCount_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             ((LinkLabel)sender).Text = "0";
         }
 
         private void 保存接收数据ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //var thread = new Thread(() =>
-            //{
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "文本文件|*.txt";
-            saveFileDialog.FilterIndex = 2;
-            saveFileDialog.RestoreDirectory = true;
+            var saveFileDialog = new SaveFileDialog
+            {
+                Filter = "文本文件|*.txt",
+                FilterIndex = 2,
+                RestoreDirectory = true
+            };
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                using (StreamWriter sw = new StreamWriter(saveFileDialog.FileName, false, Encoding.Default))
-                {
-                    sw.Write(txtData.Text);
-                    sw.Flush();
-                }
+                using var sw = new StreamWriter(saveFileDialog.FileName, false, Encoding.Default);
+                sw.Write(txtData.Text);
+                sw.Flush();
             }
-            //});
-            //thread.SetApartmentState(ApartmentState.STA);
-            //thread.Start();
         }
         #endregion
 
         #region 数据编码格式
         private DataEncode EncodeType = DataEncode.Hex;
 
-        private void rbtnUTF8_CheckedChanged(object sender, EventArgs e)
+        private void RbtnUTF8_CheckedChanged(object sender, EventArgs e)
         {
             if (rbtnUTF8.Checked)
             {
                 EncodeType = DataEncode.UTF8;
+                绘制接收数据曲线ToolStripMenuItem.Enabled = false;
+                _drawChart = false;
+                splitContainer1.Panel2Collapsed = true;
             }
         }
 
-        private void rbtnGB2312_CheckedChanged(object sender, EventArgs e)
+        private void RbtnGB2312_CheckedChanged(object sender, EventArgs e)
         {
             if (rbtnGB2312.Checked)
             {
                 EncodeType = DataEncode.GB2312;
+                绘制接收数据曲线ToolStripMenuItem.Enabled = false;
+                _drawChart = false;
+                splitContainer1.Panel2Collapsed = true;
             }
         }
 
-        private void rbtnASCII_CheckedChanged(object sender, EventArgs e)
+        private void RbtnASCII_CheckedChanged(object sender, EventArgs e)
         {
             if (rbtnASCII.Checked)
             {
                 EncodeType = DataEncode.ASCII;
+                绘制接收数据曲线ToolStripMenuItem.Enabled = false;
+                _drawChart = false;
+                splitContainer1.Panel2Collapsed = true;
             }
         }
 
-        private void rbtnHex_CheckedChanged(object sender, EventArgs e)
+        private void RbtnHex_CheckedChanged(object sender, EventArgs e)
         {
             if (rbtnHex.Checked)
             {
                 EncodeType = DataEncode.Hex;
+                绘制接收数据曲线ToolStripMenuItem.Enabled = true;
             }
         }
         #endregion
@@ -269,7 +306,7 @@ namespace CommunicationTest
         }
         #endregion
 
-        private void cbAutoSave_CheckedChanged(object sender, EventArgs e)
+        private void CbAutoSave_CheckedChanged(object sender, EventArgs e)
         {
             if (cbAutoSave.Checked)
             {
@@ -283,6 +320,30 @@ namespace CommunicationTest
                     cbAutoSave.Checked = false;
                 }
             }
+        }
+
+        private void 绘制接收数据曲线ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var chartSet = new ChartSet();
+            chartSet.ChartSetChanged += ChartSet_ChartSetChanged;
+            chartSet.ShowDialog();
+        }
+
+        private void ChartSet_ChartSetChanged(int startIndex, int count, DataType dataType, bool isLow)
+        {
+            realtimeChart1.Chart.Series[0].Clear();
+            _startIndex = startIndex;
+            _count = count;
+            _dataType = dataType;
+            _isLow = isLow;
+            _drawChart = true;
+            splitContainer1.Panel2Collapsed = false;
+        }
+
+        private void realtimeChart1_DoubleClick(object sender, EventArgs e)
+        {
+            _drawChart = false;
+            splitContainer1.Panel2Collapsed = true;
         }
     }
 }

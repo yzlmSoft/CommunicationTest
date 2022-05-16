@@ -31,7 +31,7 @@ namespace CommunicationTest
                     controlTCPServerIP.Items.Add(ip.ToString());
                 }
             }
-            var config = await Global.ConnectionConfig.GetAsync();
+            var config = await Global.ConnectionConfig!.GetAsync();
             foreach (var item in config.Item2)
             {
                 if (item.Key == "Dtr" || item.Key == "Rts")
@@ -54,7 +54,7 @@ namespace CommunicationTest
 
         private async void ConnectionConfig_FormClosingAsync(object sender, FormClosingEventArgs e)
         {
-            var config = await Global.ConnectionConfig.GetAsync();
+            var config = await Global.ConnectionConfig!.GetAsync();
             foreach (var item in config.Item2.Clone())
             {
                 if (item.Key == "Dtr" || item.Key == "Rts")

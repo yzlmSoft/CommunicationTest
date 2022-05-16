@@ -5,7 +5,7 @@ namespace CommunicationTest.Config.Parser
 {
     class ParserConfig
     {
-        private static IDataPair<ParserConfig> pair;
+        private readonly IDataPair<ParserConfig> pair = new DataPair<ParserConfig>("ParserConfig", Global.DBPath);
 
         public Dictionary<string, string> Parsers { get; set; } = new Dictionary<string, string>()
         {
@@ -20,19 +20,13 @@ namespace CommunicationTest.Config.Parser
 
         public ParserType parserType { get; set; } = ParserType.TimeParser;
 
-        internal static async Task InitDBAsync()
-        {
-            pair = new DataPair<ParserConfig>("ParserConfig", Global.DBPath);
-            await GetValueAsync();
-        }
-
-        internal static async Task<ParserConfig> GetValueAsync()
+        internal async Task<ParserConfig> GetValueAsync()
         {
             var parserConfig = await pair.TryGetValueAsync();
             return parserConfig;
         }
 
-        internal static async Task TrySaveChangeAsync(ParserConfig parserConfig)
+        internal async Task TrySaveChangeAsync(ParserConfig parserConfig)
         {
             await pair.TryInitOrUpdateAsync(parserConfig);
         }
