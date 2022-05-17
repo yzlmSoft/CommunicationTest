@@ -37,7 +37,7 @@ namespace CommunicationTest
                         sb.AppendFormat("{0:x2}" + " ", data[i]);
                     }
                     await AddContentAsync(sb.ToString().ToUpper(), isSend);
-                    if (_drawChart)
+                    if ((!isSend) && _drawChart)
                     {
                         dynamic rs;
                         switch (_dataType)
