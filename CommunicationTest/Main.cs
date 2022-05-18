@@ -12,7 +12,6 @@ using Parser.Parsers;
 using System.Data;
 using System.IO.Ports;
 using System.Net;
-using System.Runtime.InteropServices;
 using System.Text;
 using TopPortLib;
 using Utils;
@@ -319,6 +318,7 @@ namespace CommunicationTest
             await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
             {
                 tabControl1.TabPages[clientId.ToString()].Text += " 本次测试结束";
+                tabControl1.TabPages[clientId.ToString()].Name = string.Empty;
                 CloseTabPage();
             })), EndInvoke);
         }
@@ -388,6 +388,10 @@ namespace CommunicationTest
         private async Task SendCmd(SendCmd sendCmd)
         {
             if (!isConnect) return;
+            if ((bool)await Task.Factory.FromAsync<object>(BeginInvoke(new Func<bool>(() =>
+                      {
+                          return tabControl1.SelectedTab.Text.Contains("本次测试结束");
+                      })), EndInvoke)) return;
             var cmd = sendCmd.Cmd;
             switch (sendCmd.CrcType)
             {
@@ -432,33 +436,31 @@ namespace CommunicationTest
             if (sendCmd.HaveR) cmd = StringByteUtils.ComibeByteArray(cmd, new byte[] { 0x0d });
             if (sendCmd.HaveN) cmd = StringByteUtils.ComibeByteArray(cmd, new byte[] { 0x0a });
             var connectionConfig = await Global.ConnectionConfig!.GetAsync();
+            switch (connectionConfig.Item1)
+            {
+                case ConnectionType.SerialPort:
+                    {
+                        await Global.TopPort!.SendAsync(cmd);
+                    }
+                    break;
+                case ConnectionType.TCPServer:
+                    if (tabControl1.SelectedTab != null)
+                    {
+                        await Global.TcpServer!.SendDataAsync((int)tabControl1.SelectedTab.Tag, cmd);
+                    }
+                    break;
+                case ConnectionType.TCPClient:
+                    {
+                        await Global.TopPort!.SendAsync(cmd);
+                    }
+                    break;
+                default:
+                    break;
+            }
             await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
             {
-                var dr = tabControl1.SelectedTab.Controls[0] as DataReceive;
-                switch (connectionConfig.Item1)
-                {
-                    case ConnectionType.SerialPort:
-                        {
-                            await Global.TopPort!.SendAsync(cmd);
-                            await dr!.AddDataAsync(cmd, true);
-                        }
-                        break;
-                    case ConnectionType.TCPServer:
-                        if (tabControl1.SelectedTab != null)
-                        {
-                            await Global.TcpServer!.SendDataAsync((int)tabControl1.SelectedTab.Tag, cmd);
-                            await dr!.AddDataAsync(cmd, true);
-                        }
-                        break;
-                    case ConnectionType.TCPClient:
-                        {
-                            await Global.TopPort!.SendAsync(cmd);
-                            await dr!.AddDataAsync(cmd, true);
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                var dr = tabControl1.SelectedTab?.Controls[0] as DataReceive;
+                await dr!.AddDataAsync(cmd, true);
             })), EndInvoke);
         }
 
