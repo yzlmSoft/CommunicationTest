@@ -420,9 +420,9 @@ namespace CommunicationTest
         private async Task SendCmd(SendCmd sendCmd)
         {
             if (!isConnect) return;
-            var (isEnd, clientId) = ((bool isEnd, int clientId))await Task.Factory.FromAsync<object>(BeginInvoke(new Func<(bool, int)>(() =>
+            var (isEnd, clientId) = ((bool isEnd, int? clientId))await Task.Factory.FromAsync<object>(BeginInvoke(new Func<(bool, int?)>(() =>
             {
-                return (tabControl1.SelectedTab.Text.Contains("本次测试结束"), (int)tabControl1.SelectedTab.Tag);
+                return (tabControl1.SelectedTab.Text.Contains("本次测试结束"), (int?)tabControl1.SelectedTab.Tag);
             })), EndInvoke);
             if (isEnd) return;
             var cmd = sendCmd.Cmd;
@@ -478,7 +478,7 @@ namespace CommunicationTest
                     }
                     break;
                 case ConnectionType.TCPServer:
-                    await Global.TcpServer!.SendDataAsync(clientId, cmd);
+                    await Global.TcpServer!.SendDataAsync((int)clientId!, cmd);
                     break;
                 case ConnectionType.TCPClient:
                     {
