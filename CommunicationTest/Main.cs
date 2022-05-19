@@ -171,6 +171,8 @@ namespace CommunicationTest
                                 };
                                 Global.TopPort = new TopPort(serialPort, Global.Parser);
                                 var dr = new DataReceive();
+                                Global.TopPort.OnConnect += async () => await TopPort_OnConnect(dr);
+                                Global.TopPort.OnDisconnect += async () => await TopPort_OnDisconnect(dr);
                                 Global.TopPort.OnReceiveParsedData += async data => await TopPort_OnReceiveParsedData(data, dr);
                                 await Global.TopPort.OpenAsync();
 
@@ -190,6 +192,7 @@ namespace CommunicationTest
                                 Global.TcpServer.OnClientConnect += TcpServer_OnClientConnect;
                                 Global.TcpServer.OnClientDisconnect += TcpServer_OnClientDisconnect;
                                 await Global.TcpServer.StartAsync();
+                                isConnect = true;
                             }
                             break;
                         case ConnectionType.TCPClient:
@@ -198,6 +201,8 @@ namespace CommunicationTest
                                 var TCPClientPort = int.Parse(connectionConfig.Item2["TCPClientPort"]);
                                 Global.TopPort = new TopPort(new TcpClient(TCPClientIP, TCPClientPort), Global.Parser);
                                 var dr = new DataReceive();
+                                Global.TopPort.OnConnect += async () => await TopPort_OnConnect(dr);
+                                Global.TopPort.OnDisconnect += async () => await TopPort_OnDisconnect(dr);
                                 Global.TopPort.OnReceiveParsedData += async data => await TopPort_OnReceiveParsedData(data, dr);
                                 await Global.TopPort.OpenAsync();
 
@@ -211,7 +216,6 @@ namespace CommunicationTest
                         default:
                             break;
                     }
-                    isConnect = true;
                 }
                 else
                 {
@@ -219,17 +223,22 @@ namespace CommunicationTest
                     {
                         case ConnectionType.TCPServer:
                             await Global.TcpServer!.StopAsync();
+                            isConnect = false;
                             break;
                         case ConnectionType.SerialPort:
                         case ConnectionType.TCPClient:
                             await Global.TopPort!.CloseAsync();
-                            tabPage!.Text += " 本次测试结束";
+                            var str = tabPage!.Text;
+                            if (str.Contains("掉线尝试重连"))
+                            {
+                                tabPage.Text = str.Replace(" 掉线尝试重连", string.Empty);
+                            }
+                            tabPage.Text += " 本次测试结束";
                             CloseTabPage();
                             break;
                         default:
                             break;
                     }
-                    isConnect = false;
                 }
                 await RefreshStatus();
             }
@@ -238,6 +247,29 @@ namespace CommunicationTest
                 MessageBox.Show("操作失败 " + ex.Message);
                 await RefreshStatus();
             }
+        }
+
+        private async Task TopPort_OnDisconnect(DataReceive dr)
+        {
+            isConnect = false;
+            await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
+            {
+                if (!dr.Parent.Text.Contains("本次测试结束"))
+                    dr.Parent.Text += " 掉线尝试重连";
+            })), EndInvoke);
+        }
+
+        private async Task TopPort_OnConnect(DataReceive dr)
+        {
+            isConnect = true;
+            await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
+            {
+                var str = dr.Parent.Text;
+                if (str.Contains("掉线尝试重连"))
+                {
+                    dr.Parent.Text = str.Replace(" 掉线尝试重连", string.Empty);
+                }
+            })), EndInvoke);
         }
 
         private static async Task<IParser> NewParser()
@@ -388,10 +420,6 @@ namespace CommunicationTest
         private async Task SendCmd(SendCmd sendCmd)
         {
             if (!isConnect) return;
-            if ((bool)await Task.Factory.FromAsync<object>(BeginInvoke(new Func<bool>(() =>
-                      {
-                          return tabControl1.SelectedTab.Text.Contains("本次测试结束");
-                      })), EndInvoke)) return;
             var cmd = sendCmd.Cmd;
             switch (sendCmd.CrcType)
             {
@@ -436,32 +464,40 @@ namespace CommunicationTest
             if (sendCmd.HaveR) cmd = StringByteUtils.ComibeByteArray(cmd, new byte[] { 0x0d });
             if (sendCmd.HaveN) cmd = StringByteUtils.ComibeByteArray(cmd, new byte[] { 0x0a });
             var connectionConfig = await Global.ConnectionConfig!.GetAsync();
-            switch (connectionConfig.Item1)
+            if (!isConnect) return;
+            try
             {
-                case ConnectionType.SerialPort:
-                    {
-                        await Global.TopPort!.SendAsync(cmd);
-                    }
-                    break;
-                case ConnectionType.TCPServer:
-                    if (tabControl1.SelectedTab != null)
-                    {
-                        await Global.TcpServer!.SendDataAsync((int)tabControl1.SelectedTab.Tag, cmd);
-                    }
-                    break;
-                case ConnectionType.TCPClient:
-                    {
-                        await Global.TopPort!.SendAsync(cmd);
-                    }
-                    break;
-                default:
-                    break;
+                switch (connectionConfig.Item1)
+                {
+                    case ConnectionType.SerialPort:
+                        {
+                            await Global.TopPort!.SendAsync(cmd);
+                        }
+                        break;
+                    case ConnectionType.TCPServer:
+                        if (tabControl1.SelectedTab != null)
+                        {
+                            await Global.TcpServer!.SendDataAsync((int)tabControl1.SelectedTab.Tag, cmd);
+                        }
+                        break;
+                    case ConnectionType.TCPClient:
+                        {
+                            await Global.TopPort!.SendAsync(cmd);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
+                {
+                    var dr = tabControl1.SelectedTab?.Controls[0] as DataReceive;
+                    await dr!.AddDataAsync(cmd, true);
+                })), EndInvoke);
             }
-            await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
+            catch (Exception)
             {
-                var dr = tabControl1.SelectedTab?.Controls[0] as DataReceive;
-                await dr!.AddDataAsync(cmd, true);
-            })), EndInvoke);
+
+            }
         }
 
         private async void BtnSendList_Click(object sender, EventArgs e)
