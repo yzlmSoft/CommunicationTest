@@ -252,23 +252,29 @@ namespace CommunicationTest
         private async Task TopPort_OnDisconnect(DataReceive dr)
         {
             isConnect = false;
-            await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
+            await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
             {
                 if (!dr.Parent.Text.Contains("本次测试结束"))
+                {
                     dr.Parent.Text += " 掉线尝试重连";
+                    btnConnect.Enabled = false;
+                }
+                await RefreshStatus();
             })), EndInvoke);
         }
 
         private async Task TopPort_OnConnect(DataReceive dr)
         {
             isConnect = true;
-            await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
+            await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
             {
                 var str = dr.Parent.Text;
                 if (str.Contains("掉线尝试重连"))
                 {
                     dr.Parent.Text = str.Replace(" 掉线尝试重连", string.Empty);
+                    btnConnect.Enabled = true;
                 }
+                await RefreshStatus();
             })), EndInvoke);
         }
 
@@ -422,6 +428,7 @@ namespace CommunicationTest
             if (!isConnect) return;
             var (isEnd, clientId) = ((bool isEnd, int? clientId))await Task.Factory.FromAsync<object>(BeginInvoke(new Func<(bool, int?)>(() =>
             {
+                if (tabControl1.SelectedTab is null) return (true, null);
                 return (tabControl1.SelectedTab.Text.Contains("本次测试结束"), (int?)tabControl1.SelectedTab.Tag);
             })), EndInvoke);
             if (isEnd) return;
