@@ -150,6 +150,7 @@ namespace CommunicationTest
         {
             try
             {
+                btnConnect.Enabled = false;
                 var connectionConfig = await Global.ConnectionConfig!.GetAsync();
                 if (!isConnect)
                 {
@@ -192,7 +193,6 @@ namespace CommunicationTest
                                 Global.TcpServer.OnClientConnect += TcpServer_OnClientConnect;
                                 Global.TcpServer.OnClientDisconnect += TcpServer_OnClientDisconnect;
                                 await Global.TcpServer.StartAsync();
-                                isConnect = true;
                             }
                             break;
                         case ConnectionType.TCPClient:
@@ -216,6 +216,7 @@ namespace CommunicationTest
                         default:
                             break;
                     }
+                    isConnect = true;
                 }
                 else
                 {
@@ -223,7 +224,6 @@ namespace CommunicationTest
                     {
                         case ConnectionType.TCPServer:
                             await Global.TcpServer!.StopAsync();
-                            isConnect = false;
                             break;
                         case ConnectionType.SerialPort:
                         case ConnectionType.TCPClient:
@@ -232,6 +232,7 @@ namespace CommunicationTest
                             if (str.Contains("掉线尝试重连"))
                             {
                                 tabPage.Text = str.Replace(" 掉线尝试重连", string.Empty);
+                                btnConnect.Enabled = true;
                             }
                             tabPage.Text += " 本次测试结束";
                             CloseTabPage();
@@ -239,6 +240,7 @@ namespace CommunicationTest
                         default:
                             break;
                     }
+                    isConnect = false;
                 }
                 await RefreshStatus();
             }
@@ -246,6 +248,10 @@ namespace CommunicationTest
             {
                 MessageBox.Show("操作失败 " + ex.Message);
                 await RefreshStatus();
+            }
+            finally
+            {
+                btnConnect.Enabled = true;
             }
         }
 
@@ -514,6 +520,23 @@ namespace CommunicationTest
                     {
                         foreach (var item in await Global.SendListConfig!.GetUsedAsync())
                         {
+                            await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
+                            {
+                                foreach (DataGridViewRow row in dataGridView1.Rows)
+                                {
+                                    var tag = row.Tag;
+                                    if (tag is null) continue;
+                                    if (((SendCmd)tag).ID == item.ID)
+                                    {
+                                        row.DefaultCellStyle.BackColor = Color.FromArgb(252, 213, 180);
+                                    }
+                                    else
+                                    {
+                                        row.DefaultCellStyle.BackColor = Color.White;
+                                    }
+                                    await Task.CompletedTask;
+                                }
+                            })), EndInvoke);
                             await SendCmd(item);
                             await Task.Delay(int.Parse(tbTime.Text));
                         }
