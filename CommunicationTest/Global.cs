@@ -1,11 +1,10 @@
-﻿using Communication.Bus;
-using CommunicationTest.Config.AutoReply;
+﻿using CommunicationTest.Config.AutoReply;
 using CommunicationTest.Config.Connection;
 using CommunicationTest.Config.Parser;
 using CommunicationTest.Config.SendList;
 using Parser.Interfaces;
 using System.Collections.Concurrent;
-using TopPortLib;
+using TopPortLib.Interfaces;
 
 namespace CommunicationTest
 {
@@ -19,13 +18,13 @@ namespace CommunicationTest
 
         public static ISendListConfig? SendListConfig { get; set; }
 
-        public static TopPort? TopPort { get; set; }
+        public static ITopPort? TopPort { get; set; }
 
-        public static TcpServer? TcpServer { get; set; }
+        public static ITopPort_Server? TcpServer { get; set; }
 
         public static IParser? Parser { get; set; }
 
-        public static ConcurrentDictionary<int, IParser> Parsers { get; set; } = new ConcurrentDictionary<int, IParser>();
+        public static ConcurrentDictionary<int, DataReceive> DataReceives { get; set; } = new();
 
         public static readonly string DPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PairsDB.dll");
         public static string DBPath { get; set; } = DPath;

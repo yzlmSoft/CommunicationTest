@@ -15,6 +15,7 @@ namespace CommunicationTest
         DataType? _dataType;
         bool? _isLow;
         bool _drawChart;
+        bool _History;
         public DataReceive()
         {
             InitializeComponent();
@@ -56,7 +57,7 @@ namespace CommunicationTest
                                 break;
                             default: return;
                         }
-                        _ = await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
+                        _ = await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
                         {
                             if (realtimeChart1.Series[0].Count > _count)
                             {
@@ -64,6 +65,19 @@ namespace CommunicationTest
                             }
                             var time = DateTime.Now;
                             realtimeChart1.Series[0].Add(time.ToOADate(), rs);
+                            if (_History)
+                            {
+                                string path = Path.Combine(Environment.CurrentDirectory, "History");
+                                if (!string.IsNullOrEmpty(_path))
+                                {
+                                    path = Path.Combine(path, _path);
+                                }
+                                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+                                byte[] rsw = Encoding.Default.GetBytes($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} {rs}\n");
+                                using var fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}_有效数.txt"), FileMode.Append, FileAccess.Write, FileShare.Read, 8, FileOptions.WriteThrough);
+                                await fs.WriteAsync(rsw, 0, rsw.Length);
+                                await fs.FlushAsync();
+                            }
                         })), EndInvoke);
                     }
                     break;
@@ -101,7 +115,7 @@ namespace CommunicationTest
         /// <param name="content"></param>
         private async Task AddContentAsync(string content, bool isSend)
         {
-            await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
+            await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
             {
                 string str = "";
                 if (cbxAutoLine.Checked && txtData.Text.Length > 0)
@@ -131,9 +145,9 @@ namespace CommunicationTest
                     }
                     if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                     byte[] rs = Encoding.GetEncoding("GB2312").GetBytes(str);
-                    using var fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}.txt"), FileMode.Append, FileAccess.Write, FileShare.Read, rs.Length, FileOptions.WriteThrough);
-                    fs.Write(rs, 0, rs.Length);
-                    fs.Flush();
+                    using var fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}.txt"), FileMode.Append, FileAccess.Write, FileShare.Read, 8, FileOptions.WriteThrough);
+                    await fs.WriteAsync(rs, 0, rs.Length);
+                    await fs.FlushAsync();
                 }
             })), EndInvoke);
         }
@@ -143,7 +157,7 @@ namespace CommunicationTest
             ((LinkLabel)sender).Text = "0";
         }
 
-        private void 保存接收数据ToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void 保存接收数据ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var saveFileDialog = new SaveFileDialog
             {
@@ -154,8 +168,8 @@ namespace CommunicationTest
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 using var sw = new StreamWriter(saveFileDialog.FileName, false, Encoding.Default);
-                sw.Write(txtData.Text);
-                sw.Flush();
+                await sw.WriteAsync(txtData.Text);
+                await sw.FlushAsync();
             }
         }
         #endregion
@@ -340,10 +354,15 @@ namespace CommunicationTest
             splitContainer1.Panel2Collapsed = false;
         }
 
-        private void realtimeChart1_DoubleClick(object sender, EventArgs e)
+        private void RealtimeChart1_DoubleClick(object sender, EventArgs e)
         {
             _drawChart = false;
             splitContainer1.Panel2Collapsed = true;
+        }
+
+        private void 存储有效值ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _History = 存储有效值ToolStripMenuItem.Checked;
         }
     }
 }

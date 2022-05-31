@@ -52,11 +52,14 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.txtData = new System.Windows.Forms.TextBox();
             this.realtimeChart1 = new ChartTest.Controls.RealtimeChart();
+            this.CMS_Chart = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.存储有效值ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CMS_Main.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.CMS_Chart.SuspendLayout();
             this.SuspendLayout();
             // 
             // CMS_Main
@@ -1037,6 +1040,7 @@
             this.realtimeChart1.Axes.Top.Title.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
             this.realtimeChart1.Axes.Top.Title.Shadow.Brush.Solid = true;
             this.realtimeChart1.Axes.Top.Title.Shadow.Brush.Visible = true;
+            this.realtimeChart1.ContextMenuStrip = this.CMS_Chart;
             this.realtimeChart1.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // 
@@ -1294,7 +1298,7 @@
             this.realtimeChart1.Panel.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
             this.realtimeChart1.Panel.Shadow.Brush.Solid = true;
             this.realtimeChart1.Panel.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Size = new System.Drawing.Size(569, 76);
+            this.realtimeChart1.Size = new System.Drawing.Size(150, 46);
             // 
             // 
             // 
@@ -1520,7 +1524,22 @@
             this.realtimeChart1.Zoom.Brush.Solid = true;
             this.realtimeChart1.Zoom.Brush.Visible = true;
             this.realtimeChart1.Zoom.FullRepaint = true;
-            this.realtimeChart1.DoubleClick += new System.EventHandler(this.realtimeChart1_DoubleClick);
+            this.realtimeChart1.DoubleClick += new System.EventHandler(this.RealtimeChart1_DoubleClick);
+            // 
+            // CMS_Chart
+            // 
+            this.CMS_Chart.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.存储有效值ToolStripMenuItem});
+            this.CMS_Chart.Name = "CMS_Chart";
+            this.CMS_Chart.Size = new System.Drawing.Size(181, 48);
+            // 
+            // 存储有效值ToolStripMenuItem
+            // 
+            this.存储有效值ToolStripMenuItem.CheckOnClick = true;
+            this.存储有效值ToolStripMenuItem.Name = "存储有效值ToolStripMenuItem";
+            this.存储有效值ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.存储有效值ToolStripMenuItem.Text = "存储有效值";
+            this.存储有效值ToolStripMenuItem.Click += new System.EventHandler(this.存储有效值ToolStripMenuItem_Click);
             // 
             // DataReceive
             // 
@@ -1547,6 +1566,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.CMS_Chart.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1576,5 +1596,7 @@
         private TextBox txtData;
         private ChartTest.Controls.RealtimeChart realtimeChart1;
         private ToolStripMenuItem 绘制接收数据曲线ToolStripMenuItem;
+        private ContextMenuStrip CMS_Chart;
+        private ToolStripMenuItem 存储有效值ToolStripMenuItem;
     }
 }

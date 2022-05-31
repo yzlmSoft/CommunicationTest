@@ -188,11 +188,11 @@ namespace CommunicationTest
                             {
                                 var TCPServerIP = connectionConfig.Item2["TCPServerIP"] == "Any" ? IPAddress.Any.ToString() : connectionConfig.Item2["TCPServerIP"];
                                 var TCPServerPort = int.Parse(connectionConfig.Item2["TCPServerPort"]);
-                                Global.TcpServer = new TcpServer(TCPServerIP, TCPServerPort);
-                                Global.TcpServer.OnReceiveOriginalDataFromClient += TcpServer_OnReceiveOriginalDataFromClient;
+                                Global.TcpServer = new TopPort_Server(new TcpServer(TCPServerIP, TCPServerPort), async () => await NewParser());
+                                Global.TcpServer.OnReceiveParsedData += TcpServer_OnReceiveParsedData;
                                 Global.TcpServer.OnClientConnect += TcpServer_OnClientConnect;
                                 Global.TcpServer.OnClientDisconnect += TcpServer_OnClientDisconnect;
-                                await Global.TcpServer.StartAsync();
+                                await Global.TcpServer.OpenAsync();
                             }
                             break;
                         case ConnectionType.TCPClient:
@@ -223,7 +223,7 @@ namespace CommunicationTest
                     switch (connectionConfig.Item1)
                     {
                         case ConnectionType.TCPServer:
-                            await Global.TcpServer!.StopAsync();
+                            await Global.TcpServer!.CloseAsync();
                             break;
                         case ConnectionType.SerialPort:
                         case ConnectionType.TCPClient:
@@ -358,7 +358,7 @@ namespace CommunicationTest
 
         private async Task TcpServer_OnClientDisconnect(int clientId)
         {
-            Global.Parsers.TryRemove(clientId, out var Parser);
+            Global.DataReceives.TryRemove(clientId, out var dr);
             await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
             {
                 tabControl1.TabPages[clientId.ToString()].Text += " 本次测试结束";
@@ -372,11 +372,9 @@ namespace CommunicationTest
             await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
             {
                 var dr = new DataReceive();
-                var parser = await NewParser();
-                parser.OnReceiveParsedData += async data => await Parser_OnReceiveParsedData(data, clientId, dr);
-                Global.Parsers.TryAdd(clientId, parser);
+                Global.DataReceives.TryAdd(clientId, dr);
                 dr.Dock = DockStyle.Fill;
-                var info = await Global.TcpServer!.GetClientInfo(clientId);
+                var info = await ((TcpServer)Global.TcpServer!.PhysicalPort).GetClientInfo(clientId);
                 if (info.HasValue)
                 {
                     tabPage = new TabPage($"TCPServer ClientConnect:{info.Value.IPAddress}:{info.Value.Port}")
@@ -391,26 +389,19 @@ namespace CommunicationTest
             })), EndInvoke);
         }
 
-        private static async Task Parser_OnReceiveParsedData(byte[] data, int clientId, DataReceive dataReceive)
+        private async Task TcpServer_OnReceiveParsedData(int clientId, byte[] data)
         {
-            await dataReceive.AddDataAsync(data);
+            if (!Global.DataReceives.TryGetValue(clientId, out var dr)) return;
+            await dr.AddDataAsync(data);
             if (await Global.AutoReplyConfig!.AutoReplyAsync())
             {
                 var (value, delayTime) = await Global.AutoReplyConfig.GetAsync(data);
                 if (value is not null)
                 {
                     await Task.Delay(delayTime);
-                    await Global.TcpServer!.SendDataAsync(clientId, value);
-                    await dataReceive.AddDataAsync(value, true);
+                    await Global.TcpServer!.SendAsync(clientId, value);
+                    await dr.AddDataAsync(value, true);
                 }
-            }
-        }
-
-        private async Task TcpServer_OnReceiveOriginalDataFromClient(byte[] data, int size, int clientId)
-        {
-            if (Global.Parsers.TryGetValue(clientId, out var parser))
-            {
-                await parser.ReceiveOriginalDataAsync(data, size);
             }
         }
 
@@ -491,7 +482,7 @@ namespace CommunicationTest
                     }
                     break;
                 case ConnectionType.TCPServer:
-                    await Global.TcpServer!.SendDataAsync((int)clientId!, cmd);
+                    await Global.TcpServer!.SendAsync((int)clientId!, cmd);
                     break;
                 case ConnectionType.TCPClient:
                     {
