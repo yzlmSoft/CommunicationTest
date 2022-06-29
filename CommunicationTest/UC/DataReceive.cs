@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
 using Utils;
+using System;
 
 namespace CommunicationTest
 {
@@ -10,10 +11,12 @@ namespace CommunicationTest
     public partial class DataReceive : UserControl
     {
         string? _path;
-        int? _startIndex;
+        int _startIndex = 0;
         int? _count;
         DataType? _dataType;
-        bool? _isLow;
+        bool _isLow = true;
+        bool _isASCII = false;
+        string _formula = "$value";
         bool _drawChart;
         bool _History;
         public DataReceive()
@@ -40,23 +43,38 @@ namespace CommunicationTest
                     await AddContentAsync(sb.ToString().ToUpper(), isSend);
                     if ((!isSend) && _drawChart)
                     {
+                        if (_isASCII)
+                        {
+                            data = StringByteUtils.StringToBytes(Encoding.ASCII.GetString(data));
+                        }
                         dynamic rs;
                         switch (_dataType)
                         {
                             case DataType.Float:
-                                rs = StringByteUtils.ToSingle(data, (int)_startIndex!, (bool)!_isLow!);
+                                rs = StringByteUtils.ToSingle(data, _startIndex, !_isLow!);
                                 break;
-                            case DataType.int16:
-                                rs = StringByteUtils.ToInt16(data, (int)_startIndex!, (bool)!_isLow!);
+                            case DataType.Int16:
+                                rs = StringByteUtils.ToInt16(data, _startIndex, !_isLow!);
                                 break;
-                            case DataType.int32:
-                                rs = StringByteUtils.ToInt32(data, (int)_startIndex!, (bool)!_isLow!);
+                            case DataType.UInt16:
+                                rs = StringByteUtils.ToUInt16(data, _startIndex, !_isLow!);
                                 break;
-                            case DataType.int64:
-                                rs = StringByteUtils.ToInt64(data, (int)_startIndex!, (bool)!_isLow!);
+                            case DataType.Int32:
+                                rs = StringByteUtils.ToInt32(data, _startIndex, !_isLow!);
+                                break;
+                            case DataType.UInt32:
+                                rs = StringByteUtils.ToUInt32(data, _startIndex, !_isLow!);
+                                break;
+                            case DataType.Int64:
+                                rs = StringByteUtils.ToInt64(data, _startIndex, !_isLow!);
+                                break;
+                            case DataType.UInt64:
+                                rs = StringByteUtils.ToUInt64(data, _startIndex, !_isLow!);
                                 break;
                             default: return;
                         }
+                        var calculator = new Calculator();
+                        var drs = (double)calculator.Compute(_formula.Replace("$value", Convert.ToString(rs)));
                         _ = await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
                         {
                             if (realtimeChart1.Series[0].Count > _count)
@@ -64,7 +82,7 @@ namespace CommunicationTest
                                 realtimeChart1.Series[0].Delete(0);
                             }
                             var time = DateTime.Now;
-                            realtimeChart1.Series[0].Add(time.ToOADate(), rs);
+                            realtimeChart1.Series[0].Add(time.ToOADate(), drs);
                             if (_History)
                             {
                                 string path = Path.Combine(Environment.CurrentDirectory, "History");
@@ -73,9 +91,9 @@ namespace CommunicationTest
                                     path = Path.Combine(path, _path);
                                 }
                                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-                                byte[] rsw = Encoding.Default.GetBytes($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} {rs}\n");
-                                using var fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}_有效数.txt"), FileMode.Append, FileAccess.Write, FileShare.Read, 8, FileOptions.WriteThrough);
-                                await fs.WriteAsync(rsw, 0, rsw.Length);
+                                byte[] rsw = Encoding.Default.GetBytes($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} {drs}\n");
+                                await using var fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}_有效数.txt"), FileMode.Append, FileAccess.Write, FileShare.Read, 8, FileOptions.WriteThrough);
+                                await fs.WriteAsync(rsw);
                                 await fs.FlushAsync();
                             }
                         })), EndInvoke);
@@ -84,6 +102,63 @@ namespace CommunicationTest
                 case DataEncode.ASCII:
                     //ASCII码显示
                     await AddContentAsync(Encoding.ASCII.GetString(data), isSend);
+                    if ((!isSend) && _drawChart)
+                    {
+                        if (_isASCII)
+                        {
+                            data = StringByteUtils.StringToBytes(Encoding.ASCII.GetString(data));
+                        }
+                        dynamic rs;
+                        switch (_dataType)
+                        {
+                            case DataType.Float:
+                                rs = StringByteUtils.ToSingle(data, _startIndex, !_isLow!);
+                                break;
+                            case DataType.Int16:
+                                rs = StringByteUtils.ToInt16(data, _startIndex, !_isLow!);
+                                break;
+                            case DataType.UInt16:
+                                rs = StringByteUtils.ToUInt16(data, _startIndex, !_isLow!);
+                                break;
+                            case DataType.Int32:
+                                rs = StringByteUtils.ToInt32(data, _startIndex, !_isLow!);
+                                break;
+                            case DataType.UInt32:
+                                rs = StringByteUtils.ToUInt32(data, _startIndex, !_isLow!);
+                                break;
+                            case DataType.Int64:
+                                rs = StringByteUtils.ToInt64(data, _startIndex, !_isLow!);
+                                break;
+                            case DataType.UInt64:
+                                rs = StringByteUtils.ToUInt64(data, _startIndex, !_isLow!);
+                                break;
+                            default: return;
+                        }
+                        var calculator = new Calculator();
+                        var drs = (double)calculator.Compute(_formula.Replace("$value", Convert.ToString(rs)));
+                        _ = await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
+                        {
+                            if (realtimeChart1.Series[0].Count > _count)
+                            {
+                                realtimeChart1.Series[0].Delete(0);
+                            }
+                            var time = DateTime.Now;
+                            realtimeChart1.Series[0].Add(time.ToOADate(), drs);
+                            if (_History)
+                            {
+                                string path = Path.Combine(Environment.CurrentDirectory, "History");
+                                if (!string.IsNullOrEmpty(_path))
+                                {
+                                    path = Path.Combine(path, _path);
+                                }
+                                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+                                byte[] rsw = Encoding.Default.GetBytes($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} {drs}\n");
+                                await using var fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}_有效数.txt"), FileMode.Append, FileAccess.Write, FileShare.Read, 8, FileOptions.WriteThrough);
+                                await fs.WriteAsync(rsw);
+                                await fs.FlushAsync();
+                            }
+                        })), EndInvoke);
+                    }
                     break;
                 case DataEncode.UTF8:
                     //UTF8显示
@@ -145,8 +220,8 @@ namespace CommunicationTest
                     }
                     if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                     byte[] rs = Encoding.GetEncoding("GB2312").GetBytes(str);
-                    using var fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}.txt"), FileMode.Append, FileAccess.Write, FileShare.Read, 8, FileOptions.WriteThrough);
-                    await fs.WriteAsync(rs, 0, rs.Length);
+                    await using var fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}.txt"), FileMode.Append, FileAccess.Write, FileShare.Read, 8, FileOptions.WriteThrough);
+                    await fs.WriteAsync(rs);
                     await fs.FlushAsync();
                 }
             })), EndInvoke);
@@ -204,7 +279,7 @@ namespace CommunicationTest
             if (rbtnASCII.Checked)
             {
                 EncodeType = DataEncode.ASCII;
-                绘制接收数据曲线ToolStripMenuItem.Enabled = false;
+                绘制接收数据曲线ToolStripMenuItem.Enabled = true;
                 _drawChart = false;
                 splitContainer1.Panel2Collapsed = true;
             }
@@ -216,6 +291,8 @@ namespace CommunicationTest
             {
                 EncodeType = DataEncode.Hex;
                 绘制接收数据曲线ToolStripMenuItem.Enabled = true;
+                _drawChart = false;
+                splitContainer1.Panel2Collapsed = true;
             }
         }
         #endregion
@@ -343,13 +420,15 @@ namespace CommunicationTest
             chartSet.ShowDialog();
         }
 
-        private void ChartSet_ChartSetChanged(int startIndex, int count, DataType dataType, bool isLow)
+        private void ChartSet_ChartSetChanged(int startIndex, int count, DataType dataType, bool isLow, string formula, bool isASCII)
         {
             realtimeChart1.Chart.Series[0].Clear();
             _startIndex = startIndex;
             _count = count;
             _dataType = dataType;
             _isLow = isLow;
+            _formula = formula;
+            _isASCII = isASCII;
             _drawChart = true;
             splitContainer1.Panel2Collapsed = false;
         }
