@@ -31,7 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.CMS_Main = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MS_Clear = new System.Windows.Forms.ToolStripMenuItem();
+            this.低字节在前ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MS_ToInt = new System.Windows.Forms.ToolStripMenuItem();
+            this.MS_ToUInt = new System.Windows.Forms.ToolStripMenuItem();
             this.MS_ToFloat = new System.Windows.Forms.ToolStripMenuItem();
             this.MS_ToDouble = new System.Windows.Forms.ToolStripMenuItem();
             this.保存接收数据ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,55 +68,75 @@
             // 
             this.CMS_Main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MS_Clear,
+            this.低字节在前ToolStripMenuItem,
             this.MS_ToInt,
+            this.MS_ToUInt,
             this.MS_ToFloat,
             this.MS_ToDouble,
             this.保存接收数据ToolStripMenuItem,
             this.绘制接收数据曲线ToolStripMenuItem});
             this.CMS_Main.Name = "contextMenuStrip1";
+            this.CMS_Main.ShowCheckMargin = true;
             this.CMS_Main.ShowImageMargin = false;
-            this.CMS_Main.Size = new System.Drawing.Size(174, 136);
+            this.CMS_Main.Size = new System.Drawing.Size(205, 202);
             this.CMS_Main.VisibleChanged += new System.EventHandler(this.CMS_Main_VisibleChanged);
             // 
             // MS_Clear
             // 
             this.MS_Clear.Name = "MS_Clear";
-            this.MS_Clear.Size = new System.Drawing.Size(173, 22);
+            this.MS_Clear.Size = new System.Drawing.Size(204, 22);
             this.MS_Clear.Text = "清空";
             this.MS_Clear.Click += new System.EventHandler(this.MS_Clear_Click);
+            // 
+            // 低字节在前ToolStripMenuItem
+            // 
+            this.低字节在前ToolStripMenuItem.Checked = true;
+            this.低字节在前ToolStripMenuItem.CheckOnClick = true;
+            this.低字节在前ToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.低字节在前ToolStripMenuItem.Name = "低字节在前ToolStripMenuItem";
+            this.低字节在前ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.低字节在前ToolStripMenuItem.Text = "低字节在前";
+            this.低字节在前ToolStripMenuItem.Click += new System.EventHandler(this.低字节在前ToolStripMenuItem_Click);
             // 
             // MS_ToInt
             // 
             this.MS_ToInt.Name = "MS_ToInt";
-            this.MS_ToInt.Size = new System.Drawing.Size(173, 22);
+            this.MS_ToInt.Size = new System.Drawing.Size(204, 22);
             this.MS_ToInt.Text = "转换为整数(Int)";
             this.MS_ToInt.Click += new System.EventHandler(this.MS_ToInt_Click);
+            // 
+            // MS_ToUInt
+            // 
+            this.MS_ToUInt.Name = "MS_ToUInt";
+            this.MS_ToUInt.Size = new System.Drawing.Size(204, 22);
+            this.MS_ToUInt.Text = "转换为无符号整型(UInt)";
+            this.MS_ToUInt.Click += new System.EventHandler(this.MS_ToUInt_Click);
             // 
             // MS_ToFloat
             // 
             this.MS_ToFloat.Name = "MS_ToFloat";
-            this.MS_ToFloat.Size = new System.Drawing.Size(173, 22);
+            this.MS_ToFloat.Size = new System.Drawing.Size(204, 22);
             this.MS_ToFloat.Text = "转换为浮点数(Float)";
             this.MS_ToFloat.Click += new System.EventHandler(this.MS_ToFloat_Click);
             // 
             // MS_ToDouble
             // 
             this.MS_ToDouble.Name = "MS_ToDouble";
-            this.MS_ToDouble.Size = new System.Drawing.Size(173, 22);
+            this.MS_ToDouble.Size = new System.Drawing.Size(204, 22);
             this.MS_ToDouble.Text = "转换为浮点数(Double)";
             this.MS_ToDouble.Click += new System.EventHandler(this.MS_ToDouble_Click);
             // 
             // 保存接收数据ToolStripMenuItem
             // 
             this.保存接收数据ToolStripMenuItem.Name = "保存接收数据ToolStripMenuItem";
-            this.保存接收数据ToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.保存接收数据ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.保存接收数据ToolStripMenuItem.Text = "保存接收数据";
             this.保存接收数据ToolStripMenuItem.Click += new System.EventHandler(this.保存接收数据ToolStripMenuItem_Click);
             // 
             // 绘制接收数据曲线ToolStripMenuItem
             // 
             this.绘制接收数据曲线ToolStripMenuItem.Name = "绘制接收数据曲线ToolStripMenuItem";
-            this.绘制接收数据曲线ToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.绘制接收数据曲线ToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.绘制接收数据曲线ToolStripMenuItem.Text = "绘制接收数据曲线";
             this.绘制接收数据曲线ToolStripMenuItem.Click += new System.EventHandler(this.绘制接收数据曲线ToolStripMenuItem_Click);
             // 
@@ -1531,13 +1553,13 @@
             this.CMS_Chart.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.存储有效值ToolStripMenuItem});
             this.CMS_Chart.Name = "CMS_Chart";
-            this.CMS_Chart.Size = new System.Drawing.Size(181, 48);
+            this.CMS_Chart.Size = new System.Drawing.Size(137, 26);
             // 
             // 存储有效值ToolStripMenuItem
             // 
             this.存储有效值ToolStripMenuItem.CheckOnClick = true;
             this.存储有效值ToolStripMenuItem.Name = "存储有效值ToolStripMenuItem";
-            this.存储有效值ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.存储有效值ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.存储有效值ToolStripMenuItem.Text = "存储有效值";
             this.存储有效值ToolStripMenuItem.Click += new System.EventHandler(this.存储有效值ToolStripMenuItem_Click);
             // 
@@ -1598,5 +1620,7 @@
         private ToolStripMenuItem 绘制接收数据曲线ToolStripMenuItem;
         private ContextMenuStrip CMS_Chart;
         private ToolStripMenuItem 存储有效值ToolStripMenuItem;
+        private ToolStripMenuItem MS_ToUInt;
+        private ToolStripMenuItem 低字节在前ToolStripMenuItem;
     }
 }

@@ -19,6 +19,7 @@ namespace CommunicationTest
         string _formula = "$value";
         bool _drawChart;
         bool _History;
+        bool _isHighByteBefore = false;
         public DataReceive()
         {
             InitializeComponent();
@@ -318,6 +319,7 @@ namespace CommunicationTest
                     else
                     {
                         MS_ToInt.Enabled = false;
+                        MS_ToUInt.Enabled = false;
                         MS_ToFloat.Enabled = false;
                         MS_ToDouble.Enabled = false;
                         return;
@@ -326,24 +328,28 @@ namespace CommunicationTest
                 if (SelectData.Length == 2)
                 {
                     MS_ToInt.Enabled = true;
+                    MS_ToUInt.Enabled = true;
                     MS_ToFloat.Enabled = false;
                     MS_ToDouble.Enabled = false;
                 }
                 else if (SelectData.Length == 4)
                 {
                     MS_ToInt.Enabled = true;
+                    MS_ToUInt.Enabled = true;
                     MS_ToFloat.Enabled = true;
                     MS_ToDouble.Enabled = false;
                 }
                 else if (SelectData.Length == 8)
                 {
-                    MS_ToInt.Enabled = false;
+                    MS_ToInt.Enabled = true;
+                    MS_ToUInt.Enabled = true;
                     MS_ToFloat.Enabled = false;
                     MS_ToDouble.Enabled = true;
                 }
                 else
                 {
                     MS_ToInt.Enabled = false;
+                    MS_ToUInt.Enabled = false;
                     MS_ToFloat.Enabled = false;
                     MS_ToDouble.Enabled = false;
                 }
@@ -351,6 +357,7 @@ namespace CommunicationTest
             else
             {
                 MS_ToInt.Enabled = false;
+                MS_ToUInt.Enabled = false;
                 MS_ToFloat.Enabled = false;
                 MS_ToDouble.Enabled = false;
             }
@@ -366,13 +373,33 @@ namespace CommunicationTest
         private void MS_ToInt_Click(object sender, EventArgs e)
         {
             byte[] IntByte = StringByteUtils.StringToBytes(txtData.SelectedText);
-            if (IntByte.Length == 2)
+            switch (IntByte.Length)
             {
-                MessageBox.Show(BitConverter.ToInt16(IntByte, 0).ToString(), "整数值");
+                case 2:
+                    MessageBox.Show(StringByteUtils.ToInt16(IntByte, 0, _isHighByteBefore).ToString(), "整数值");
+                    break;
+                case 4:
+                    MessageBox.Show(StringByteUtils.ToInt32(IntByte, 0, _isHighByteBefore).ToString(), "整数值");
+                    break;
+                default:
+                    MessageBox.Show(StringByteUtils.ToInt64(IntByte, 0, _isHighByteBefore).ToString(), "整数值");
+                    break;
             }
-            else
+        }
+        private void MS_ToUInt_Click(object sender, EventArgs e)
+        {
+            byte[] IntByte = StringByteUtils.StringToBytes(txtData.SelectedText);
+            switch (IntByte.Length)
             {
-                MessageBox.Show(BitConverter.ToInt32(IntByte, 0).ToString(), "整数值");
+                case 2:
+                    MessageBox.Show(StringByteUtils.ToUInt16(IntByte, 0, _isHighByteBefore).ToString(), "无符号整数值");
+                    break;
+                case 4:
+                    MessageBox.Show(StringByteUtils.ToUInt32(IntByte, 0, _isHighByteBefore).ToString(), "无符号整数值");
+                    break;
+                default:
+                    MessageBox.Show(StringByteUtils.ToUInt64(IntByte, 0, _isHighByteBefore).ToString(), "无符号整数值");
+                    break;
             }
         }
         /// <summary>
@@ -383,7 +410,7 @@ namespace CommunicationTest
         private void MS_ToFloat_Click(object sender, EventArgs e)
         {
             byte[] IntByte = StringByteUtils.StringToBytes(txtData.SelectedText);
-            MessageBox.Show(BitConverter.ToSingle(IntByte, 0).ToString(), "单精度浮点数值");
+            MessageBox.Show(StringByteUtils.ToSingle(IntByte, 0, _isHighByteBefore).ToString(), "单精度浮点数值");
         }
         /// <summary>
         /// 8字节转换为双精度浮点数
@@ -393,7 +420,7 @@ namespace CommunicationTest
         private void MS_ToDouble_Click(object sender, EventArgs e)
         {
             byte[] IntByte = StringByteUtils.StringToBytes(txtData.SelectedText);
-            MessageBox.Show(BitConverter.ToDouble(IntByte, 0).ToString(), "双精度浮点数值");
+            MessageBox.Show(StringByteUtils.ToDouble(IntByte, 0, _isHighByteBefore).ToString(), "双精度浮点数值");
         }
         #endregion
 
@@ -442,6 +469,11 @@ namespace CommunicationTest
         private void 存储有效值ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _History = 存储有效值ToolStripMenuItem.Checked;
+        }
+
+        private void 低字节在前ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _isHighByteBefore = !低字节在前ToolStripMenuItem.Checked;
         }
     }
 }
