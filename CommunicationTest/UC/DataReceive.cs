@@ -362,9 +362,16 @@ namespace CommunicationTest.UC
             if (InputPath.Show(out var path) == DialogResult.OK)
             {
                 var chart = new Chart(path, _EncodeType, count, startIndex, lenth, dataType, isLow, isASCII, formula);
-                this.DrawChart += async data =>
+                DrawChart += async data =>
                 {
                     await chart.DrawChartAsync(data);
+                };
+                chart.FormClosed += (sender, e) =>
+                {
+                    DrawChart -= async data =>
+                    {
+                        await chart.DrawChartAsync(data);
+                    };
                 };
                 chart.Show();
             }
