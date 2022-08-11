@@ -39,13 +39,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tbFormula = new System.Windows.Forms.TextBox();
             this.cbASCII = new System.Windows.Forms.CheckBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbLenth = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(322, 39);
+            this.label5.Location = new System.Drawing.Point(298, 39);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(32, 17);
             this.label5.TabIndex = 16;
@@ -54,9 +55,9 @@
             // cmbDataType
             // 
             this.cmbDataType.FormattingEnabled = true;
-            this.cmbDataType.Location = new System.Drawing.Point(360, 36);
+            this.cmbDataType.Location = new System.Drawing.Point(336, 36);
             this.cmbDataType.Name = "cmbDataType";
-            this.cmbDataType.Size = new System.Drawing.Size(97, 25);
+            this.cmbDataType.Size = new System.Drawing.Size(121, 25);
             this.cmbDataType.TabIndex = 15;
             // 
             // label3
@@ -72,7 +73,7 @@
             // 
             this.tbPointCount.Location = new System.Drawing.Point(50, 6);
             this.tbPointCount.Name = "tbPointCount";
-            this.tbPointCount.Size = new System.Drawing.Size(121, 23);
+            this.tbPointCount.Size = new System.Drawing.Size(145, 23);
             this.tbPointCount.TabIndex = 13;
             this.tbPointCount.Text = "100000";
             // 
@@ -100,7 +101,7 @@
             // 
             // tbIndex
             // 
-            this.tbIndex.Location = new System.Drawing.Point(360, 6);
+            this.tbIndex.Location = new System.Drawing.Point(98, 36);
             this.tbIndex.Name = "tbIndex";
             this.tbIndex.Size = new System.Drawing.Size(97, 23);
             this.tbIndex.TabIndex = 13;
@@ -109,7 +110,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(274, 9);
+            this.label1.Location = new System.Drawing.Point(12, 39);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 17);
             this.label1.TabIndex = 14;
@@ -141,23 +142,32 @@
             this.cbASCII.TabIndex = 17;
             this.cbASCII.Text = "ASCII";
             this.cbASCII.UseVisualStyleBackColor = true;
+            this.cbASCII.CheckedChanged += new System.EventHandler(this.cbASCII_CheckedChanged);
             // 
-            // linkLabel1
+            // label4
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(139, 40);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(32, 17);
-            this.linkLabel1.TabIndex = 20;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "帮助";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(298, 9);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(32, 17);
+            this.label4.TabIndex = 21;
+            this.label4.Text = "长度";
+            this.label4.Visible = false;
+            // 
+            // tbLenth
+            // 
+            this.tbLenth.Location = new System.Drawing.Point(336, 6);
+            this.tbLenth.Name = "tbLenth";
+            this.tbLenth.Size = new System.Drawing.Size(121, 23);
+            this.tbLenth.TabIndex = 22;
+            this.tbLenth.Visible = false;
             // 
             // ChartSet
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(542, 104);
-            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.tbLenth);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.cbASCII);
@@ -191,6 +201,7 @@
         private Label label2;
         private TextBox tbFormula;
         private CheckBox cbASCII;
-        private LinkLabel linkLabel1;
+        private Label label4;
+        private TextBox tbLenth;
     }
 }

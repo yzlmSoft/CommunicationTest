@@ -1,7 +1,6 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
 using Utils;
-using System;
 
 namespace CommunicationTest
 {
@@ -12,6 +11,7 @@ namespace CommunicationTest
     {
         string? _path;
         int _startIndex = 0;
+        int _lenth = 0;
         int? _count;
         DataType? _dataType;
         bool _isLow = true;
@@ -44,10 +44,6 @@ namespace CommunicationTest
                     await AddContentAsync(sb.ToString().ToUpper(), isSend);
                     if ((!isSend) && _drawChart)
                     {
-                        if (_isASCII)
-                        {
-                            data = StringByteUtils.StringToBytes(Encoding.ASCII.GetString(data));
-                        }
                         dynamic rs;
                         switch (_dataType)
                         {
@@ -73,6 +69,10 @@ namespace CommunicationTest
                                 rs = StringByteUtils.ToUInt64(data, _startIndex, !_isLow!);
                                 break;
                             default: return;
+                        }
+                        if (_isASCII)
+                        {
+                            rs = Encoding.ASCII.GetString(data, _startIndex, _lenth);
                         }
                         var calculator = new Calculator();
                         var drs = (double)calculator.Compute(_formula.Replace("$value", Convert.ToString(rs)));
@@ -105,36 +105,41 @@ namespace CommunicationTest
                     await AddContentAsync(Encoding.ASCII.GetString(data), isSend);
                     if ((!isSend) && _drawChart)
                     {
-                        if (_isASCII)
-                        {
-                            data = StringByteUtils.StringToBytes(Encoding.ASCII.GetString(data));
-                        }
                         dynamic rs;
-                        switch (_dataType)
+                        if (!_isASCII)
                         {
-                            case DataType.Float:
-                                rs = StringByteUtils.ToSingle(data, _startIndex, !_isLow!);
-                                break;
-                            case DataType.Int16:
-                                rs = StringByteUtils.ToInt16(data, _startIndex, !_isLow!);
-                                break;
-                            case DataType.UInt16:
-                                rs = StringByteUtils.ToUInt16(data, _startIndex, !_isLow!);
-                                break;
-                            case DataType.Int32:
-                                rs = StringByteUtils.ToInt32(data, _startIndex, !_isLow!);
-                                break;
-                            case DataType.UInt32:
-                                rs = StringByteUtils.ToUInt32(data, _startIndex, !_isLow!);
-                                break;
-                            case DataType.Int64:
-                                rs = StringByteUtils.ToInt64(data, _startIndex, !_isLow!);
-                                break;
-                            case DataType.UInt64:
-                                rs = StringByteUtils.ToUInt64(data, _startIndex, !_isLow!);
-                                break;
-                            default: return;
+                            data = StringByteUtils.StringToBytes(Encoding.ASCII.GetString(data, _startIndex, _lenth));
+                            switch (_dataType)
+                            {
+                                case DataType.Float:
+                                    rs = StringByteUtils.ToSingle(data, 0, !_isLow!);
+                                    break;
+                                case DataType.Int16:
+                                    rs = StringByteUtils.ToInt16(data, 0, !_isLow!);
+                                    break;
+                                case DataType.UInt16:
+                                    rs = StringByteUtils.ToUInt16(data, 0, !_isLow!);
+                                    break;
+                                case DataType.Int32:
+                                    rs = StringByteUtils.ToInt32(data, 0, !_isLow!);
+                                    break;
+                                case DataType.UInt32:
+                                    rs = StringByteUtils.ToUInt32(data, 0, !_isLow!);
+                                    break;
+                                case DataType.Int64:
+                                    rs = StringByteUtils.ToInt64(data, 0, !_isLow!);
+                                    break;
+                                case DataType.UInt64:
+                                    rs = StringByteUtils.ToUInt64(data, 0, !_isLow!);
+                                    break;
+                                default: return;
+                            }
                         }
+                        else
+                        {
+                            rs = Encoding.ASCII.GetString(data, _startIndex, _lenth);
+                        }
+
                         var calculator = new Calculator();
                         var drs = (double)calculator.Compute(_formula.Replace("$value", Convert.ToString(rs)));
                         _ = await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
@@ -164,10 +169,134 @@ namespace CommunicationTest
                 case DataEncode.UTF8:
                     //UTF8显示
                     await AddContentAsync(Encoding.UTF8.GetString(data), isSend);
+                    if ((!isSend) && _drawChart)
+                    {
+                        dynamic rs;
+                        if (!_isASCII)
+                        {
+                            data = StringByteUtils.StringToBytes(Encoding.UTF8.GetString(data, _startIndex, _lenth));
+                            switch (_dataType)
+                            {
+                                case DataType.Float:
+                                    rs = StringByteUtils.ToSingle(data, 0, !_isLow!);
+                                    break;
+                                case DataType.Int16:
+                                    rs = StringByteUtils.ToInt16(data, 0, !_isLow!);
+                                    break;
+                                case DataType.UInt16:
+                                    rs = StringByteUtils.ToUInt16(data, 0, !_isLow!);
+                                    break;
+                                case DataType.Int32:
+                                    rs = StringByteUtils.ToInt32(data, 0, !_isLow!);
+                                    break;
+                                case DataType.UInt32:
+                                    rs = StringByteUtils.ToUInt32(data, 0, !_isLow!);
+                                    break;
+                                case DataType.Int64:
+                                    rs = StringByteUtils.ToInt64(data, 0, !_isLow!);
+                                    break;
+                                case DataType.UInt64:
+                                    rs = StringByteUtils.ToUInt64(data, 0, !_isLow!);
+                                    break;
+                                default: return;
+                            }
+                        }
+                        else
+                        {
+                            rs = Encoding.UTF8.GetString(data, _startIndex, _lenth);
+                        }
+
+                        var calculator = new Calculator();
+                        var drs = (double)calculator.Compute(_formula.Replace("$value", Convert.ToString(rs)));
+                        _ = await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
+                        {
+                            if (realtimeChart1.Series[0].Count > _count)
+                            {
+                                realtimeChart1.Series[0].Delete(0);
+                            }
+                            var time = DateTime.Now;
+                            realtimeChart1.Series[0].Add(time.ToOADate(), drs);
+                            if (_History)
+                            {
+                                string path = Path.Combine(Environment.CurrentDirectory, "History");
+                                if (!string.IsNullOrEmpty(_path))
+                                {
+                                    path = Path.Combine(path, _path);
+                                }
+                                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+                                byte[] rsw = Encoding.Default.GetBytes($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} {drs}\n");
+                                await using var fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}_有效数.txt"), FileMode.Append, FileAccess.Write, FileShare.Read, 8, FileOptions.WriteThrough);
+                                await fs.WriteAsync(rsw);
+                                await fs.FlushAsync();
+                            }
+                        })), EndInvoke);
+                    }
                     break;
                 case DataEncode.GB2312:
                     //GB2312显示
                     await AddContentAsync(Encoding.GetEncoding("GB2312").GetString(data), isSend);
+                    if ((!isSend) && _drawChart)
+                    {
+                        dynamic rs;
+                        if (!_isASCII)
+                        {
+                            data = StringByteUtils.StringToBytes(Encoding.GetEncoding("GB2312").GetString(data, _startIndex, _lenth));
+                            switch (_dataType)
+                            {
+                                case DataType.Float:
+                                    rs = StringByteUtils.ToSingle(data, 0, !_isLow!);
+                                    break;
+                                case DataType.Int16:
+                                    rs = StringByteUtils.ToInt16(data, 0, !_isLow!);
+                                    break;
+                                case DataType.UInt16:
+                                    rs = StringByteUtils.ToUInt16(data, 0, !_isLow!);
+                                    break;
+                                case DataType.Int32:
+                                    rs = StringByteUtils.ToInt32(data, 0, !_isLow!);
+                                    break;
+                                case DataType.UInt32:
+                                    rs = StringByteUtils.ToUInt32(data, 0, !_isLow!);
+                                    break;
+                                case DataType.Int64:
+                                    rs = StringByteUtils.ToInt64(data, 0, !_isLow!);
+                                    break;
+                                case DataType.UInt64:
+                                    rs = StringByteUtils.ToUInt64(data, 0, !_isLow!);
+                                    break;
+                                default: return;
+                            }
+                        }
+                        else
+                        {
+                            rs = Encoding.GetEncoding("GB2312").GetString(data, _startIndex, _lenth);
+                        }
+
+                        var calculator = new Calculator();
+                        var drs = (double)calculator.Compute(_formula.Replace("$value", Convert.ToString(rs)));
+                        _ = await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
+                        {
+                            if (realtimeChart1.Series[0].Count > _count)
+                            {
+                                realtimeChart1.Series[0].Delete(0);
+                            }
+                            var time = DateTime.Now;
+                            realtimeChart1.Series[0].Add(time.ToOADate(), drs);
+                            if (_History)
+                            {
+                                string path = Path.Combine(Environment.CurrentDirectory, "History");
+                                if (!string.IsNullOrEmpty(_path))
+                                {
+                                    path = Path.Combine(path, _path);
+                                }
+                                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+                                byte[] rsw = Encoding.Default.GetBytes($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} {drs}\n");
+                                await using var fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}_有效数.txt"), FileMode.Append, FileAccess.Write, FileShare.Read, 8, FileOptions.WriteThrough);
+                                await fs.WriteAsync(rsw);
+                                await fs.FlushAsync();
+                            }
+                        })), EndInvoke);
+                    }
                     break;
             }
             await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
@@ -194,7 +323,7 @@ namespace CommunicationTest
             await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
             {
                 string str = "";
-                if (cbxAutoLine.Checked && txtData.Text.Length > 0)
+                if (txtData.Text.Length > 0)
                 {
                     str += "\r\n";
                 }
@@ -214,14 +343,14 @@ namespace CommunicationTest
 
                 if (cbAutoSave.Checked)
                 {
-                    string path = Path.Combine(Environment.CurrentDirectory, "History");
+                    string path = Path.Combine(Application.StartupPath, "History");
                     if (!string.IsNullOrEmpty(_path))
                     {
                         path = Path.Combine(path, _path);
                     }
                     if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                     byte[] rs = Encoding.GetEncoding("GB2312").GetBytes(str);
-                    await using var fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}.txt"), FileMode.Append, FileAccess.Write, FileShare.Read, 8, FileOptions.WriteThrough);
+                    await using var fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}.txt"), FileMode.Append, FileAccess.Write, FileShare.ReadWrite, 8, FileOptions.WriteThrough);
                     await fs.WriteAsync(rs);
                     await fs.FlushAsync();
                 }
@@ -258,7 +387,7 @@ namespace CommunicationTest
             if (rbtnUTF8.Checked)
             {
                 EncodeType = DataEncode.UTF8;
-                绘制接收数据曲线ToolStripMenuItem.Enabled = false;
+                绘制接收数据曲线ToolStripMenuItem.Enabled = true;
                 _drawChart = false;
                 splitContainer1.Panel2Collapsed = true;
             }
@@ -269,7 +398,7 @@ namespace CommunicationTest
             if (rbtnGB2312.Checked)
             {
                 EncodeType = DataEncode.GB2312;
-                绘制接收数据曲线ToolStripMenuItem.Enabled = false;
+                绘制接收数据曲线ToolStripMenuItem.Enabled = true;
                 _drawChart = false;
                 splitContainer1.Panel2Collapsed = true;
             }
@@ -442,15 +571,53 @@ namespace CommunicationTest
 
         private void 绘制接收数据曲线ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var chartSet = new ChartSet();
-            chartSet.ChartSetChanged += ChartSet_ChartSetChanged;
-            chartSet.ShowDialog();
+            if (txtData.SelectionLength > 0)
+            {
+                int index = 0;
+                int lenth = 0;
+                var selectIndex = txtData.SelectionStart;
+                var firstCharIndexOfCurrentLine = txtData.GetFirstCharIndexOfCurrentLine();
+                var selectLine = txtData.GetLineFromCharIndex(selectIndex);
+                int start = firstCharIndexOfCurrentLine;
+                if (cbTime.Checked) start += 25;
+                if (cbSend.Checked) start += 4;
+                switch (EncodeType)
+                {
+                    case DataEncode.Hex:
+                        index = (selectIndex - start) / 3;
+                        if (txtData.SelectedText.IndexOf(' ') == 0) index++;
+                        lenth = txtData.SelectedText.Replace(" ", "").Length / 2;
+                        break;
+                    case DataEncode.ASCII:
+                        index = selectIndex - start;
+                        lenth = txtData.SelectedText.Length;
+                        break;
+                    case DataEncode.UTF8:
+                        break;
+                    case DataEncode.GB2312:
+                        break;
+                    default:
+                        break;
+                }
+
+                var chartSet = new ChartSet(EncodeType, index, lenth);
+                chartSet.ChartSetChanged += ChartSet_ChartSetChanged;
+                chartSet.ShowDialog();
+
+            }
+            else
+            {
+                var chartSet = new ChartSet();
+                chartSet.ChartSetChanged += ChartSet_ChartSetChanged;
+                chartSet.ShowDialog();
+            }
         }
 
-        private void ChartSet_ChartSetChanged(int startIndex, int count, DataType dataType, bool isLow, string formula, bool isASCII)
+        private void ChartSet_ChartSetChanged(int count, int startIndex, int lenth, DataType dataType, bool isLow, string formula, bool isASCII)
         {
             realtimeChart1.Chart.Series[0].Clear();
             _startIndex = startIndex;
+            _lenth = lenth;
             _count = count;
             _dataType = dataType;
             _isLow = isLow;

@@ -10,29 +10,50 @@
         Int64,
         UInt64
     }
-    public partial class ChartSet : Form
+    internal partial class ChartSet : Form
     {
+        private DataEncode _encodeType;
+        private int _index;
+        private int _lenth;
+
         public ChartSet()
         {
             InitializeComponent();
             cmbDataType.DataSource = Enum.GetValues(typeof(DataType));
         }
 
-        internal delegate void ChartSetEventHandler(int startIndex, int count, DataType dataType, bool isLow, string formula, bool isASCII);
+        public ChartSet(DataEncode encodeType, int index, int lenth) : this()
+        {
+            _encodeType = encodeType;
+            _index = index;
+            _lenth = lenth;
+            cbASCII.Checked = !(lenth == 2 || lenth == 4);
+            tbIndex.Text = index.ToString();
+            tbLenth.Text = lenth.ToString();
+        }
+
+        internal delegate void ChartSetEventHandler(int count, int startIndex, int lenth, DataType dataType, bool isLow, string formula, bool isASCII);
         internal event ChartSetEventHandler? ChartSetChanged;
         private void btnOk_Click(object sender, EventArgs e)
         {
             if (cmbDataType.SelectedIndex == -1) return;
             if (!int.TryParse(tbPointCount.Text, out var count)) return;
             if (!int.TryParse(tbIndex.Text, out var index)) return;
+            if (!int.TryParse(tbLenth.Text, out var lenth)) return;
             if (string.IsNullOrWhiteSpace(tbFormula.Text)) return;
-            ChartSetChanged?.Invoke(index, count, (DataType)Enum.Parse(typeof(DataType), cmbDataType.SelectedItem.ToString()!), cbLow.Checked, tbFormula.Text, cbASCII.Checked);
+            ChartSetChanged?.Invoke(count, index, lenth, (DataType)Enum.Parse(typeof(DataType), cmbDataType.SelectedItem.ToString()!), cbLow.Checked, tbFormula.Text, cbASCII.Checked);
             Close();
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             new Help().ShowDialog();
+        }
+
+        private void cbASCII_CheckedChanged(object sender, EventArgs e)
+        {
+            label4.Visible = tbLenth.Visible = cbASCII.Checked;
+            cbLow.Visible = label5.Visible = cmbDataType.Visible = !cbASCII.Checked;
         }
     }
 }

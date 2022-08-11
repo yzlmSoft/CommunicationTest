@@ -38,7 +38,6 @@
             this.MS_ToDouble = new System.Windows.Forms.ToolStripMenuItem();
             this.保存接收数据ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.绘制接收数据曲线ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cbxAutoLine = new System.Windows.Forms.CheckBox();
             this.rbtnHex = new System.Windows.Forms.RadioButton();
             this.rbtnASCII = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
@@ -51,17 +50,15 @@
             this.cbSend = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lbSCount = new System.Windows.Forms.LinkLabel();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.txtData = new System.Windows.Forms.TextBox();
-            this.realtimeChart1 = new ChartTest.Controls.RealtimeChart();
             this.CMS_Chart = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.存储有效值ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.CMS_Main.SuspendLayout();
+            this.CMS_Chart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.CMS_Chart.SuspendLayout();
             this.SuspendLayout();
             // 
             // CMS_Main
@@ -78,7 +75,7 @@
             this.CMS_Main.Name = "contextMenuStrip1";
             this.CMS_Main.ShowCheckMargin = true;
             this.CMS_Main.ShowImageMargin = false;
-            this.CMS_Main.Size = new System.Drawing.Size(205, 202);
+            this.CMS_Main.Size = new System.Drawing.Size(205, 180);
             this.CMS_Main.VisibleChanged += new System.EventHandler(this.CMS_Main_VisibleChanged);
             // 
             // MS_Clear
@@ -140,23 +137,11 @@
             this.绘制接收数据曲线ToolStripMenuItem.Text = "绘制接收数据曲线";
             this.绘制接收数据曲线ToolStripMenuItem.Click += new System.EventHandler(this.绘制接收数据曲线ToolStripMenuItem_Click);
             // 
-            // cbxAutoLine
-            // 
-            this.cbxAutoLine.AutoSize = true;
-            this.cbxAutoLine.Checked = true;
-            this.cbxAutoLine.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbxAutoLine.Location = new System.Drawing.Point(0, 3);
-            this.cbxAutoLine.Name = "cbxAutoLine";
-            this.cbxAutoLine.Size = new System.Drawing.Size(75, 21);
-            this.cbxAutoLine.TabIndex = 2;
-            this.cbxAutoLine.Text = "自动换行";
-            this.cbxAutoLine.UseVisualStyleBackColor = true;
-            // 
             // rbtnHex
             // 
             this.rbtnHex.AutoSize = true;
             this.rbtnHex.Checked = true;
-            this.rbtnHex.Location = new System.Drawing.Point(69, 3);
+            this.rbtnHex.Location = new System.Drawing.Point(76, 3);
             this.rbtnHex.Name = "rbtnHex";
             this.rbtnHex.Size = new System.Drawing.Size(48, 21);
             this.rbtnHex.TabIndex = 3;
@@ -168,7 +153,7 @@
             // rbtnASCII
             // 
             this.rbtnASCII.AutoSize = true;
-            this.rbtnASCII.Location = new System.Drawing.Point(116, 3);
+            this.rbtnASCII.Location = new System.Drawing.Point(130, 3);
             this.rbtnASCII.Name = "rbtnASCII";
             this.rbtnASCII.Size = new System.Drawing.Size(57, 21);
             this.rbtnASCII.TabIndex = 4;
@@ -201,7 +186,7 @@
             // rbtnUTF8
             // 
             this.rbtnUTF8.AutoSize = true;
-            this.rbtnUTF8.Location = new System.Drawing.Point(175, 3);
+            this.rbtnUTF8.Location = new System.Drawing.Point(193, 3);
             this.rbtnUTF8.Name = "rbtnUTF8";
             this.rbtnUTF8.Size = new System.Drawing.Size(55, 21);
             this.rbtnUTF8.TabIndex = 7;
@@ -212,7 +197,7 @@
             // rbtnGB2312
             // 
             this.rbtnGB2312.AutoSize = true;
-            this.rbtnGB2312.Location = new System.Drawing.Point(228, 3);
+            this.rbtnGB2312.Location = new System.Drawing.Point(254, 3);
             this.rbtnGB2312.Name = "rbtnGB2312";
             this.rbtnGB2312.Size = new System.Drawing.Size(71, 21);
             this.rbtnGB2312.TabIndex = 8;
@@ -236,7 +221,7 @@
             this.cbTime.AutoSize = true;
             this.cbTime.Checked = true;
             this.cbTime.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbTime.Location = new System.Drawing.Point(305, 4);
+            this.cbTime.Location = new System.Drawing.Point(331, 4);
             this.cbTime.Name = "cbTime";
             this.cbTime.Size = new System.Drawing.Size(99, 21);
             this.cbTime.TabIndex = 2;
@@ -246,7 +231,7 @@
             // cbAutoSave
             // 
             this.cbAutoSave.AutoSize = true;
-            this.cbAutoSave.Location = new System.Drawing.Point(491, 4);
+            this.cbAutoSave.Location = new System.Drawing.Point(3, 4);
             this.cbAutoSave.Name = "cbAutoSave";
             this.cbAutoSave.Size = new System.Drawing.Size(75, 21);
             this.cbAutoSave.TabIndex = 2;
@@ -259,7 +244,7 @@
             this.cbSend.AutoSize = true;
             this.cbSend.Checked = true;
             this.cbSend.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbSend.Location = new System.Drawing.Point(410, 4);
+            this.cbSend.Location = new System.Drawing.Point(436, 4);
             this.cbSend.Name = "cbSend";
             this.cbSend.Size = new System.Drawing.Size(75, 21);
             this.cbSend.TabIndex = 2;
@@ -288,27 +273,6 @@
             this.lbSCount.Text = "0";
             this.lbSCount.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LbCount_LinkClicked);
             // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(3, 30);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.txtData);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.realtimeChart1);
-            this.splitContainer1.Panel2Collapsed = true;
-            this.splitContainer1.Size = new System.Drawing.Size(569, 160);
-            this.splitContainer1.SplitterDistance = 80;
-            this.splitContainer1.TabIndex = 10;
-            // 
             // txtData
             // 
             this.txtData.ContextMenuStrip = this.CMS_Main;
@@ -318,1235 +282,10 @@
             this.txtData.Multiline = true;
             this.txtData.Name = "txtData";
             this.txtData.ReadOnly = true;
-            this.txtData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtData.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtData.Size = new System.Drawing.Size(569, 160);
             this.txtData.TabIndex = 2;
-            // 
-            // realtimeChart1
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.AxisPen.Width = 2;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.Grid.Visible = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.Labels.Axis = this.realtimeChart1.Axes.Bottom;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.Labels.Brush.Color = System.Drawing.Color.White;
-            this.realtimeChart1.Axes.Bottom.Labels.Brush.Solid = true;
-            this.realtimeChart1.Axes.Bottom.Labels.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.Labels.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.Labels.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.realtimeChart1.Axes.Bottom.Labels.Font.Brush.Solid = true;
-            this.realtimeChart1.Axes.Bottom.Labels.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.Labels.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Bottom.Labels.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Bottom.Labels.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Axes.Bottom.Labels.Font.Size = 9;
-            this.realtimeChart1.Axes.Bottom.Labels.Font.SizeFloat = 9F;
-            this.realtimeChart1.Axes.Bottom.Labels.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.Labels.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Axes.Bottom.Labels.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Axes.Bottom.Labels.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.Labels.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Bottom.Labels.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Bottom.Labels.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.MinorTicks.Length = 2;
-            this.realtimeChart1.Axes.Bottom.MinorTicks.Visible = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.Ticks.Length = 4;
-            this.realtimeChart1.Axes.Bottom.Ticks.Visible = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.TicksInner.Length = 0;
-            this.realtimeChart1.Axes.Bottom.TicksInner.Visible = false;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.Title.Brush.Color = System.Drawing.Color.Silver;
-            this.realtimeChart1.Axes.Bottom.Title.Brush.Solid = true;
-            this.realtimeChart1.Axes.Bottom.Title.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.Title.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.Title.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.realtimeChart1.Axes.Bottom.Title.Font.Brush.Solid = true;
-            this.realtimeChart1.Axes.Bottom.Title.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.Title.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Bottom.Title.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Bottom.Title.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Axes.Bottom.Title.Font.Size = 11;
-            this.realtimeChart1.Axes.Bottom.Title.Font.SizeFloat = 11F;
-            this.realtimeChart1.Axes.Bottom.Title.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.Title.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Axes.Bottom.Title.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Axes.Bottom.Title.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Bottom.Title.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Bottom.Title.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Bottom.Title.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.AxisPen.Visible = false;
-            this.realtimeChart1.Axes.Depth.AxisPen.Width = 2;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.Labels.Axis = this.realtimeChart1.Axes.Depth;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.Labels.Brush.Color = System.Drawing.Color.White;
-            this.realtimeChart1.Axes.Depth.Labels.Brush.Solid = true;
-            this.realtimeChart1.Axes.Depth.Labels.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.Labels.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.Labels.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.realtimeChart1.Axes.Depth.Labels.Font.Brush.Solid = true;
-            this.realtimeChart1.Axes.Depth.Labels.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.Labels.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Depth.Labels.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Depth.Labels.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Axes.Depth.Labels.Font.Size = 9;
-            this.realtimeChart1.Axes.Depth.Labels.Font.SizeFloat = 9F;
-            this.realtimeChart1.Axes.Depth.Labels.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.Labels.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Axes.Depth.Labels.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Axes.Depth.Labels.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.Labels.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Depth.Labels.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Depth.Labels.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.MinorTicks.Length = 2;
-            this.realtimeChart1.Axes.Depth.MinorTicks.Visible = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.Ticks.Length = 4;
-            this.realtimeChart1.Axes.Depth.Ticks.Visible = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.TicksInner.Length = 0;
-            this.realtimeChart1.Axes.Depth.TicksInner.Visible = false;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.Title.Brush.Color = System.Drawing.Color.Silver;
-            this.realtimeChart1.Axes.Depth.Title.Brush.Solid = true;
-            this.realtimeChart1.Axes.Depth.Title.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.Title.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.Title.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.realtimeChart1.Axes.Depth.Title.Font.Brush.Solid = true;
-            this.realtimeChart1.Axes.Depth.Title.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.Title.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Depth.Title.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Depth.Title.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Axes.Depth.Title.Font.Size = 11;
-            this.realtimeChart1.Axes.Depth.Title.Font.SizeFloat = 11F;
-            this.realtimeChart1.Axes.Depth.Title.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.Title.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Axes.Depth.Title.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Axes.Depth.Title.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Depth.Title.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Depth.Title.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Depth.Title.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.AxisPen.Visible = false;
-            this.realtimeChart1.Axes.DepthTop.AxisPen.Width = 2;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.Labels.Axis = this.realtimeChart1.Axes.DepthTop;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.Labels.Brush.Color = System.Drawing.Color.White;
-            this.realtimeChart1.Axes.DepthTop.Labels.Brush.Solid = true;
-            this.realtimeChart1.Axes.DepthTop.Labels.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.Labels.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.Labels.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.realtimeChart1.Axes.DepthTop.Labels.Font.Brush.Solid = true;
-            this.realtimeChart1.Axes.DepthTop.Labels.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.Labels.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.DepthTop.Labels.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.DepthTop.Labels.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Axes.DepthTop.Labels.Font.Size = 9;
-            this.realtimeChart1.Axes.DepthTop.Labels.Font.SizeFloat = 9F;
-            this.realtimeChart1.Axes.DepthTop.Labels.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.Labels.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Axes.DepthTop.Labels.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Axes.DepthTop.Labels.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.Labels.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.DepthTop.Labels.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.DepthTop.Labels.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.MinorTicks.Length = 2;
-            this.realtimeChart1.Axes.DepthTop.MinorTicks.Visible = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.Ticks.Length = 4;
-            this.realtimeChart1.Axes.DepthTop.Ticks.Visible = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.TicksInner.Length = 0;
-            this.realtimeChart1.Axes.DepthTop.TicksInner.Visible = false;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.Title.Brush.Color = System.Drawing.Color.Silver;
-            this.realtimeChart1.Axes.DepthTop.Title.Brush.Solid = true;
-            this.realtimeChart1.Axes.DepthTop.Title.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.Title.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.Title.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.realtimeChart1.Axes.DepthTop.Title.Font.Brush.Solid = true;
-            this.realtimeChart1.Axes.DepthTop.Title.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.Title.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.DepthTop.Title.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.DepthTop.Title.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Axes.DepthTop.Title.Font.Size = 11;
-            this.realtimeChart1.Axes.DepthTop.Title.Font.SizeFloat = 11F;
-            this.realtimeChart1.Axes.DepthTop.Title.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.Title.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Axes.DepthTop.Title.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Axes.DepthTop.Title.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.DepthTop.Title.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.DepthTop.Title.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.DepthTop.Title.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.AxisPen.Visible = false;
-            this.realtimeChart1.Axes.Left.AxisPen.Width = 2;
-            this.realtimeChart1.Axes.Left.FixedLabelSize = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.Labels.Axis = this.realtimeChart1.Axes.Left;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.Labels.Brush.Color = System.Drawing.Color.White;
-            this.realtimeChart1.Axes.Left.Labels.Brush.Solid = true;
-            this.realtimeChart1.Axes.Left.Labels.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.Labels.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.Labels.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.realtimeChart1.Axes.Left.Labels.Font.Brush.Solid = true;
-            this.realtimeChart1.Axes.Left.Labels.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.Labels.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Left.Labels.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Left.Labels.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Axes.Left.Labels.Font.Size = 9;
-            this.realtimeChart1.Axes.Left.Labels.Font.SizeFloat = 9F;
-            this.realtimeChart1.Axes.Left.Labels.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.Labels.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Axes.Left.Labels.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Axes.Left.Labels.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.Labels.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Left.Labels.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Left.Labels.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.MinorTicks.Length = 2;
-            this.realtimeChart1.Axes.Left.MinorTicks.Visible = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.Ticks.Length = 4;
-            this.realtimeChart1.Axes.Left.Ticks.Visible = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.TicksInner.Length = 0;
-            this.realtimeChart1.Axes.Left.TicksInner.Visible = false;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.Title.Brush.Color = System.Drawing.Color.Silver;
-            this.realtimeChart1.Axes.Left.Title.Brush.Solid = true;
-            this.realtimeChart1.Axes.Left.Title.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.Title.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.Title.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.realtimeChart1.Axes.Left.Title.Font.Brush.Solid = true;
-            this.realtimeChart1.Axes.Left.Title.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.Title.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Left.Title.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Left.Title.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Axes.Left.Title.Font.Size = 11;
-            this.realtimeChart1.Axes.Left.Title.Font.SizeFloat = 11F;
-            this.realtimeChart1.Axes.Left.Title.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.Title.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Axes.Left.Title.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Axes.Left.Title.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Left.Title.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Left.Title.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Left.Title.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.AxisPen.Visible = false;
-            this.realtimeChart1.Axes.Right.AxisPen.Width = 2;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.Labels.Axis = this.realtimeChart1.Axes.Right;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.Labels.Brush.Color = System.Drawing.Color.White;
-            this.realtimeChart1.Axes.Right.Labels.Brush.Solid = true;
-            this.realtimeChart1.Axes.Right.Labels.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.Labels.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.Labels.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.realtimeChart1.Axes.Right.Labels.Font.Brush.Solid = true;
-            this.realtimeChart1.Axes.Right.Labels.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.Labels.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Right.Labels.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Right.Labels.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Axes.Right.Labels.Font.Size = 9;
-            this.realtimeChart1.Axes.Right.Labels.Font.SizeFloat = 9F;
-            this.realtimeChart1.Axes.Right.Labels.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.Labels.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Axes.Right.Labels.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Axes.Right.Labels.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.Labels.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Right.Labels.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Right.Labels.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.MinorTicks.Length = 2;
-            this.realtimeChart1.Axes.Right.MinorTicks.Visible = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.Ticks.Length = 4;
-            this.realtimeChart1.Axes.Right.Ticks.Visible = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.TicksInner.Length = 0;
-            this.realtimeChart1.Axes.Right.TicksInner.Visible = false;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.Title.Brush.Color = System.Drawing.Color.Silver;
-            this.realtimeChart1.Axes.Right.Title.Brush.Solid = true;
-            this.realtimeChart1.Axes.Right.Title.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.Title.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.Title.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.realtimeChart1.Axes.Right.Title.Font.Brush.Solid = true;
-            this.realtimeChart1.Axes.Right.Title.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.Title.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Right.Title.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Right.Title.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Axes.Right.Title.Font.Size = 11;
-            this.realtimeChart1.Axes.Right.Title.Font.SizeFloat = 11F;
-            this.realtimeChart1.Axes.Right.Title.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.Title.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Axes.Right.Title.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Axes.Right.Title.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Right.Title.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Right.Title.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Right.Title.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.AxisPen.Width = 2;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.Labels.Axis = this.realtimeChart1.Axes.Top;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.Labels.Brush.Color = System.Drawing.Color.White;
-            this.realtimeChart1.Axes.Top.Labels.Brush.Solid = true;
-            this.realtimeChart1.Axes.Top.Labels.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.Labels.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.Labels.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.realtimeChart1.Axes.Top.Labels.Font.Brush.Solid = true;
-            this.realtimeChart1.Axes.Top.Labels.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.Labels.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Top.Labels.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Top.Labels.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Axes.Top.Labels.Font.Size = 9;
-            this.realtimeChart1.Axes.Top.Labels.Font.SizeFloat = 9F;
-            this.realtimeChart1.Axes.Top.Labels.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.Labels.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Axes.Top.Labels.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Axes.Top.Labels.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.Labels.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Top.Labels.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Top.Labels.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.MinorTicks.Length = 2;
-            this.realtimeChart1.Axes.Top.MinorTicks.Visible = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.Ticks.Length = 4;
-            this.realtimeChart1.Axes.Top.Ticks.Visible = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.TicksInner.Length = 0;
-            this.realtimeChart1.Axes.Top.TicksInner.Visible = false;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.Title.Brush.Color = System.Drawing.Color.Silver;
-            this.realtimeChart1.Axes.Top.Title.Brush.Solid = true;
-            this.realtimeChart1.Axes.Top.Title.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.Title.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.Title.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.realtimeChart1.Axes.Top.Title.Font.Brush.Solid = true;
-            this.realtimeChart1.Axes.Top.Title.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.Title.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Top.Title.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Top.Title.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Axes.Top.Title.Font.Size = 11;
-            this.realtimeChart1.Axes.Top.Title.Font.SizeFloat = 11F;
-            this.realtimeChart1.Axes.Top.Title.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.Title.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Axes.Top.Title.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Axes.Top.Title.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Axes.Top.Title.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Axes.Top.Title.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Axes.Top.Title.Shadow.Brush.Visible = true;
-            this.realtimeChart1.ContextMenuStrip = this.CMS_Chart;
-            this.realtimeChart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Footer.Brush.Color = System.Drawing.Color.Silver;
-            this.realtimeChart1.Footer.Brush.Solid = true;
-            this.realtimeChart1.Footer.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Footer.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Footer.Font.Brush.Color = System.Drawing.Color.Red;
-            this.realtimeChart1.Footer.Font.Brush.Solid = true;
-            this.realtimeChart1.Footer.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Footer.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Footer.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Footer.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Footer.Font.Size = 8;
-            this.realtimeChart1.Footer.Font.SizeFloat = 8F;
-            this.realtimeChart1.Footer.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Footer.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Footer.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Footer.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Footer.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Footer.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Footer.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Header.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.realtimeChart1.Header.Brush.Solid = true;
-            this.realtimeChart1.Header.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Header.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Header.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.realtimeChart1.Header.Font.Brush.Solid = true;
-            this.realtimeChart1.Header.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Header.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Header.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Header.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Header.Font.Size = 12;
-            this.realtimeChart1.Header.Font.SizeFloat = 12F;
-            this.realtimeChart1.Header.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Header.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Header.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Header.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Header.Shadow.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.realtimeChart1.Header.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Header.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Header.Visible = false;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.Brush.Color = System.Drawing.Color.White;
-            this.realtimeChart1.Legend.Brush.Solid = true;
-            this.realtimeChart1.Legend.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.realtimeChart1.Legend.Font.Brush.Solid = true;
-            this.realtimeChart1.Legend.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Legend.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Legend.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Legend.Font.Size = 9;
-            this.realtimeChart1.Legend.Font.SizeFloat = 9F;
-            this.realtimeChart1.Legend.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Legend.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Legend.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.Pen.Visible = false;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.Shadow.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.realtimeChart1.Legend.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Legend.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.Symbol.Legend = this.realtimeChart1.Legend;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.Symbol.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Legend.Symbol.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Legend.Symbol.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.Title.Brush.Color = System.Drawing.Color.White;
-            this.realtimeChart1.Legend.Title.Brush.Solid = true;
-            this.realtimeChart1.Legend.Title.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.Title.Font.Bold = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.Title.Font.Brush.Color = System.Drawing.Color.Black;
-            this.realtimeChart1.Legend.Title.Font.Brush.Solid = true;
-            this.realtimeChart1.Legend.Title.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.Title.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Legend.Title.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Legend.Title.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Legend.Title.Font.Size = 8;
-            this.realtimeChart1.Legend.Title.Font.SizeFloat = 8F;
-            this.realtimeChart1.Legend.Title.Font.Style = Steema.TeeChart.Drawing.FontStyle.Bold;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.Title.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Legend.Title.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Legend.Title.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.Title.Pen.Visible = false;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Legend.Title.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Legend.Title.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Legend.Title.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Legend.Visible = false;
-            this.realtimeChart1.Location = new System.Drawing.Point(0, 0);
-            this.realtimeChart1.Name = "realtimeChart1";
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Panel.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            // 
-            // 
-            // 
-            this.realtimeChart1.Panel.Brush.Gradient.UseMiddle = true;
-            this.realtimeChart1.Panel.Brush.Solid = true;
-            this.realtimeChart1.Panel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Panel.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Panel.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Panel.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Panel.Pen.Visible = false;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Panel.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Panel.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Panel.Shadow.Brush.Visible = true;
-            this.realtimeChart1.Size = new System.Drawing.Size(150, 46);
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.SubFooter.Brush.Color = System.Drawing.Color.Silver;
-            this.realtimeChart1.SubFooter.Brush.Solid = true;
-            this.realtimeChart1.SubFooter.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.SubFooter.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.SubFooter.Font.Brush.Color = System.Drawing.Color.Red;
-            this.realtimeChart1.SubFooter.Font.Brush.Solid = true;
-            this.realtimeChart1.SubFooter.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.SubFooter.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.SubFooter.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.SubFooter.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.SubFooter.Font.Size = 8;
-            this.realtimeChart1.SubFooter.Font.SizeFloat = 8F;
-            this.realtimeChart1.SubFooter.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.SubFooter.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.SubFooter.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.SubFooter.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.SubFooter.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.SubFooter.Shadow.Brush.Solid = true;
-            this.realtimeChart1.SubFooter.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.SubHeader.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.realtimeChart1.SubHeader.Brush.Solid = true;
-            this.realtimeChart1.SubHeader.Brush.Visible = true;
-            // 
-            // 
-            // 
-            this.realtimeChart1.SubHeader.Font.Bold = false;
-            // 
-            // 
-            // 
-            this.realtimeChart1.SubHeader.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.realtimeChart1.SubHeader.Font.Brush.Solid = true;
-            this.realtimeChart1.SubHeader.Font.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.SubHeader.Font.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.SubHeader.Font.Shadow.Brush.Solid = true;
-            this.realtimeChart1.SubHeader.Font.Shadow.Brush.Visible = true;
-            this.realtimeChart1.SubHeader.Font.Size = 12;
-            this.realtimeChart1.SubHeader.Font.SizeFloat = 12F;
-            this.realtimeChart1.SubHeader.Font.Style = Steema.TeeChart.Drawing.FontStyle.Regular;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.SubHeader.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.SubHeader.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.SubHeader.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.SubHeader.Shadow.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.realtimeChart1.SubHeader.Shadow.Brush.Solid = true;
-            this.realtimeChart1.SubHeader.Shadow.Brush.Visible = true;
-            this.realtimeChart1.TabIndex = 0;
-            this.realtimeChart1.Text = "realtimeChart1";
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Walls.Back.Brush.Color = System.Drawing.Color.Silver;
-            // 
-            // 
-            // 
-            this.realtimeChart1.Walls.Back.Brush.Gradient.Visible = true;
-            this.realtimeChart1.Walls.Back.Brush.Solid = true;
-            this.realtimeChart1.Walls.Back.Brush.Visible = false;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Walls.Back.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Walls.Back.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Walls.Back.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Walls.Back.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Walls.Back.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Walls.Back.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Walls.Bottom.Brush.Color = System.Drawing.Color.White;
-            this.realtimeChart1.Walls.Bottom.Brush.Solid = true;
-            this.realtimeChart1.Walls.Bottom.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Walls.Bottom.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Walls.Bottom.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Walls.Bottom.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Walls.Bottom.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Walls.Bottom.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Walls.Bottom.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Walls.Left.Brush.Color = System.Drawing.Color.LightYellow;
-            this.realtimeChart1.Walls.Left.Brush.Solid = true;
-            this.realtimeChart1.Walls.Left.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Walls.Left.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Walls.Left.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Walls.Left.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Walls.Left.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Walls.Left.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Walls.Left.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Walls.Right.Brush.Color = System.Drawing.Color.LightYellow;
-            this.realtimeChart1.Walls.Right.Brush.Solid = true;
-            this.realtimeChart1.Walls.Right.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Walls.Right.ImageBevel.Brush.Color = System.Drawing.Color.LightGray;
-            this.realtimeChart1.Walls.Right.ImageBevel.Brush.Solid = true;
-            this.realtimeChart1.Walls.Right.ImageBevel.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Walls.Right.Shadow.Brush.Color = System.Drawing.Color.DarkGray;
-            this.realtimeChart1.Walls.Right.Shadow.Brush.Solid = true;
-            this.realtimeChart1.Walls.Right.Shadow.Brush.Visible = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.realtimeChart1.Zoom.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(173)))), ((int)(((byte)(216)))), ((int)(((byte)(230)))));
-            this.realtimeChart1.Zoom.Brush.Solid = true;
-            this.realtimeChart1.Zoom.Brush.Visible = true;
-            this.realtimeChart1.Zoom.FullRepaint = true;
-            this.realtimeChart1.DoubleClick += new System.EventHandler(this.RealtimeChart1_DoubleClick);
+            this.txtData.WordWrap = false;
             // 
             // CMS_Chart
             // 
@@ -1562,6 +301,23 @@
             this.存储有效值ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.存储有效值ToolStripMenuItem.Text = "存储有效值";
             this.存储有效值ToolStripMenuItem.Click += new System.EventHandler(this.存储有效值ToolStripMenuItem_Click);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(3, 30);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.txtData);
+            this.splitContainer1.Panel2Collapsed = true;
+            this.splitContainer1.Size = new System.Drawing.Size(569, 160);
+            this.splitContainer1.SplitterDistance = 80;
+            this.splitContainer1.TabIndex = 10;
             // 
             // DataReceive
             // 
@@ -1579,23 +335,20 @@
             this.Controls.Add(this.cbAutoSave);
             this.Controls.Add(this.cbSend);
             this.Controls.Add(this.cbTime);
-            this.Controls.Add(this.cbxAutoLine);
             this.Name = "DataReceive";
             this.Size = new System.Drawing.Size(575, 210);
             this.CMS_Main.ResumeLayout(false);
+            this.CMS_Chart.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.CMS_Chart.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.CheckBox cbxAutoLine;
         private System.Windows.Forms.RadioButton rbtnHex;
         private System.Windows.Forms.RadioButton rbtnASCII;
         private System.Windows.Forms.ContextMenuStrip CMS_Main;
@@ -1614,7 +367,6 @@
         private System.Windows.Forms.CheckBox cbSend;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel lbSCount;
-        private SplitContainer splitContainer1;
         private TextBox txtData;
         private ChartTest.Controls.RealtimeChart realtimeChart1;
         private ToolStripMenuItem 绘制接收数据曲线ToolStripMenuItem;
@@ -1622,5 +374,6 @@
         private ToolStripMenuItem 存储有效值ToolStripMenuItem;
         private ToolStripMenuItem MS_ToUInt;
         private ToolStripMenuItem 低字节在前ToolStripMenuItem;
+        private SplitContainer splitContainer1;
     }
 }
