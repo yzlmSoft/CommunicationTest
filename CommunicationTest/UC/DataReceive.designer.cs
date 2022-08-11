@@ -1,4 +1,4 @@
-﻿namespace CommunicationTest
+﻿namespace CommunicationTest.UC
 {
     partial class DataReceive
     {
@@ -51,14 +51,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lbSCount = new System.Windows.Forms.LinkLabel();
             this.txtData = new System.Windows.Forms.TextBox();
-            this.CMS_Chart = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.存储有效值ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.CMS_Main.SuspendLayout();
-            this.CMS_Chart.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // CMS_Main
@@ -275,54 +268,24 @@
             // 
             // txtData
             // 
+            this.txtData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtData.ContextMenuStrip = this.CMS_Main;
-            this.txtData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtData.Location = new System.Drawing.Point(0, 0);
+            this.txtData.Location = new System.Drawing.Point(0, 30);
             this.txtData.MaxLength = 1;
             this.txtData.Multiline = true;
             this.txtData.Name = "txtData";
             this.txtData.ReadOnly = true;
             this.txtData.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtData.Size = new System.Drawing.Size(569, 160);
+            this.txtData.Size = new System.Drawing.Size(575, 160);
             this.txtData.TabIndex = 2;
             this.txtData.WordWrap = false;
-            // 
-            // CMS_Chart
-            // 
-            this.CMS_Chart.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.存储有效值ToolStripMenuItem});
-            this.CMS_Chart.Name = "CMS_Chart";
-            this.CMS_Chart.Size = new System.Drawing.Size(137, 26);
-            // 
-            // 存储有效值ToolStripMenuItem
-            // 
-            this.存储有效值ToolStripMenuItem.CheckOnClick = true;
-            this.存储有效值ToolStripMenuItem.Name = "存储有效值ToolStripMenuItem";
-            this.存储有效值ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.存储有效值ToolStripMenuItem.Text = "存储有效值";
-            this.存储有效值ToolStripMenuItem.Click += new System.EventHandler(this.存储有效值ToolStripMenuItem_Click);
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(3, 30);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.txtData);
-            this.splitContainer1.Panel2Collapsed = true;
-            this.splitContainer1.Size = new System.Drawing.Size(569, 160);
-            this.splitContainer1.SplitterDistance = 80;
-            this.splitContainer1.TabIndex = 10;
             // 
             // DataReceive
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.txtData);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.rbtnGB2312);
             this.Controls.Add(this.rbtnUTF8);
@@ -338,11 +301,6 @@
             this.Name = "DataReceive";
             this.Size = new System.Drawing.Size(575, 210);
             this.CMS_Main.ResumeLayout(false);
-            this.CMS_Chart.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -368,12 +326,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel lbSCount;
         private TextBox txtData;
-        private ChartTest.Controls.RealtimeChart realtimeChart1;
         private ToolStripMenuItem 绘制接收数据曲线ToolStripMenuItem;
-        private ContextMenuStrip CMS_Chart;
-        private ToolStripMenuItem 存储有效值ToolStripMenuItem;
         private ToolStripMenuItem MS_ToUInt;
         private ToolStripMenuItem 低字节在前ToolStripMenuItem;
-        private SplitContainer splitContainer1;
     }
 }

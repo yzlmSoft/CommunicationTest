@@ -4,6 +4,7 @@ using CommunicationTest.Config.AutoReply;
 using CommunicationTest.Config.Connection;
 using CommunicationTest.Config.Parser;
 using CommunicationTest.Config.SendList;
+using CommunicationTest.UC;
 using Microsoft.Data.Sqlite;
 using Microsoft.Win32;
 using Parser;

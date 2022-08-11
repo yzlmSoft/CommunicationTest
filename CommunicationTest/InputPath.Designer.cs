@@ -51,7 +51,6 @@
             // 
             // InputPath
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(276, 46);
             this.Controls.Add(this.btnOk);
@@ -59,7 +58,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "InputPath";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "本次记录文件名";
+            this.Text = "本次记录编号";
             this.ResumeLayout(false);
             this.PerformLayout();
 

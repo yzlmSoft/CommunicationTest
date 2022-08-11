@@ -2,6 +2,7 @@
 using CommunicationTest.Config.Connection;
 using CommunicationTest.Config.Parser;
 using CommunicationTest.Config.SendList;
+using CommunicationTest.UC;
 using Parser.Interfaces;
 using System.Collections.Concurrent;
 using TopPortLib.Interfaces;
