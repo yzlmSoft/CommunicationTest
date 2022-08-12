@@ -737,7 +737,8 @@ namespace CommunicationTest
                 }
                 catch (Exception)
                 {
-
+                    MessageBox.Show("命令输入有误");
+                    dataGridView1.Rows[e.RowIndex].Selected = true;
                 }
             }
         }

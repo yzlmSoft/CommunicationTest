@@ -366,7 +366,7 @@ namespace CommunicationTest.UC
                 {
                     await chart.DrawChartAsync(data);
                 };
-                chart.FormClosed += (sender, e) =>
+                chart.FormClosing += (sender, e) =>
                 {
                     DrawChart -= async data =>
                     {

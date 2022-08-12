@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Utils;
 
-namespace CommunicationTest.UC
+namespace CommunicationTest
 {
     internal partial class Chart : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace CommunicationTest.UC
+﻿namespace CommunicationTest
 {
     partial class Chart
     {
