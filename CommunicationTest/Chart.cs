@@ -295,5 +295,10 @@ namespace CommunicationTest
         {
             _History = 存储有效值ToolStripMenuItem.Checked;
         }
+
+        private void 清图ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            realtimeChart1.Series[0].Clear();
+        }
     }
 }

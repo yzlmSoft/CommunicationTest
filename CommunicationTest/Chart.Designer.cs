@@ -32,6 +32,7 @@
             this.realtimeChart1 = new ChartTest.Controls.RealtimeChart();
             this.CMS_Chart = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.存储有效值ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CMS_Chart.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -1263,9 +1264,10 @@
             // CMS_Chart
             // 
             this.CMS_Chart.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.存储有效值ToolStripMenuItem});
+            this.存储有效值ToolStripMenuItem,
+            this.清图ToolStripMenuItem});
             this.CMS_Chart.Name = "CMS_Chart";
-            this.CMS_Chart.Size = new System.Drawing.Size(137, 26);
+            this.CMS_Chart.Size = new System.Drawing.Size(181, 70);
             // 
             // 存储有效值ToolStripMenuItem
             // 
@@ -1274,6 +1276,13 @@
             this.存储有效值ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.存储有效值ToolStripMenuItem.Text = "存储有效值";
             this.存储有效值ToolStripMenuItem.Click += new System.EventHandler(this.存储有效值ToolStripMenuItem_Click);
+            // 
+            // 清图ToolStripMenuItem
+            // 
+            this.清图ToolStripMenuItem.Name = "清图ToolStripMenuItem";
+            this.清图ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.清图ToolStripMenuItem.Text = "清图";
+            this.清图ToolStripMenuItem.Click += new System.EventHandler(this.清图ToolStripMenuItem_Click);
             // 
             // Chart
             // 
@@ -1293,5 +1302,6 @@
         private ChartTest.Controls.RealtimeChart realtimeChart1;
         private ContextMenuStrip CMS_Chart;
         private ToolStripMenuItem 存储有效值ToolStripMenuItem;
+        private ToolStripMenuItem 清图ToolStripMenuItem;
     }
 }
