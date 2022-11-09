@@ -15,8 +15,8 @@ SolidCompression=yes
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}";
 
 [Files]
-Source: "D:\GitHub\CommunicationTest\CommunicationTest\bin\Release\net6.0-windows\publish\CommunicationTest.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\GitHub\CommunicationTest\CommunicationTest\bin\Release\net6.0-windows\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
+Source: "D:\GitHub\CommunicationTest\CommunicationTest\bin\Release\net7.0-windows\publish\CommunicationTest.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\GitHub\CommunicationTest\CommunicationTest\bin\Release\net7.0-windows\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs
 ; 注意: 不要在任何共享系统文件中使用“Flags: ignoreversion”
 
 [Icons]

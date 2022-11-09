@@ -2,13 +2,12 @@
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
+		<TargetFramework>net7.0-windows</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ApplicationIcon>logo.ico</ApplicationIcon>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-
 		<ApplicationHighDpiMode>DpiUnawareGdiScaled</ApplicationHighDpiMode>
 	</PropertyGroup>
 
@@ -25,11 +24,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CSoft.DataPairs.Ceras" Version="6.0.6" />
-		<PackageReference Include="CSoft.TopPortLib" Version="6.6.2" />
+		<PackageReference Include="CSoft.DataPairs.Ceras" Version="7.0.0" />
+		<PackageReference Include="CSoft.TopPortLib" Version="7.0.0" />
 		<PackageReference Include="Flee" Version="2.0.0" />
 		<PackageReference Include="Steema.TeeChart.NET" Version="4.2022.2.11" />
-		<PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
+		<PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
