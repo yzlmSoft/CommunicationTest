@@ -14,6 +14,7 @@ using System.Data;
 using System.IO.Ports;
 using System.Net;
 using System.Text;
+using System.Windows.Forms;
 using TopPortLib;
 using Utils;
 
@@ -172,17 +173,30 @@ namespace CommunicationTest
                                     RtsEnable = bool.Parse(connectionConfig.Item2["Rts"])
                                 };
                                 Global.TopPort = new TopPort(serialPort, Global.Parser);
-                                var dr = new DataReceive();
+
+
+                                var dr = tabControl1.TabPages.ContainsKey(portName) ? (DataReceive)tabControl1.TabPages[portName]!.Controls[0] : new DataReceive();
                                 Global.TopPort.OnConnect += async () => await TopPort_OnConnect(dr);
                                 Global.TopPort.OnDisconnect += async () => await TopPort_OnDisconnect(dr);
                                 Global.TopPort.OnReceiveParsedData += async data => await TopPort_OnReceiveParsedData(data, dr);
                                 await Global.TopPort.OpenAsync();
 
-                                dr.Dock = DockStyle.Fill;
-                                tabPage = new TabPage(portName);
-                                tabPage.Controls.Add(dr);
-                                tabControl1.TabPages.Add(tabPage);
-                                tabControl1.SelectedTab = tabPage;
+                                if (!tabControl1.TabPages.ContainsKey(portName))
+                                {
+                                    dr.Dock = DockStyle.Fill;
+                                    tabPage = new TabPage(portName)
+                                    {
+                                        Name = portName
+                                    };
+                                    tabPage.Controls.Add(dr);
+                                    tabControl1.TabPages.Add(tabPage);
+                                    tabControl1.SelectedTab = tabPage;
+                                }
+                                else
+                                {
+                                    tabControl1.TabPages[portName]!.Text = portName;
+                                    tabControl1.SelectedTab = tabControl1.TabPages[portName];
+                                }
                             }
                             break;
                         case ConnectionType.TCPServer:
@@ -201,17 +215,26 @@ namespace CommunicationTest
                                 var TCPClientIP = connectionConfig.Item2["TCPClientIP"] == "Any" ? IPAddress.Any.ToString() : connectionConfig.Item2["TCPClientIP"];
                                 var TCPClientPort = int.Parse(connectionConfig.Item2["TCPClientPort"]);
                                 Global.TopPort = new TopPort(new TcpClient(TCPClientIP, TCPClientPort), Global.Parser);
-                                var dr = new DataReceive();
+                                var dr = tabControl1.TabPages.ContainsKey($"{TCPClientIP}:{TCPClientPort}") ? (DataReceive)tabControl1.TabPages[$"{TCPClientIP}:{TCPClientPort}"]!.Controls[0] : new DataReceive();
                                 Global.TopPort.OnConnect += async () => await TopPort_OnConnect(dr);
                                 Global.TopPort.OnDisconnect += async () => await TopPort_OnDisconnect(dr);
                                 Global.TopPort.OnReceiveParsedData += async data => await TopPort_OnReceiveParsedData(data, dr);
                                 await Global.TopPort.OpenAsync();
 
-                                dr.Dock = DockStyle.Fill;
-                                tabPage = new TabPage($"{TCPClientIP}:{TCPClientPort}");
-                                tabPage.Controls.Add(dr);
-                                tabControl1.TabPages.Add(tabPage);
-                                tabControl1.SelectedTab = tabPage;
+                                if (!tabControl1.TabPages.ContainsKey($"{TCPClientIP}:{TCPClientPort}"))
+                                {
+                                    dr.Dock = DockStyle.Fill;
+                                    tabPage = new TabPage($"{TCPClientIP}:{TCPClientPort}");
+                                    tabPage.Name = $"{TCPClientIP}:{TCPClientPort}";
+                                    tabPage.Controls.Add(dr);
+                                    tabControl1.TabPages.Add(tabPage);
+                                    tabControl1.SelectedTab = tabPage;
+                                }
+                                else
+                                {
+                                    tabControl1.TabPages[$"{TCPClientIP}:{TCPClientPort}"]!.Text = $"{TCPClientIP}:{TCPClientPort}";
+                                    tabControl1.SelectedTab = tabControl1.TabPages[$"{TCPClientIP}:{TCPClientPort}"];
+                                }
                             }
                             break;
                         default:
@@ -235,7 +258,7 @@ namespace CommunicationTest
                                 tabPage.Text = str.Replace(" 掉线尝试重连", string.Empty);
                                 btnConnect.Enabled = true;
                             }
-                            tabPage.Text += " 本次测试结束";
+                            tabPage.Text += " 测试关闭";
                             CloseTabPage();
                             break;
                         default:
@@ -261,7 +284,7 @@ namespace CommunicationTest
             isConnect = false;
             await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
             {
-                if (!dr.Parent.Text.Contains("本次测试结束"))
+                if (!dr.Parent!.Text.Contains("测试关闭"))
                 {
                     dr.Parent.Text += " 掉线尝试重连";
                     btnConnect.Enabled = false;
@@ -275,7 +298,7 @@ namespace CommunicationTest
             isConnect = true;
             await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
             {
-                var str = dr.Parent.Text;
+                var str = dr.Parent!.Text;
                 if (str.Contains("掉线尝试重连"))
                 {
                     dr.Parent.Text = str.Replace(" 掉线尝试重连", string.Empty);
@@ -362,8 +385,8 @@ namespace CommunicationTest
             Global.DataReceives.TryRemove(clientId, out var dr);
             await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
             {
-                tabControl1.TabPages[clientId.ToString()].Text += " 本次测试结束";
-                tabControl1.TabPages[clientId.ToString()].Name = string.Empty;
+                tabControl1.TabPages[clientId.ToString()]!.Text += " 测试关闭";
+                tabControl1.TabPages[clientId.ToString()]!.Name = string.Empty;
                 CloseTabPage();
             })), EndInvoke);
         }
@@ -427,7 +450,7 @@ namespace CommunicationTest
             var (isEnd, clientId) = ((bool isEnd, int? clientId))await Task.Factory.FromAsync<object>(BeginInvoke(new Func<(bool, int?)>(() =>
             {
                 if (tabControl1.SelectedTab is null) return (true, null);
-                return (tabControl1.SelectedTab.Text.Contains("本次测试结束"), (int?)tabControl1.SelectedTab.Tag);
+                return (tabControl1.SelectedTab.Text.Contains("测试关闭"), (int?)tabControl1.SelectedTab.Tag);
             })), EndInvoke);
             if (isEnd) return;
             var cmd = sendCmd.Cmd;
@@ -681,7 +704,7 @@ namespace CommunicationTest
 
         private void CloseTabPage()
         {
-            if (tabControl1.SelectedTab != null && tabControl1.SelectedTab.Text.Contains("本次测试结束"))
+            if (tabControl1.SelectedTab != null && tabControl1.SelectedTab.Text.Contains("测试关闭"))
             {
                 tabControl1.ContextMenuStrip = contextMenuStrip1;
             }

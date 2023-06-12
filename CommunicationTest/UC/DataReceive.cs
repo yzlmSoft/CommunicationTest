@@ -305,7 +305,7 @@ namespace CommunicationTest.UC
                 if (InputPath.Show(out var path) == DialogResult.OK)
                 {
                     _path = path;
-                    this.Parent.Text += $"-{_path}";
+                    this.Parent!.Text += $"-{_path}";
                 }
                 else
                 {
