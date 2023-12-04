@@ -224,8 +224,10 @@ namespace CommunicationTest
                                 if (!tabControl1.TabPages.ContainsKey($"{TCPClientIP}:{TCPClientPort}"))
                                 {
                                     dr.Dock = DockStyle.Fill;
-                                    tabPage = new TabPage($"{TCPClientIP}:{TCPClientPort}");
-                                    tabPage.Name = $"{TCPClientIP}:{TCPClientPort}";
+                                    tabPage = new TabPage($"{TCPClientIP}:{TCPClientPort}")
+                                    {
+                                        Name = $"{TCPClientIP}:{TCPClientPort}"
+                                    };
                                     tabPage.Controls.Add(dr);
                                     tabControl1.TabPages.Add(tabPage);
                                     tabControl1.SelectedTab = tabPage;
@@ -494,8 +496,8 @@ namespace CommunicationTest
                 default:
                     break;
             }
-            if (sendCmd.HaveR) cmd = StringByteUtils.ComibeByteArray(cmd, new byte[] { 0x0d });
-            if (sendCmd.HaveN) cmd = StringByteUtils.ComibeByteArray(cmd, new byte[] { 0x0a });
+            if (sendCmd.HaveR) cmd = StringByteUtils.ComibeByteArray(cmd, [0x0d]);
+            if (sendCmd.HaveN) cmd = StringByteUtils.ComibeByteArray(cmd, [0x0a]);
             var connectionConfig = await Global.ConnectionConfig!.GetAsync();
             if (!isConnect) return;
             switch (connectionConfig.Item1)
