@@ -179,7 +179,6 @@ namespace CommunicationTest
                                 Global.TopPort.OnConnect += async () => await TopPort_OnConnect(dr);
                                 Global.TopPort.OnDisconnect += async () => await TopPort_OnDisconnect(dr);
                                 Global.TopPort.OnReceiveParsedData += async data => await TopPort_OnReceiveParsedData(data, dr);
-                                await Global.TopPort.OpenAsync();
 
                                 if (!tabControl1.TabPages.ContainsKey(portName))
                                 {
@@ -197,6 +196,7 @@ namespace CommunicationTest
                                     tabControl1.TabPages[portName]!.Text = portName;
                                     tabControl1.SelectedTab = tabControl1.TabPages[portName];
                                 }
+                                await Global.TopPort.OpenAsync();
                             }
                             break;
                         case ConnectionType.TCPServer:
@@ -219,7 +219,6 @@ namespace CommunicationTest
                                 Global.TopPort.OnConnect += async () => await TopPort_OnConnect(dr);
                                 Global.TopPort.OnDisconnect += async () => await TopPort_OnDisconnect(dr);
                                 Global.TopPort.OnReceiveParsedData += async data => await TopPort_OnReceiveParsedData(data, dr);
-                                await Global.TopPort.OpenAsync();
 
                                 if (!tabControl1.TabPages.ContainsKey($"{TCPClientIP}:{TCPClientPort}"))
                                 {
@@ -237,6 +236,7 @@ namespace CommunicationTest
                                     tabControl1.TabPages[$"{TCPClientIP}:{TCPClientPort}"]!.Text = $"{TCPClientIP}:{TCPClientPort}";
                                     tabControl1.SelectedTab = tabControl1.TabPages[$"{TCPClientIP}:{TCPClientPort}"];
                                 }
+                                await Global.TopPort.OpenAsync();
                             }
                             break;
                         default:
