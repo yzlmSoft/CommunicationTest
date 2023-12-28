@@ -174,28 +174,10 @@ namespace CommunicationTest
                                 };
                                 Global.TopPort = new TopPort(serialPort, Global.Parser);
 
-
                                 var dr = tabControl1.TabPages.ContainsKey(portName) ? (DataReceive)tabControl1.TabPages[portName]!.Controls[0] : new DataReceive();
-                                Global.TopPort.OnConnect += async () => await TopPort_OnConnect(dr);
+                                Global.TopPort.OnConnect += async () => await TopPort_OnConnect(dr, portName);
                                 Global.TopPort.OnDisconnect += async () => await TopPort_OnDisconnect(dr);
                                 Global.TopPort.OnReceiveParsedData += async data => await TopPort_OnReceiveParsedData(data, dr);
-
-                                if (!tabControl1.TabPages.ContainsKey(portName))
-                                {
-                                    dr.Dock = DockStyle.Fill;
-                                    tabPage = new TabPage(portName)
-                                    {
-                                        Name = portName
-                                    };
-                                    tabPage.Controls.Add(dr);
-                                    tabControl1.TabPages.Add(tabPage);
-                                    tabControl1.SelectedTab = tabPage;
-                                }
-                                else
-                                {
-                                    tabControl1.TabPages[portName]!.Text = portName;
-                                    tabControl1.SelectedTab = tabControl1.TabPages[portName];
-                                }
                                 await Global.TopPort.OpenAsync();
                             }
                             break;
@@ -216,26 +198,9 @@ namespace CommunicationTest
                                 var TCPClientPort = int.Parse(connectionConfig.Item2["TCPClientPort"]);
                                 Global.TopPort = new TopPort(new TcpClient(TCPClientIP, TCPClientPort), Global.Parser);
                                 var dr = tabControl1.TabPages.ContainsKey($"{TCPClientIP}:{TCPClientPort}") ? (DataReceive)tabControl1.TabPages[$"{TCPClientIP}:{TCPClientPort}"]!.Controls[0] : new DataReceive();
-                                Global.TopPort.OnConnect += async () => await TopPort_OnConnect(dr);
+                                Global.TopPort.OnConnect += async () => await TopPort_OnConnect(dr, $"{TCPClientIP}:{TCPClientPort}");
                                 Global.TopPort.OnDisconnect += async () => await TopPort_OnDisconnect(dr);
                                 Global.TopPort.OnReceiveParsedData += async data => await TopPort_OnReceiveParsedData(data, dr);
-
-                                if (!tabControl1.TabPages.ContainsKey($"{TCPClientIP}:{TCPClientPort}"))
-                                {
-                                    dr.Dock = DockStyle.Fill;
-                                    tabPage = new TabPage($"{TCPClientIP}:{TCPClientPort}")
-                                    {
-                                        Name = $"{TCPClientIP}:{TCPClientPort}"
-                                    };
-                                    tabPage.Controls.Add(dr);
-                                    tabControl1.TabPages.Add(tabPage);
-                                    tabControl1.SelectedTab = tabPage;
-                                }
-                                else
-                                {
-                                    tabControl1.TabPages[$"{TCPClientIP}:{TCPClientPort}"]!.Text = $"{TCPClientIP}:{TCPClientPort}";
-                                    tabControl1.SelectedTab = tabControl1.TabPages[$"{TCPClientIP}:{TCPClientPort}"];
-                                }
                                 await Global.TopPort.OpenAsync();
                             }
                             break;
@@ -295,11 +260,27 @@ namespace CommunicationTest
             })), EndInvoke);
         }
 
-        private async Task TopPort_OnConnect(DataReceive dr)
+        private async Task TopPort_OnConnect(DataReceive dr, string name)
         {
             isConnect = true;
             await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
             {
+                if (!tabControl1.TabPages.ContainsKey(name))
+                {
+                    dr.Dock = DockStyle.Fill;
+                    tabPage = new TabPage(name)
+                    {
+                        Name = name
+                    };
+                    tabPage.Controls.Add(dr);
+                    tabControl1.TabPages.Add(tabPage);
+                    tabControl1.SelectedTab = tabPage;
+                }
+                else
+                {
+                    tabControl1.TabPages[name]!.Text = name;
+                    tabControl1.SelectedTab = tabControl1.TabPages[name];
+                }
                 var str = dr.Parent!.Text;
                 if (str.Contains("掉线尝试重连"))
                 {
