@@ -223,7 +223,6 @@ namespace CommunicationTest
                             if (str.Contains("掉线尝试重连"))
                             {
                                 tabPage.Text = str.Replace(" 掉线尝试重连", string.Empty);
-                                btnConnect.Enabled = true;
                             }
                             tabPage.Text += " 测试关闭";
                             CloseTabPage();
@@ -285,8 +284,8 @@ namespace CommunicationTest
                 if (str.Contains("掉线尝试重连"))
                 {
                     dr.Parent.Text = str.Replace(" 掉线尝试重连", string.Empty);
-                    btnConnect.Enabled = true;
                 }
+                btnConnect.Enabled = true;
                 await RefreshStatus();
             })), EndInvoke);
         }
