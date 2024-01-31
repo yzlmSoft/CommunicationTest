@@ -3,7 +3,7 @@
 
 [Setup]
 AppName=CommunicationTest
-AppVerName=CommunicationTest 8.1
+AppVerName=CommunicationTest 8.2
 AppPublisher=yzlm
 DefaultDirName={pf}\CommunicationTest
 DefaultGroupName=CommunicationTest

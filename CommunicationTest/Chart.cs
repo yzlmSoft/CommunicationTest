@@ -87,7 +87,7 @@ namespace CommunicationTest
                                     }
                                     if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                                     byte[] rsw = Encoding.Default.GetBytes($"{DateTime.Now:yyyy-MM-dd HH:mm:ss.fff} {drs}\n");
-                                    await using var fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}_有效数.txt"), FileMode.Append, FileAccess.Write, FileShare.Read, 8, FileOptions.WriteThrough);
+                                    await using var fs = new FileStream(Path.Combine(path, $"{DateTime.Now:yyyyMMdd}_有效数.txt"), FileMode.Append, FileAccess.Write, FileShare.ReadWrite, 8, FileOptions.WriteThrough);
                                     await fs.WriteAsync(rsw);
                                     await fs.FlushAsync();
                                 }
