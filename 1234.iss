@@ -2,7 +2,7 @@
 ; 有关详细信息,请参阅文档“创建  INNO SETUP 脚本文件”！
 
 #define MyAppName "简单通讯测试工具"
-#define MyAppVersion "8.2.1"
+#define MyAppVersion "8.2.2"
 #define MyAppPublisher "yzlm"
 #define MyAppExeName "CommunicationTest.exe"
 #define MyAppAssocName MyAppName + "文件"
