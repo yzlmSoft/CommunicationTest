@@ -2,8 +2,8 @@
 ; 查阅文档获取创建 INNO SETUP 脚本文件详细资料!
 
 [Setup]
-AppName=CommunicationTest
-AppVerName=CommunicationTest 8.2
+AppName=简单通讯测试工具
+AppVerName=CommunicationTest 8.3
 AppPublisher=yzlm
 DefaultDirName={pf}\CommunicationTest
 DefaultGroupName=CommunicationTest
@@ -20,10 +20,10 @@ Source: "D:\GitHub\CommunicationTest\CommunicationTest\bin\Release\net8.0-window
 ; 注意: 不要在任何共享系统文件中使用“Flags: ignoreversion”
 
 [Icons]
-Name: "{group}\CommunicationTest"; Filename: "{app}\CommunicationTest.exe"
-Name: "{group}\{cm:UninstallProgram,CommunicationTest}"; Filename: "{uninstallexe}"
-Name: "{userdesktop}\CommunicationTest"; Filename: "{app}\CommunicationTest.exe"; Tasks: desktopicon
+Name: "{group}\简单通讯测试工具"; Filename: "{app}\CommunicationTest.exe"
+Name: "{group}\{cm:UninstallProgram,简单通讯测试工具}"; Filename: "{uninstallexe}"
+Name: "{userdesktop}\简单通讯测试工具"; Filename: "{app}\CommunicationTest.exe"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\CommunicationTest.exe"; Description: "{cm:LaunchProgram,CommunicationTest}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\CommunicationTest.exe"; Description: "{cm:LaunchProgram,简单通讯测试工具}"; Flags: nowait postinstall skipifsilent
 

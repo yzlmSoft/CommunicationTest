@@ -10,19 +10,19 @@ namespace CommunicationTest
             InitializeComponent();
         }
 
-        private void btnCrc_Click(object sender, EventArgs e)
+        private void BtnCrc_Click(object sender, EventArgs e)
         {
             var value = tbIn.Text;
             byte[] data = cbIsAscii.Checked ? Encoding.Default.GetBytes(value) : StringByteUtils.StringToBytes(value);
 
             tbCrc16.Text = StringByteUtils.BytesToString(CRC.Crc16(data, data.Length));
-            tbCrcc.Text = StringByteUtils.BytesToString(CRC.CRC16_C(data));
-            tbUpdateCRC.Text = StringByteUtils.BytesToString(StringByteUtils.GetBytes(CRC.UpdateCRC(data, data.Length), true));
+            tbCrc_r.Text = StringByteUtils.BytesToString(CRC.CRC16_R(data));
+            tbUpdateCRC.Text = StringByteUtils.BytesToString(CRC.UpdateCRC(data));
             tbGBcrc16.Text = $"##{value.Length.ToString().PadLeft(4, '0')}{value}{StringByteUtils.BytesToString(CRC.GBcrc16(data, data.Length)).Replace(" ", "")}";
             tbHBcrc16.Text = $"##{value.Length.ToString().PadLeft(4, '0')}{value}{StringByteUtils.BytesToString(CRC.HBcrc16(data, data.Length)).Replace(" ", "")}";
         }
 
-        private void linkLabel6_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabel6_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (tbCrc16.Text != "")
             {
@@ -30,15 +30,15 @@ namespace CommunicationTest
             }
         }
 
-        private void linkLabel7_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabel7_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (tbCrcc.Text != "")
+            if (tbCrc_r.Text != "")
             {
-                Clipboard.SetDataObject(tbCrcc.Text);
+                Clipboard.SetDataObject(tbCrc_r.Text);
             }
         }
 
-        private void linkLabel8_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabel8_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (tbUpdateCRC.Text != "")
             {
@@ -46,7 +46,7 @@ namespace CommunicationTest
             }
         }
 
-        private void linkLabel9_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabel9_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (tbGBcrc16.Text != "")
             {
@@ -54,7 +54,7 @@ namespace CommunicationTest
             }
         }
 
-        private void linkLabel10_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabel10_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (tbHBcrc16.Text != "")
             {
@@ -62,7 +62,7 @@ namespace CommunicationTest
             }
         }
 
-        private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void LinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Clipboard.SetDataObject(toolTip1.GetToolTip((LinkLabel)sender));
         }

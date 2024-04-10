@@ -12,7 +12,7 @@
     {
         None,
         Modbus,
-        Crc16_C,
+        Crc16_R,
         UpdateCRC,
         GBcrc16,
         HBcrc16,

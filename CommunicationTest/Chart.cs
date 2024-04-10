@@ -27,7 +27,7 @@ namespace CommunicationTest
             _isLow = isLow;
             _formula = formula;
             _isASCII = isASCII;
-            this.Text = _path;
+            Text = _path;
         }
 
         public async Task DrawChartAsync(byte[] data)
@@ -78,6 +78,7 @@ namespace CommunicationTest
                                 }
                                 var time = DateTime.Now;
                                 realtimeChart1.Series[0].Add(time.ToOADate(), drs);
+                                Text = $"{_path} 最新值:{drs}";
                                 if (_History)
                                 {
                                     string path = Path.Combine(Application.StartupPath, "History");
@@ -141,6 +142,7 @@ namespace CommunicationTest
                                 }
                                 var time = DateTime.Now;
                                 realtimeChart1.Series[0].Add(time.ToOADate(), drs);
+                                Text = $"{_path} 最新值:{drs}";
                                 if (_History)
                                 {
                                     string path = Path.Combine(Application.StartupPath, "History");
@@ -204,6 +206,7 @@ namespace CommunicationTest
                                 }
                                 var time = DateTime.Now;
                                 realtimeChart1.Series[0].Add(time.ToOADate(), drs);
+                                Text = $"{_path} 最新值:{drs}";
                                 if (_History)
                                 {
                                     string path = Path.Combine(Application.StartupPath, "History");
@@ -267,6 +270,7 @@ namespace CommunicationTest
                                 }
                                 var time = DateTime.Now;
                                 realtimeChart1.Series[0].Add(time.ToOADate(), drs);
+                                Text = $"{_path} 最新值:{drs}";
                                 if (_History)
                                 {
                                     string path = Path.Combine(Application.StartupPath, "History");
@@ -287,7 +291,7 @@ namespace CommunicationTest
             }
             catch (Exception)
             {
-                 
+
             }
         }
 

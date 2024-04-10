@@ -14,7 +14,6 @@ using System.Data;
 using System.IO.Ports;
 using System.Net;
 using System.Text;
-using System.Windows.Forms;
 using TopPortLib;
 using Utils;
 
@@ -433,7 +432,7 @@ namespace CommunicationTest
             {
                 if (tabControl1.SelectedTab is null) return (true, null);
                 return (tabControl1.SelectedTab.Text.Contains("测试关闭"), (int?)tabControl1.SelectedTab.Tag);
-            })), EndInvoke);
+            })), EndInvoke!);
             if (isEnd) return;
             var cmd = sendCmd.Cmd;
             switch (sendCmd.CrcType)
@@ -443,8 +442,8 @@ namespace CommunicationTest
                 case Config.SendList.CrcType.Modbus:
                     cmd = StringByteUtils.ComibeByteArray(cmd, CRC.Crc16(cmd, cmd.Length));
                     break;
-                case Config.SendList.CrcType.Crc16_C:
-                    cmd = StringByteUtils.ComibeByteArray(cmd, CRC.CRC16_C(cmd));
+                case Config.SendList.CrcType.Crc16_R:
+                    cmd = StringByteUtils.ComibeByteArray(cmd, CRC.CRC16_R(cmd));
                     break;
                 case Config.SendList.CrcType.UpdateCRC:
                     cmd = StringByteUtils.ComibeByteArray(cmd, StringByteUtils.GetBytes(CRC.UpdateCRC(cmd, cmd.Length), true));
