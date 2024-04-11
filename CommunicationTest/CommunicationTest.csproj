@@ -24,8 +24,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CSoft.DataPairs.Ceras" Version="8.0.1" />
-		<PackageReference Include="CSoft.TopPortLib" Version="8.1.2" />
+		<PackageReference Include="CSoft.DataPairs.Ceras" Version="8.0.2" />
+		<PackageReference Include="CSoft.TopPortLib" Version="8.1.3" />
 		<PackageReference Include="Flee" Version="2.0.0" />
 		<PackageReference Include="Steema.TeeChart.NET" Version="4.2022.2.11" />
 		<PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
