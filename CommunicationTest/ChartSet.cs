@@ -39,7 +39,9 @@
             if (cmbDataType.SelectedIndex == -1) return;
             if (!int.TryParse(tbPointCount.Text, out var count)) return;
             if (!int.TryParse(tbIndex.Text, out var index)) return;
-            if (!int.TryParse(tbLenth.Text, out var lenth)) return;
+            int lenth = 0;
+            if (cbASCII.Checked)
+                if (!int.TryParse(tbLenth.Text, out lenth)) return;
             if (string.IsNullOrWhiteSpace(tbFormula.Text)) return;
             ChartSetChanged?.Invoke(count, index, lenth, (DataType)Enum.Parse(typeof(DataType), cmbDataType.SelectedItem.ToString()!), cbLow.Checked, tbFormula.Text, cbASCII.Checked);
             Close();
