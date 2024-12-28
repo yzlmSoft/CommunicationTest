@@ -184,7 +184,7 @@ namespace CommunicationTest
                             {
                                 var TCPServerIP = connectionConfig.Item2["TCPServerIP"] == "Any" ? IPAddress.Any.ToString() : connectionConfig.Item2["TCPServerIP"];
                                 var TCPServerPort = int.Parse(connectionConfig.Item2["TCPServerPort"]);
-                                Global.TcpServer = new TopPort_Server_x(new TcpServer(TCPServerIP, TCPServerPort), async () => await NewParser());
+                                Global.TcpServer = new TopPort_Server(new TcpServer(TCPServerIP, TCPServerPort), NewParser);
                                 Global.TcpServer.OnReceiveParsedData += TcpServer_OnReceiveParsedData;
                                 Global.TcpServer.OnClientConnect += TcpServer_OnClientConnect;
                                 Global.TcpServer.OnClientDisconnect += TcpServer_OnClientDisconnect;
