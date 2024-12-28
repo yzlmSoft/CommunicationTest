@@ -1287,7 +1287,7 @@
             // Chart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.realtimeChart1);
             this.Name = "Chart";

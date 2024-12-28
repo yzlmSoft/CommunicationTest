@@ -184,7 +184,7 @@ namespace CommunicationTest
                             {
                                 var TCPServerIP = connectionConfig.Item2["TCPServerIP"] == "Any" ? IPAddress.Any.ToString() : connectionConfig.Item2["TCPServerIP"];
                                 var TCPServerPort = int.Parse(connectionConfig.Item2["TCPServerPort"]);
-                                Global.TcpServer = new TopPort_Server(new TcpServer(TCPServerIP, TCPServerPort), async () => await NewParser());
+                                Global.TcpServer = new TopPort_Server_x(new TcpServer(TCPServerIP, TCPServerPort), async () => await NewParser());
                                 Global.TcpServer.OnReceiveParsedData += TcpServer_OnReceiveParsedData;
                                 Global.TcpServer.OnClientConnect += TcpServer_OnClientConnect;
                                 Global.TcpServer.OnClientDisconnect += TcpServer_OnClientDisconnect;
@@ -361,7 +361,7 @@ namespace CommunicationTest
             };
         }
 
-        private async Task TcpServer_OnClientDisconnect(int clientId)
+        private async Task TcpServer_OnClientDisconnect(Guid clientId)
         {
             Global.DataReceives.TryRemove(clientId, out var dr);
             await Task.Factory.FromAsync(BeginInvoke(new Action(() =>
@@ -372,7 +372,7 @@ namespace CommunicationTest
             })), EndInvoke);
         }
 
-        private async Task TcpServer_OnClientConnect(int clientId)
+        private async Task TcpServer_OnClientConnect(Guid clientId)
         {
             await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
             {
@@ -394,20 +394,24 @@ namespace CommunicationTest
             })), EndInvoke);
         }
 
-        private async Task TcpServer_OnReceiveParsedData(int clientId, byte[] data)
+        private async Task TcpServer_OnReceiveParsedData(Guid clientId, byte[] data)
         {
-            if (!Global.DataReceives.TryGetValue(clientId, out var dr)) return;
-            await dr.AddDataAsync(data);
-            if (await Global.AutoReplyConfig!.AutoReplyAsync())
+            await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
             {
-                var (value, delayTime) = await Global.AutoReplyConfig.GetAsync(data);
-                if (value is not null)
+                if (!Global.DataReceives.TryGetValue(clientId, out var dr)) return;
+                await dr.AddDataAsync(data);
+                if (await Global.AutoReplyConfig!.AutoReplyAsync())
                 {
-                    await Task.Delay(delayTime);
-                    await Global.TcpServer!.SendAsync(clientId, value);
-                    await dr.AddDataAsync(value, true);
+                    var (value, delayTime) = await Global.AutoReplyConfig.GetAsync(data);
+                    if (value is not null)
+                    {
+                        await Task.Delay(delayTime);
+                        await Global.TcpServer!.SendAsync(clientId, value);
+                        await dr.AddDataAsync(value, true);
+                    }
                 }
-            }
+            })), EndInvoke);
+            await Task.Delay(20);
         }
 
         private static async Task TopPort_OnReceiveParsedData(byte[] data, DataReceive dataReceive)
@@ -428,10 +432,10 @@ namespace CommunicationTest
         private async Task SendCmd(SendCmd sendCmd)
         {
             if (!isConnect) return;
-            var (isEnd, clientId) = ((bool isEnd, int? clientId))await Task.Factory.FromAsync<object>(BeginInvoke(new Func<(bool, int?)>(() =>
+            var (isEnd, clientId) = ((bool isEnd, Guid? clientId))await Task.Factory.FromAsync<object>(BeginInvoke(new Func<(bool, Guid?)>(() =>
             {
                 if (tabControl1.SelectedTab is null) return (true, null);
-                return (tabControl1.SelectedTab.Text.Contains("测试关闭"), (int?)tabControl1.SelectedTab.Tag);
+                return (tabControl1.SelectedTab.Text.Contains("测试关闭"), (Guid?)tabControl1.SelectedTab.Tag);
             })), EndInvoke!);
             if (isEnd) return;
             var cmd = sendCmd.Cmd;
@@ -487,7 +491,7 @@ namespace CommunicationTest
                     }
                     break;
                 case ConnectionType.TCPServer:
-                    await Global.TcpServer!.SendAsync((int)clientId!, cmd);
+                    await Global.TcpServer!.SendAsync((Guid)clientId!, cmd);
                     break;
                 case ConnectionType.TCPClient:
                     {

@@ -25,7 +25,7 @@ namespace CommunicationTest
 
         public static IParser? Parser { get; set; }
 
-        public static ConcurrentDictionary<int, DataReceive> DataReceives { get; set; } = new();
+        public static ConcurrentDictionary<Guid, DataReceive> DataReceives { get; set; } = new();
 
         public static readonly string DPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PairsDB.dll");
         public static string DBPath { get; set; } = DPath;
