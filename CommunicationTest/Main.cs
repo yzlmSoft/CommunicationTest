@@ -176,6 +176,18 @@ namespace CommunicationTest
                                 var dr = tabControl1.TabPages.ContainsKey(portName) ? (DataReceive)tabControl1.TabPages[portName]!.Controls[0] : new DataReceive();
                                 Global.TopPort.OnConnect += async () => await TopPort_OnConnect(dr, portName);
                                 Global.TopPort.OnDisconnect += async () => await TopPort_OnDisconnect(dr);
+                                Global.TopPort.OnSentData += async data =>
+                                {
+                                    _ = Task.Run(async () =>
+                                    {
+                                        await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
+                                        {
+                                            await dr!.AddDataAsync(data, true);
+                                        })), EndInvoke);
+                                    });
+                                    await Task.CompletedTask;
+                                };
+
                                 Global.TopPort.OnReceiveParsedData += async data => await TopPort_OnReceiveParsedData(data, dr);
                                 await Global.TopPort.OpenAsync();
                             }
@@ -185,6 +197,18 @@ namespace CommunicationTest
                                 var TCPServerIP = connectionConfig.Item2["TCPServerIP"] == "Any" ? IPAddress.Any.ToString() : connectionConfig.Item2["TCPServerIP"];
                                 var TCPServerPort = int.Parse(connectionConfig.Item2["TCPServerPort"]);
                                 Global.TcpServer = new TopPort_Server(new TcpServer(TCPServerIP, TCPServerPort), NewParser);
+                                Global.TcpServer.OnSentData += async (data, clientId) =>
+                                {
+                                    _ = Task.Run(async () =>
+                                    {
+                                        await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
+                                        {
+                                            if (!Global.DataReceives.TryGetValue(clientId, out var dr)) return;
+                                            await dr.AddDataAsync(data, true);
+                                        })), EndInvoke);
+                                    });
+                                    await Task.CompletedTask;
+                                };
                                 Global.TcpServer.OnReceiveParsedData += TcpServer_OnReceiveParsedData;
                                 Global.TcpServer.OnClientConnect += TcpServer_OnClientConnect;
                                 Global.TcpServer.OnClientDisconnect += TcpServer_OnClientDisconnect;
@@ -199,6 +223,17 @@ namespace CommunicationTest
                                 var dr = tabControl1.TabPages.ContainsKey($"{TCPClientIP}:{TCPClientPort}") ? (DataReceive)tabControl1.TabPages[$"{TCPClientIP}:{TCPClientPort}"]!.Controls[0] : new DataReceive();
                                 Global.TopPort.OnConnect += async () => await TopPort_OnConnect(dr, $"{TCPClientIP}:{TCPClientPort}");
                                 Global.TopPort.OnDisconnect += async () => await TopPort_OnDisconnect(dr);
+                                Global.TopPort.OnSentData += async data =>
+                                {
+                                    _ = Task.Run(async () =>
+                                    {
+                                        await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
+                                        {
+                                            await dr!.AddDataAsync(data, true);
+                                        })), EndInvoke);
+                                    });
+                                    await Task.CompletedTask;
+                                };
                                 Global.TopPort.OnReceiveParsedData += async data => await TopPort_OnReceiveParsedData(data, dr);
                                 await Global.TopPort.OpenAsync();
                             }
@@ -501,11 +536,6 @@ namespace CommunicationTest
                 default:
                     break;
             }
-            await Task.Factory.FromAsync(BeginInvoke(new Action(async () =>
-            {
-                var dr = tabControl1.SelectedTab?.Controls[0] as DataReceive;
-                await dr!.AddDataAsync(cmd, true);
-            })), EndInvoke);
         }
 
         private async void BtnSendList_Click(object sender, EventArgs e)
