@@ -442,7 +442,6 @@ namespace CommunicationTest
                     {
                         await Task.Delay(delayTime);
                         await Global.TcpServer!.SendAsync(clientId, value);
-                        await dr.AddDataAsync(value, true);
                     }
                 }
             })), EndInvoke);
@@ -459,7 +458,6 @@ namespace CommunicationTest
                 {
                     await Task.Delay(delayTime);
                     await Global.TopPort!.SendAsync(value);
-                    await dataReceive.AddDataAsync(value, true);
                 }
             }
         }
