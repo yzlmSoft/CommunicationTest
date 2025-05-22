@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommunicationTest", "CommunicationTest\CommunicationTest.csproj", "{B02B1872-D5D9-46F3-BE47-039AE1883E4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommunicationTest", "D:\GitHub\CommunicationTest\CommunicationTest\CommunicationTest.csproj", "{B02B1872-D5D9-46F3-BE47-039AE1883E4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
