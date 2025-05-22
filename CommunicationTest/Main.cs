@@ -161,7 +161,7 @@ namespace CommunicationTest
                     {
                         case ConnectionType.SerialPort:
                             {
-                                var portName = connectionConfig.Item2["PortName"];
+                                var portName = connectionConfig.Item2["PortName"].Split(" - ")[0];
                                 var baudRate = int.Parse(connectionConfig.Item2["BaudRate"]);
                                 var parity = (Parity)Enum.Parse(typeof(Parity), connectionConfig.Item2["Parity"]);
                                 var dataBits = int.Parse(connectionConfig.Item2["DataBits"]);

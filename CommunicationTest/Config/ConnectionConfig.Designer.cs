@@ -28,355 +28,323 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.cbRts = new System.Windows.Forms.CheckBox();
-            this.cbDtr = new System.Windows.Forms.CheckBox();
-            this.controlParity = new System.Windows.Forms.ComboBox();
-            this.controlStopBits = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.controlDataBits = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.controlBaudRate = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.controlPortName = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.controlTCPServerIP = new System.Windows.Forms.ComboBox();
-            this.controlTCPServerPort = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.controlTCPClientIP = new System.Windows.Forms.TextBox();
-            this.controlTCPClientPort = new System.Windows.Forms.NumericUpDown();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.controlTCPServerPort)).BeginInit();
-            this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.controlTCPClientPort)).BeginInit();
-            this.SuspendLayout();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            controlParity = new ComboBox();
+            controlStopBits = new ComboBox();
+            controlDataBits = new ComboBox();
+            controlBaudRate = new ComboBox();
+            controlPortName = new ComboBox();
+            cbRts = new CheckBox();
+            cbDtr = new CheckBox();
+            label6 = new Label();
+            label5 = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
+            tabPage2 = new TabPage();
+            controlTCPServerIP = new ComboBox();
+            controlTCPServerPort = new NumericUpDown();
+            label7 = new Label();
+            label1 = new Label();
+            tabPage3 = new TabPage();
+            controlTCPClientIP = new TextBox();
+            controlTCPClientPort = new NumericUpDown();
+            label8 = new Label();
+            label9 = new Label();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)controlTCPServerPort).BeginInit();
+            tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)controlTCPClientPort).BeginInit();
+            SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(464, 321);
-            this.tabControl1.TabIndex = 0;
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(tabPage3);
+            tabControl1.Dock = DockStyle.Fill;
+            tabControl1.Location = new Point(0, 0);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(452, 287);
+            tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.controlParity);
-            this.tabPage1.Controls.Add(this.controlStopBits);
-            this.tabPage1.Controls.Add(this.controlDataBits);
-            this.tabPage1.Controls.Add(this.controlBaudRate);
-            this.tabPage1.Controls.Add(this.controlPortName);
-            this.tabPage1.Controls.Add(this.cbRts);
-            this.tabPage1.Controls.Add(this.cbDtr);
-            this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 26);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(456, 291);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "SerialPort";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // cbRts
-            // 
-            this.cbRts.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cbRts.AutoSize = true;
-            this.cbRts.Location = new System.Drawing.Point(260, 213);
-            this.cbRts.Name = "cbRts";
-            this.cbRts.Size = new System.Drawing.Size(49, 21);
-            this.cbRts.TabIndex = 29;
-            this.cbRts.Text = "RTS";
-            this.cbRts.UseVisualStyleBackColor = true;
-            // 
-            // cbDtr
-            // 
-            this.cbDtr.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cbDtr.AutoSize = true;
-            this.cbDtr.Location = new System.Drawing.Point(202, 213);
-            this.cbDtr.Name = "cbDtr";
-            this.cbDtr.Size = new System.Drawing.Size(51, 21);
-            this.cbDtr.TabIndex = 29;
-            this.cbDtr.Text = "DTR";
-            this.cbDtr.UseVisualStyleBackColor = true;
+            tabPage1.Controls.Add(controlParity);
+            tabPage1.Controls.Add(controlStopBits);
+            tabPage1.Controls.Add(controlDataBits);
+            tabPage1.Controls.Add(controlBaudRate);
+            tabPage1.Controls.Add(controlPortName);
+            tabPage1.Controls.Add(cbRts);
+            tabPage1.Controls.Add(cbDtr);
+            tabPage1.Controls.Add(label6);
+            tabPage1.Controls.Add(label5);
+            tabPage1.Controls.Add(label4);
+            tabPage1.Controls.Add(label3);
+            tabPage1.Controls.Add(label2);
+            tabPage1.Location = new Point(4, 26);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(444, 257);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "SerialPort";
+            tabPage1.UseVisualStyleBackColor = true;
             // 
             // controlParity
             // 
-            this.controlParity.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.controlParity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.controlParity.FormattingEnabled = true;
-            this.controlParity.Location = new System.Drawing.Point(202, 187);
-            this.controlParity.Name = "controlParity";
-            this.controlParity.Size = new System.Drawing.Size(100, 25);
-            this.controlParity.TabIndex = 24;
+            controlParity.Anchor = AnchorStyles.None;
+            controlParity.DropDownStyle = ComboBoxStyle.DropDownList;
+            controlParity.FormattingEnabled = true;
+            controlParity.Location = new Point(129, 158);
+            controlParity.Name = "controlParity";
+            controlParity.Size = new Size(226, 25);
+            controlParity.TabIndex = 24;
             // 
             // controlStopBits
             // 
-            this.controlStopBits.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.controlStopBits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.controlStopBits.FormattingEnabled = true;
-            this.controlStopBits.Location = new System.Drawing.Point(202, 161);
-            this.controlStopBits.Name = "controlStopBits";
-            this.controlStopBits.Size = new System.Drawing.Size(100, 25);
-            this.controlStopBits.TabIndex = 25;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(149, 190);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(47, 17);
-            this.label6.TabIndex = 19;
-            this.label6.Text = "校验位:";
+            controlStopBits.Anchor = AnchorStyles.None;
+            controlStopBits.DropDownStyle = ComboBoxStyle.DropDownList;
+            controlStopBits.FormattingEnabled = true;
+            controlStopBits.Location = new Point(129, 132);
+            controlStopBits.Name = "controlStopBits";
+            controlStopBits.Size = new Size(226, 25);
+            controlStopBits.TabIndex = 25;
             // 
             // controlDataBits
             // 
-            this.controlDataBits.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.controlDataBits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.controlDataBits.FormattingEnabled = true;
-            this.controlDataBits.Items.AddRange(new object[] {
-            "8",
-            "7",
-            "6"});
-            this.controlDataBits.Location = new System.Drawing.Point(202, 135);
-            this.controlDataBits.Name = "controlDataBits";
-            this.controlDataBits.Size = new System.Drawing.Size(100, 25);
-            this.controlDataBits.TabIndex = 26;
-            // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(149, 164);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(47, 17);
-            this.label5.TabIndex = 20;
-            this.label5.Text = "停止位:";
+            controlDataBits.Anchor = AnchorStyles.None;
+            controlDataBits.DropDownStyle = ComboBoxStyle.DropDownList;
+            controlDataBits.FormattingEnabled = true;
+            controlDataBits.Items.AddRange(new object[] { "8", "7", "6" });
+            controlDataBits.Location = new Point(129, 106);
+            controlDataBits.Name = "controlDataBits";
+            controlDataBits.Size = new Size(226, 25);
+            controlDataBits.TabIndex = 26;
             // 
             // controlBaudRate
             // 
-            this.controlBaudRate.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.controlBaudRate.FormattingEnabled = true;
-            this.controlBaudRate.Items.AddRange(new object[] {
-            "300",
-            "600",
-            "1200",
-            "2400",
-            "4800",
-            "9600",
-            "19200",
-            "38400",
-            "43000",
-            "57000",
-            "57600",
-            "115200"});
-            this.controlBaudRate.Location = new System.Drawing.Point(202, 109);
-            this.controlBaudRate.Name = "controlBaudRate";
-            this.controlBaudRate.Size = new System.Drawing.Size(100, 25);
-            this.controlBaudRate.TabIndex = 27;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(149, 138);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 17);
-            this.label4.TabIndex = 21;
-            this.label4.Text = "数据位:";
+            controlBaudRate.Anchor = AnchorStyles.None;
+            controlBaudRate.FormattingEnabled = true;
+            controlBaudRate.Items.AddRange(new object[] { "300", "600", "1200", "2400", "4800", "9600", "19200", "38400", "43000", "57000", "57600", "115200" });
+            controlBaudRate.Location = new Point(129, 80);
+            controlBaudRate.Name = "controlBaudRate";
+            controlBaudRate.Size = new Size(226, 25);
+            controlBaudRate.TabIndex = 27;
             // 
             // controlPortName
             // 
-            this.controlPortName.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.controlPortName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.controlPortName.FormattingEnabled = true;
-            this.controlPortName.Location = new System.Drawing.Point(202, 83);
-            this.controlPortName.Name = "controlPortName";
-            this.controlPortName.Size = new System.Drawing.Size(100, 25);
-            this.controlPortName.TabIndex = 28;
+            controlPortName.Anchor = AnchorStyles.None;
+            controlPortName.DropDownStyle = ComboBoxStyle.DropDownList;
+            controlPortName.FormattingEnabled = true;
+            controlPortName.Location = new Point(129, 54);
+            controlPortName.Name = "controlPortName";
+            controlPortName.Size = new Size(226, 25);
+            controlPortName.TabIndex = 28;
+            // 
+            // cbRts
+            // 
+            cbRts.Anchor = AnchorStyles.None;
+            cbRts.AutoSize = true;
+            cbRts.Location = new Point(187, 184);
+            cbRts.Name = "cbRts";
+            cbRts.Size = new Size(49, 21);
+            cbRts.TabIndex = 29;
+            cbRts.Text = "RTS";
+            cbRts.UseVisualStyleBackColor = true;
+            // 
+            // cbDtr
+            // 
+            cbDtr.Anchor = AnchorStyles.None;
+            cbDtr.AutoSize = true;
+            cbDtr.Location = new Point(129, 184);
+            cbDtr.Name = "cbDtr";
+            cbDtr.Size = new Size(51, 21);
+            cbDtr.TabIndex = 29;
+            cbDtr.Text = "DTR";
+            cbDtr.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            label6.Anchor = AnchorStyles.None;
+            label6.AutoSize = true;
+            label6.Location = new Point(76, 161);
+            label6.Name = "label6";
+            label6.Size = new Size(47, 17);
+            label6.TabIndex = 19;
+            label6.Text = "校验位:";
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.None;
+            label5.AutoSize = true;
+            label5.Location = new Point(76, 135);
+            label5.Name = "label5";
+            label5.Size = new Size(47, 17);
+            label5.TabIndex = 20;
+            label5.Text = "停止位:";
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.None;
+            label4.AutoSize = true;
+            label4.Location = new Point(76, 109);
+            label4.Name = "label4";
+            label4.Size = new Size(47, 17);
+            label4.TabIndex = 21;
+            label4.Text = "数据位:";
             // 
             // label3
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(149, 112);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(47, 17);
-            this.label3.TabIndex = 22;
-            this.label3.Text = "波特率:";
+            label3.Anchor = AnchorStyles.None;
+            label3.AutoSize = true;
+            label3.Location = new Point(76, 83);
+            label3.Name = "label3";
+            label3.Size = new Size(47, 17);
+            label3.TabIndex = 22;
+            label3.Text = "波特率:";
             // 
             // label2
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(149, 86);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 17);
-            this.label2.TabIndex = 23;
-            this.label2.Text = "串口号:";
+            label2.Anchor = AnchorStyles.None;
+            label2.AutoSize = true;
+            label2.Location = new Point(76, 57);
+            label2.Name = "label2";
+            label2.Size = new Size(47, 17);
+            label2.TabIndex = 23;
+            label2.Text = "串口号:";
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.controlTCPServerIP);
-            this.tabPage2.Controls.Add(this.controlTCPServerPort);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 26);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(456, 291);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "TCPServer";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            tabPage2.Controls.Add(controlTCPServerIP);
+            tabPage2.Controls.Add(controlTCPServerPort);
+            tabPage2.Controls.Add(label7);
+            tabPage2.Controls.Add(label1);
+            tabPage2.Location = new Point(4, 26);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(444, 257);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "TCPServer";
+            tabPage2.UseVisualStyleBackColor = true;
             // 
             // controlTCPServerIP
             // 
-            this.controlTCPServerIP.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.controlTCPServerIP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.controlTCPServerIP.FormattingEnabled = true;
-            this.controlTCPServerIP.Items.AddRange(new object[] {
-            "Any"});
-            this.controlTCPServerIP.Location = new System.Drawing.Point(189, 122);
-            this.controlTCPServerIP.Name = "controlTCPServerIP";
-            this.controlTCPServerIP.Size = new System.Drawing.Size(119, 25);
-            this.controlTCPServerIP.TabIndex = 20;
+            controlTCPServerIP.Anchor = AnchorStyles.None;
+            controlTCPServerIP.DropDownStyle = ComboBoxStyle.DropDownList;
+            controlTCPServerIP.FormattingEnabled = true;
+            controlTCPServerIP.Items.AddRange(new object[] { "Any" });
+            controlTCPServerIP.Location = new Point(183, 105);
+            controlTCPServerIP.Name = "controlTCPServerIP";
+            controlTCPServerIP.Size = new Size(119, 25);
+            controlTCPServerIP.TabIndex = 20;
             // 
             // controlTCPServerPort
             // 
-            this.controlTCPServerPort.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.controlTCPServerPort.Location = new System.Drawing.Point(189, 148);
-            this.controlTCPServerPort.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.controlTCPServerPort.Name = "controlTCPServerPort";
-            this.controlTCPServerPort.Size = new System.Drawing.Size(119, 23);
-            this.controlTCPServerPort.TabIndex = 19;
-            this.controlTCPServerPort.Value = new decimal(new int[] {
-            2756,
-            0,
-            0,
-            0});
+            controlTCPServerPort.Anchor = AnchorStyles.None;
+            controlTCPServerPort.Location = new Point(183, 131);
+            controlTCPServerPort.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
+            controlTCPServerPort.Name = "controlTCPServerPort";
+            controlTCPServerPort.Size = new Size(119, 23);
+            controlTCPServerPort.TabIndex = 19;
+            controlTCPServerPort.Value = new decimal(new int[] { 2756, 0, 0, 0 });
             // 
             // label7
             // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(148, 150);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 17);
-            this.label7.TabIndex = 18;
-            this.label7.Text = "端口:";
+            label7.Anchor = AnchorStyles.None;
+            label7.AutoSize = true;
+            label7.Location = new Point(142, 133);
+            label7.Name = "label7";
+            label7.Size = new Size(35, 17);
+            label7.TabIndex = 18;
+            label7.Text = "端口:";
             // 
             // label1
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(148, 125);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 17);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "本地:";
+            label1.Anchor = AnchorStyles.None;
+            label1.AutoSize = true;
+            label1.Location = new Point(142, 108);
+            label1.Name = "label1";
+            label1.Size = new Size(35, 17);
+            label1.TabIndex = 17;
+            label1.Text = "本地:";
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.controlTCPClientIP);
-            this.tabPage3.Controls.Add(this.controlTCPClientPort);
-            this.tabPage3.Controls.Add(this.label8);
-            this.tabPage3.Controls.Add(this.label9);
-            this.tabPage3.Location = new System.Drawing.Point(4, 26);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(456, 291);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "TCPClient";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            tabPage3.Controls.Add(controlTCPClientIP);
+            tabPage3.Controls.Add(controlTCPClientPort);
+            tabPage3.Controls.Add(label8);
+            tabPage3.Controls.Add(label9);
+            tabPage3.Location = new Point(4, 26);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Size = new Size(444, 257);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "TCPClient";
+            tabPage3.UseVisualStyleBackColor = true;
             // 
             // controlTCPClientIP
             // 
-            this.controlTCPClientIP.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.controlTCPClientIP.Location = new System.Drawing.Point(189, 121);
-            this.controlTCPClientIP.Name = "controlTCPClientIP";
-            this.controlTCPClientIP.Size = new System.Drawing.Size(119, 23);
-            this.controlTCPClientIP.TabIndex = 27;
+            controlTCPClientIP.Anchor = AnchorStyles.None;
+            controlTCPClientIP.Location = new Point(183, 104);
+            controlTCPClientIP.Name = "controlTCPClientIP";
+            controlTCPClientIP.Size = new Size(119, 23);
+            controlTCPClientIP.TabIndex = 27;
             // 
             // controlTCPClientPort
             // 
-            this.controlTCPClientPort.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.controlTCPClientPort.Location = new System.Drawing.Point(189, 148);
-            this.controlTCPClientPort.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.controlTCPClientPort.Name = "controlTCPClientPort";
-            this.controlTCPClientPort.Size = new System.Drawing.Size(119, 23);
-            this.controlTCPClientPort.TabIndex = 28;
-            this.controlTCPClientPort.Value = new decimal(new int[] {
-            2756,
-            0,
-            0,
-            0});
+            controlTCPClientPort.Anchor = AnchorStyles.None;
+            controlTCPClientPort.Location = new Point(183, 131);
+            controlTCPClientPort.Maximum = new decimal(new int[] { 65535, 0, 0, 0 });
+            controlTCPClientPort.Name = "controlTCPClientPort";
+            controlTCPClientPort.Size = new Size(119, 23);
+            controlTCPClientPort.TabIndex = 28;
+            controlTCPClientPort.Value = new decimal(new int[] { 2756, 0, 0, 0 });
             // 
             // label8
             // 
-            this.label8.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(148, 150);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 17);
-            this.label8.TabIndex = 26;
-            this.label8.Text = "端口:";
+            label8.Anchor = AnchorStyles.None;
+            label8.AutoSize = true;
+            label8.Location = new Point(142, 133);
+            label8.Name = "label8";
+            label8.Size = new Size(35, 17);
+            label8.TabIndex = 26;
+            label8.Text = "端口:";
             // 
             // label9
             // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(148, 124);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(35, 17);
-            this.label9.TabIndex = 25;
-            this.label9.Text = "远端:";
+            label9.Anchor = AnchorStyles.None;
+            label9.AutoSize = true;
+            label9.Location = new Point(142, 107);
+            label9.Name = "label9";
+            label9.Size = new Size(35, 17);
+            label9.TabIndex = 25;
+            label9.Text = "远端:";
             // 
             // ConnectionConfig
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(464, 321);
-            this.Controls.Add(this.tabControl1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            this.MinimumSize = new System.Drawing.Size(280, 220);
-            this.Name = "ConnectionConfig";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "ConnectionConfig";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConnectionConfig_FormClosingAsync);
-            this.Load += new System.EventHandler(this.ConnectionConfig_LoadAsync);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.controlTCPServerPort)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.controlTCPClientPort)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleMode = AutoScaleMode.None;
+            ClientSize = new Size(452, 287);
+            Controls.Add(tabControl1);
+            FormBorderStyle = FormBorderStyle.SizableToolWindow;
+            MinimumSize = new Size(280, 220);
+            Name = "ConnectionConfig";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "ConnectionConfig";
+            FormClosing += ConnectionConfig_FormClosingAsync;
+            Load += ConnectionConfig_LoadAsync;
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage1.PerformLayout();
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)controlTCPServerPort).EndInit();
+            tabPage3.ResumeLayout(false);
+            tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)controlTCPClientPort).EndInit();
+            ResumeLayout(false);
 
         }
 
