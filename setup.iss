@@ -3,7 +3,7 @@
 
 [Setup]
 AppName=简单通讯测试工具
-AppVerName=CommunicationTest 9.10.1
+AppVerName=CommunicationTest 9.10.2
 AppPublisher=yzlm
 DefaultDirName={pf}\CommunicationTest
 DefaultGroupName=CommunicationTest
