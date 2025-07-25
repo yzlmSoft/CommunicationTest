@@ -163,9 +163,9 @@ namespace CommunicationTest
                             {
                                 var portName = connectionConfig.Item2["PortName"].Split(" - ")[0];
                                 var baudRate = int.Parse(connectionConfig.Item2["BaudRate"]);
-                                var parity = (Parity)Enum.Parse(typeof(Parity), connectionConfig.Item2["Parity"]);
+                                var parity = Enum.Parse<Parity>(connectionConfig.Item2["Parity"]);
                                 var dataBits = int.Parse(connectionConfig.Item2["DataBits"]);
-                                var stopBits = (StopBits)Enum.Parse(typeof(StopBits), connectionConfig.Item2["StopBits"]);
+                                var stopBits = Enum.Parse<StopBits>(connectionConfig.Item2["StopBits"]);
                                 var serialPort = new Communication.Bus.PhysicalPort.SerialPort(portName, baudRate, parity, dataBits, stopBits)
                                 {
                                     DtrEnable = bool.Parse(connectionConfig.Item2["Dtr"]),
