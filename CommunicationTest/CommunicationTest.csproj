@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CSoft.DataPairs.Ceras" Version="9.0.1" />
-    <PackageReference Include="CSoft.TopPortLib" Version="9.15.1" />
+    <PackageReference Include="CSoft.TopPortLib" Version="9.15.2" />
     <PackageReference Include="Flee" Version="2.0.0" />
     <PackageReference Include="Steema.TeeChart.NET" Version="4.2022.2.11" />
     <PackageReference Include="System.Management" Version="9.0.7" />
